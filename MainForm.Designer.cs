@@ -26,7 +26,6 @@
             panel1 = new Panel();
             btnSearchPatient = new Button();
             btnCreateNewPatient = new Button();
-            btnCurrentPatient = new Button();
             tabControlMain = new TabControl();
             tabPagePatients = new TabPage();
             PanelPatients = new Panel();
@@ -46,7 +45,6 @@
             // 
             panel1.Controls.Add(btnSearchPatient);
             panel1.Controls.Add(btnCreateNewPatient);
-            panel1.Controls.Add(btnCurrentPatient);
             panel1.Dock = DockStyle.Left;
             panel1.Location = new Point(3, 3);
             panel1.Name = "panel1";
@@ -72,16 +70,6 @@
             btnCreateNewPatient.Text = "Create New Patient";
             btnCreateNewPatient.UseVisualStyleBackColor = true;
             btnCreateNewPatient.Click += BtnCreateNewPatient_Click;
-            // 
-            // btnCurrentPatient
-            // 
-            btnCurrentPatient.Location = new Point(3, 85);
-            btnCurrentPatient.Name = "btnCurrentPatient";
-            btnCurrentPatient.Size = new Size(290, 48);
-            btnCurrentPatient.TabIndex = 0;
-            btnCurrentPatient.Text = "Current Patient";
-            btnCurrentPatient.UseVisualStyleBackColor = true;
-            btnCurrentPatient.Click += BtnCurrentPatient_Click;
             // 
             // tabControlMain
             // 
@@ -197,7 +185,6 @@
         private Panel panel1;
         private Button btnSearchPatient;
         private Button btnCreateNewPatient;
-        private Button btnCurrentPatient;
         private TabControl tabControlMain;
         private TabPage tabPagePatients;
         private TabPage tabPageCapture;

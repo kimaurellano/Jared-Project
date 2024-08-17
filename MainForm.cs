@@ -9,10 +9,6 @@ namespace Jared {
             InitializeComponent();
         }
 
-        private void BtnCurrentPatient_Click(object sender, EventArgs e) {
-            ShowContentInTabPatients(new SelectedPatientUserControl());
-        }
-
         private void BtnCreateNewPatient_Click(object sender, EventArgs e) {
             ShowContentInTabPatients(new CreateNewPatientUserControl());
         }

@@ -1,5 +1,5 @@
 ﻿namespace Jared {
-    partial class SelectedPatientUserControl {
+    partial class SelectedPersonUserControl {
         /// <summary> 
         /// Required designer variable.
         /// </summary>
@@ -29,20 +29,19 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Dock = DockStyle.Fill;
-            label1.Location = new Point(0, 0);
+            label1.Location = new Point(268, 194);
             label1.Name = "label1";
-            label1.Size = new Size(88, 15);
+            label1.Size = new Size(87, 15);
             label1.TabIndex = 0;
-            label1.Text = "SelectedPatient";
+            label1.Text = "selectedPatient";
             // 
-            // SelectedPatientUserControl
+            // SelectedPersonUserControl
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(label1);
-            Name = "SelectedPatientUserControl";
-            Size = new Size(565, 466);
+            Name = "SelectedPersonUserControl";
+            Size = new Size(747, 573);
             ResumeLayout(false);
             PerformLayout();
         }
