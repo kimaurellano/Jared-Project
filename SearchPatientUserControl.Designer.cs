@@ -26,7 +26,6 @@
             dataGridViewPatients = new DataGridView();
             TextBoxSearchPatientName = new TextBox();
             panel1 = new Panel();
-            ButtonSelectedPatient = new Button();
             MainPanelSearchPatient = new Panel();
             ((System.ComponentModel.ISupportInitialize)dataGridViewPatients).BeginInit();
             panel1.SuspendLayout();
@@ -46,10 +45,11 @@
             dataGridViewPatients.Name = "dataGridViewPatients";
             dataGridViewPatients.ReadOnly = true;
             dataGridViewPatients.RowHeadersVisible = false;
+            dataGridViewPatients.RowTemplate.Height = 50;
             dataGridViewPatients.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridViewPatients.Size = new Size(706, 495);
             dataGridViewPatients.TabIndex = 1;
-            dataGridViewPatients.CellDoubleClick += dataGridViewPatients_CellDoubleClick;
+            dataGridViewPatients.CellDoubleClick += DataGridViewPatients_CellDoubleClick;
             // 
             // TextBoxSearchPatientName
             // 
@@ -57,29 +57,18 @@
             TextBoxSearchPatientName.Location = new Point(14, 10);
             TextBoxSearchPatientName.Name = "TextBoxSearchPatientName";
             TextBoxSearchPatientName.PlaceholderText = "Search Patient";
-            TextBoxSearchPatientName.Size = new Size(100, 23);
+            TextBoxSearchPatientName.Size = new Size(150, 23);
             TextBoxSearchPatientName.TabIndex = 2;
             // 
             // panel1
             // 
             panel1.BackColor = Color.White;
-            panel1.Controls.Add(ButtonSelectedPatient);
             panel1.Controls.Add(TextBoxSearchPatientName);
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
             panel1.Size = new Size(706, 43);
             panel1.TabIndex = 3;
-            // 
-            // ButtonSelectedPatient
-            // 
-            ButtonSelectedPatient.Location = new Point(507, 10);
-            ButtonSelectedPatient.Name = "ButtonSelectedPatient";
-            ButtonSelectedPatient.Size = new Size(184, 23);
-            ButtonSelectedPatient.TabIndex = 3;
-            ButtonSelectedPatient.Text = "Mark as Selected Patient";
-            ButtonSelectedPatient.UseVisualStyleBackColor = true;
-            ButtonSelectedPatient.Click += ButtonSelectedPatient_Click;
             // 
             // MainPanelSearchPatient
             // 
@@ -111,6 +100,5 @@
         private TextBox TextBoxSearchPatientName;
         private Panel panel1;
         private Panel MainPanelSearchPatient;
-        private Button ButtonSelectedPatient;
     }
 }

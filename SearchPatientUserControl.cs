@@ -15,7 +15,6 @@ namespace Jared {
     public partial class SearchPatientUserControl : UserControl {
 
         private Patient patient = new();
-
         private DBHelpers dbHelpers = new();
 
         public SearchPatientUserControl() {
@@ -31,11 +30,7 @@ namespace Jared {
             dataGridViewPatients.DataSource = dbHelpers.SelectPatients();
         }
 
-        private void ButtonSelectedPatient_Click(object sender, EventArgs e) {
-            
-        }
-
-        private void dataGridViewPatients_CellDoubleClick(object sender, DataGridViewCellEventArgs e) {
+        private void DataGridViewPatients_CellDoubleClick(object sender, DataGridViewCellEventArgs e) {
             foreach (DataGridViewRow row in dataGridViewPatients.SelectedRows) {
                 // Access data in the selected row.
                 var cellValue = row.Cells["Name"].Value;
@@ -59,14 +54,6 @@ namespace Jared {
             panel.Controls.Clear();
             userControl.Dock = DockStyle.Fill;
             panel.Controls.Add(userControl);
-        }
-    }
-
-    public class DataGridRowEventArgs : EventArgs {
-        public object SelectedRow { get; }
-
-        public DataGridRowEventArgs(object selectedRow) {
-            SelectedRow = selectedRow;
         }
     }
 }
