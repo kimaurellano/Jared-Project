@@ -24,22 +24,42 @@
         /// </summary>
         private void InitializeComponent() {
             label1 = new Label();
+            TextBoxName = new TextBox();
+            BtnCreatePatient = new Button();
             SuspendLayout();
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Dock = DockStyle.Fill;
-            label1.Location = new Point(0, 0);
+            label1.Location = new Point(32, 25);
             label1.Name = "label1";
-            label1.Size = new Size(102, 15);
+            label1.Size = new Size(39, 15);
             label1.TabIndex = 0;
-            label1.Text = "CreateNewPatient";
+            label1.Text = "Name";
+            // 
+            // TextBoxName
+            // 
+            TextBoxName.Location = new Point(77, 22);
+            TextBoxName.Name = "TextBoxName";
+            TextBoxName.Size = new Size(100, 23);
+            TextBoxName.TabIndex = 1;
+            // 
+            // BtnCreatePatient
+            // 
+            BtnCreatePatient.Location = new Point(390, 332);
+            BtnCreatePatient.Name = "BtnCreatePatient";
+            BtnCreatePatient.Size = new Size(75, 23);
+            BtnCreatePatient.TabIndex = 2;
+            BtnCreatePatient.Text = "Create";
+            BtnCreatePatient.UseVisualStyleBackColor = true;
+            BtnCreatePatient.Click += BtnCreatePatient_Click;
             // 
             // CreateNewPatientUserControl
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(BtnCreatePatient);
+            Controls.Add(TextBoxName);
             Controls.Add(label1);
             Name = "CreateNewPatientUserControl";
             Size = new Size(496, 373);
@@ -50,5 +70,7 @@
         #endregion
 
         private Label label1;
+        private TextBox TextBoxName;
+        private Button BtnCreatePatient;
     }
 }

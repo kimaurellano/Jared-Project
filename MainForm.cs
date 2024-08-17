@@ -1,5 +1,10 @@
+using Microsoft.Data.Sqlite;
+using System.Data;
+using System.Windows.Forms;
+
 namespace Jared {
     public partial class MainForm : Form {
+
         public MainForm() {
             InitializeComponent();
         }
