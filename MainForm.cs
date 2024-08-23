@@ -95,6 +95,10 @@ namespace Jared {
         }
 
         private void InitializeListView() {
+            // Clear first before populating
+            ListViewImages.Items.Clear();
+            ImageListMain.Images.Clear();
+
             ImageListMain.ImageSize = new Size(64, 64); // Set image size
 
             // Add images to the ImageList
