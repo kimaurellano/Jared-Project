@@ -31,7 +31,6 @@
             tabPagePatients = new TabPage();
             PanelPatients = new Panel();
             tabPageCapture = new TabPage();
-            PanelCameraView = new Panel();
             pictureBoxCamera = new PictureBox();
             PanelPictureList = new Panel();
             tabPageCompare = new TabPage();
@@ -41,11 +40,11 @@
             panel3 = new Panel();
             panel2 = new Panel();
             Settings = new TabPage();
+            BtnCapture = new Button();
             panel1.SuspendLayout();
             tabControlMain.SuspendLayout();
             tabPagePatients.SuspendLayout();
             tabPageCapture.SuspendLayout();
-            PanelCameraView.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxCamera).BeginInit();
             tabPagemark.SuspendLayout();
             MainPanelMark.SuspendLayout();
@@ -71,7 +70,7 @@
             btnSearchPatient.TabIndex = 2;
             btnSearchPatient.Text = "Search Patient";
             btnSearchPatient.UseVisualStyleBackColor = true;
-            btnSearchPatient.Click += BtnSearchPatient_Click_1;
+            btnSearchPatient.Click += BtnSearchPatient_Click;
             // 
             // btnCreateNewPatient
             // 
@@ -125,7 +124,8 @@
             // 
             // tabPageCapture
             // 
-            tabPageCapture.Controls.Add(PanelCameraView);
+            tabPageCapture.Controls.Add(BtnCapture);
+            tabPageCapture.Controls.Add(pictureBoxCamera);
             tabPageCapture.Controls.Add(PanelPictureList);
             tabPageCapture.Location = new Point(8, 46);
             tabPageCapture.Margin = new Padding(6);
@@ -136,22 +136,13 @@
             tabPageCapture.Text = "Capture";
             tabPageCapture.UseVisualStyleBackColor = true;
             // 
-            // PanelCameraView
-            // 
-            PanelCameraView.BackColor = Color.LightGray;
-            PanelCameraView.Controls.Add(pictureBoxCamera);
-            PanelCameraView.Dock = DockStyle.Fill;
-            PanelCameraView.Location = new Point(480, 6);
-            PanelCameraView.Margin = new Padding(6);
-            PanelCameraView.Name = "PanelCameraView";
-            PanelCameraView.Size = new Size(1128, 1091);
-            PanelCameraView.TabIndex = 2;
-            // 
             // pictureBoxCamera
             // 
-            pictureBoxCamera.Location = new Point(42, 41);
+            pictureBoxCamera.Dock = DockStyle.Fill;
+            pictureBoxCamera.Location = new Point(480, 6);
             pictureBoxCamera.Name = "pictureBoxCamera";
-            pictureBoxCamera.Size = new Size(1054, 1017);
+            pictureBoxCamera.Size = new Size(1128, 1091);
+            pictureBoxCamera.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBoxCamera.TabIndex = 0;
             pictureBoxCamera.TabStop = false;
             // 
@@ -237,6 +228,17 @@
             Settings.Text = "Settings";
             Settings.UseVisualStyleBackColor = true;
             // 
+            // BtnCapture
+            // 
+            BtnCapture.Dock = DockStyle.Bottom;
+            BtnCapture.Location = new Point(480, 1015);
+            BtnCapture.Name = "BtnCapture";
+            BtnCapture.Size = new Size(1128, 82);
+            BtnCapture.TabIndex = 2;
+            BtnCapture.Text = "Capture";
+            BtnCapture.UseVisualStyleBackColor = true;
+            BtnCapture.Click += BtnCapture_Click;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(13F, 32F);
@@ -248,11 +250,11 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Jared";
             WindowState = FormWindowState.Maximized;
+            FormClosing += MainForm_FormClosing;
             panel1.ResumeLayout(false);
             tabControlMain.ResumeLayout(false);
             tabPagePatients.ResumeLayout(false);
             tabPageCapture.ResumeLayout(false);
-            PanelCameraView.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBoxCamera).EndInit();
             tabPagemark.ResumeLayout(false);
             MainPanelMark.ResumeLayout(false);
@@ -276,7 +278,7 @@
         private Panel MainPanelMark;
         private Panel panel4;
         private Panel panel3;
-        private Panel PanelCameraView;
         private PictureBox pictureBoxCamera;
+        private Button BtnCapture;
     }
 }

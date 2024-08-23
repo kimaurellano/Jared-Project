@@ -18,7 +18,7 @@ namespace Jared {
             ShowContentInTabPatients(new CreateNewPatientUserControl());
         }
 
-        private void BtnSearchPatient_Click_1(object sender, EventArgs e) {
+        private void BtnSearchPatient_Click(object sender, EventArgs e) {
             ShowContentInTabPatients(new SearchPatientUserControl());
         }
 
@@ -42,18 +42,27 @@ namespace Jared {
             videoSource = new VideoCaptureDevice(videoDevices[0].MonikerString);
 
             // Set NewFrame event handler to capture frames from the video source
-            videoSource.NewFrame += new NewFrameEventHandler(videoSource_NewFrame);
+            videoSource.NewFrame += new NewFrameEventHandler(VideoSource_NewFrame);
 
             // Start the video source
             videoSource.Start();
         }
 
-        private void videoSource_NewFrame(object sender, NewFrameEventArgs eventArgs) {
+        private void CloseCamera() {
+            // Stop the video source when closing the form
+            if (videoSource != null && videoSource.IsRunning) {
+                videoSource.SignalToStop();
+                videoSource.WaitForStop();
+            }
+        }
+
+        private void VideoSource_NewFrame(object sender, NewFrameEventArgs eventArgs) {
             // Get the frame from the camera
             Bitmap frame = (Bitmap)eventArgs.Frame.Clone();
 
             // Display the frame in the PictureBox
             pictureBoxCamera.Image = frame;
+            pictureBoxCamera.SizeMode = PictureBoxSizeMode.CenterImage;
         }
 
         private void TabControlMain_SelectedIndexChanged(object sender, EventArgs e) {
@@ -61,13 +70,26 @@ namespace Jared {
                 if (tabControlMain.SelectedIndex == 1) {
                     InitializeCamera();
                 } else {
-                    // Stop the video source when closing the form
-                    if (videoSource != null && videoSource.IsRunning) {
-                        videoSource.SignalToStop();
-                        videoSource.WaitForStop();
-                    }
+                    CloseCamera();
                 }
-            } 
+            }
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e) {
+            CloseCamera();
+        }
+
+        private void BtnCapture_Click(object sender, EventArgs e) {
+            // Capture the image displayed in the PictureBox
+            if (pictureBoxCamera.Image != null) {
+                // Save the image to a file
+                string filePath = "captured_image.png"; // You can customize the file path and name
+                pictureBoxCamera.Image.Save(filePath, System.Drawing.Imaging.ImageFormat.Png);
+                
+                MessageBox.Show("Image captured and saved to " + filePath);
+            } else {
+                MessageBox.Show("No image to capture.");
+            }
         }
     }
 }
