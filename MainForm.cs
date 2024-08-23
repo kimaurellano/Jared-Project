@@ -3,6 +3,7 @@ using AForge.Video;
 using Microsoft.Data.Sqlite;
 using System.Data;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Jared {
     public partial class MainForm : Form {
@@ -69,6 +70,7 @@ namespace Jared {
             if (tabControlMain != null) {
                 if (tabControlMain.SelectedIndex == 1) {
                     InitializeCamera();
+                    InitializeListView();
                 } else {
                     CloseCamera();
                 }
@@ -89,6 +91,28 @@ namespace Jared {
                 MessageBox.Show("Image captured and saved to " + filePath);
             } else {
                 MessageBox.Show("No image to capture.");
+            }
+        }
+
+        private void InitializeListView() {
+            ImageListMain.ImageSize = new Size(64, 64); // Set image size
+
+            // Add images to the ImageList
+            string[] imagePaths = { "captured_image.png", "captured_image.png" };
+            foreach (var path in imagePaths) {
+                ImageListMain.Images.Add(Image.FromFile(path));
+            }
+
+            // Configure the ListView
+            ListViewImages.View = View.LargeIcon;
+            ListViewImages.LargeImageList = ImageListMain;
+
+            // Add items to the ListView
+            for (int i = 0; i < ImageListMain.Images.Count; i++) {
+                ListViewItem item = new ListViewItem();
+                item.ImageIndex = i; // Associate image with the item
+                item.Text = $"Image {i + 1}"; // Optionally add a text label
+                ListViewImages.Items.Add(item);
             }
         }
     }

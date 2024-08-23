@@ -24,6 +24,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             panel1 = new Panel();
             btnSearchPatient = new Button();
             btnCreateNewPatient = new Button();
@@ -31,8 +32,10 @@
             tabPagePatients = new TabPage();
             PanelPatients = new Panel();
             tabPageCapture = new TabPage();
+            BtnCapture = new Button();
             pictureBoxCamera = new PictureBox();
             PanelPictureList = new Panel();
+            ListViewImages = new ListView();
             tabPageCompare = new TabPage();
             tabPagemark = new TabPage();
             MainPanelMark = new Panel();
@@ -40,12 +43,13 @@
             panel3 = new Panel();
             panel2 = new Panel();
             Settings = new TabPage();
-            BtnCapture = new Button();
+            ImageListMain = new ImageList(components);
             panel1.SuspendLayout();
             tabControlMain.SuspendLayout();
             tabPagePatients.SuspendLayout();
             tabPageCapture.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxCamera).BeginInit();
+            PanelPictureList.SuspendLayout();
             tabPagemark.SuspendLayout();
             MainPanelMark.SuspendLayout();
             SuspendLayout();
@@ -136,6 +140,17 @@
             tabPageCapture.Text = "Capture";
             tabPageCapture.UseVisualStyleBackColor = true;
             // 
+            // BtnCapture
+            // 
+            BtnCapture.Dock = DockStyle.Bottom;
+            BtnCapture.Location = new Point(480, 1015);
+            BtnCapture.Name = "BtnCapture";
+            BtnCapture.Size = new Size(1128, 82);
+            BtnCapture.TabIndex = 2;
+            BtnCapture.Text = "Capture";
+            BtnCapture.UseVisualStyleBackColor = true;
+            BtnCapture.Click += BtnCapture_Click;
+            // 
             // pictureBoxCamera
             // 
             pictureBoxCamera.Dock = DockStyle.Fill;
@@ -149,12 +164,22 @@
             // PanelPictureList
             // 
             PanelPictureList.BackColor = Color.Gainsboro;
+            PanelPictureList.Controls.Add(ListViewImages);
             PanelPictureList.Dock = DockStyle.Left;
             PanelPictureList.Location = new Point(6, 6);
             PanelPictureList.Margin = new Padding(6);
             PanelPictureList.Name = "PanelPictureList";
             PanelPictureList.Size = new Size(474, 1091);
             PanelPictureList.TabIndex = 1;
+            // 
+            // ListViewImages
+            // 
+            ListViewImages.Dock = DockStyle.Fill;
+            ListViewImages.Location = new Point(0, 0);
+            ListViewImages.Name = "ListViewImages";
+            ListViewImages.Size = new Size(474, 1091);
+            ListViewImages.TabIndex = 3;
+            ListViewImages.UseCompatibleStateImageBehavior = false;
             // 
             // tabPageCompare
             // 
@@ -228,16 +253,11 @@
             Settings.Text = "Settings";
             Settings.UseVisualStyleBackColor = true;
             // 
-            // BtnCapture
+            // ImageListMain
             // 
-            BtnCapture.Dock = DockStyle.Bottom;
-            BtnCapture.Location = new Point(480, 1015);
-            BtnCapture.Name = "BtnCapture";
-            BtnCapture.Size = new Size(1128, 82);
-            BtnCapture.TabIndex = 2;
-            BtnCapture.Text = "Capture";
-            BtnCapture.UseVisualStyleBackColor = true;
-            BtnCapture.Click += BtnCapture_Click;
+            ImageListMain.ColorDepth = ColorDepth.Depth32Bit;
+            ImageListMain.ImageSize = new Size(16, 16);
+            ImageListMain.TransparentColor = Color.Transparent;
             // 
             // MainForm
             // 
@@ -256,6 +276,7 @@
             tabPagePatients.ResumeLayout(false);
             tabPageCapture.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBoxCamera).EndInit();
+            PanelPictureList.ResumeLayout(false);
             tabPagemark.ResumeLayout(false);
             MainPanelMark.ResumeLayout(false);
             ResumeLayout(false);
@@ -273,12 +294,14 @@
         private TabPage tabPageCompare;
         private TabPage tabPagemark;
         private TabPage Settings;
-        private Panel PanelPictureList;
         private Panel panel2;
         private Panel MainPanelMark;
         private Panel panel4;
         private Panel panel3;
         private PictureBox pictureBoxCamera;
         private Button BtnCapture;
+        private Panel PanelPictureList;
+        private ListView ListViewImages;
+        private ImageList ImageListMain;
     }
 }
