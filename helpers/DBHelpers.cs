@@ -44,14 +44,11 @@ namespace Jared.helpers {
                 // Get what is the current selected patient
                 Patient patient = GetSelectedPatient();
 
-                // Get the patient provided in the current selected patient
-                long patientId = SelectPatient(patient.Id).Id;
-
                 connection.Open();
 
                 var command = connection.CreateCommand();
                 command.CommandText = "INSERT INTO PatientImage (PatientId,PatientImage) VALUES (@PatientId,@ImageData)";
-                command.Parameters.AddWithValue("@PatientId", patientId);
+                command.Parameters.AddWithValue("@PatientId", patient.Id);
                 // Use a parameter to insert the byte array into the BLOB column
                 command.Parameters.AddWithValue("@ImageData", imageBytes);
                 command.ExecuteNonQuery();
@@ -133,7 +130,11 @@ namespace Jared.helpers {
                 connection.Open();
 
                 var command = connection.CreateCommand();
-                command.CommandText = $"SELECT * FROM SelectedPatient";
+                command.CommandText =
+                    $"SELECT Patient.Id, Patient.name FROM Patient " +
+                    $"LEFT JOIN SelectedPatient " +
+                    $"ON Patient.Id = SelectedPatient.PatientId " +
+                    $"WHERE SelectedPatient.PatientId NOT NULL";
 
                 DataTable dataTable = new();
 

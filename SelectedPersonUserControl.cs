@@ -21,6 +21,7 @@ namespace Jared {
             // Select query the SelectedPatient table
             Patient patient = dbHelpers.GetSelectedPatient();
 
+
             label1.Text = patient.Name;
         }
     }

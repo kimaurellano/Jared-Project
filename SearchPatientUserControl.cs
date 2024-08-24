@@ -33,8 +33,8 @@ namespace Jared {
         private void DataGridViewPatients_CellDoubleClick(object sender, DataGridViewCellEventArgs e) {
             foreach (DataGridViewRow row in dataGridViewPatients.SelectedRows) {
                 // Access data in the selected row.
-                var cellValue = row.Cells["Name"].Value;
-                patient.Name = (string)cellValue;
+                var cellValue = row.Cells["Id"].Value;
+                patient.Id = (long)cellValue;
             }
 
             // Need to refresh the Selected Patient table.
