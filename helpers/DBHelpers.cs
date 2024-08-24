@@ -37,7 +37,8 @@ namespace Jared.helpers {
 
         public void SaveImageToDatabase(Image image) {
             // Convert the image to a byte array
-            byte[] imageBytes = ImageToByteArray(image);
+            ImageHelper imageHelper = new();
+            byte[] imageBytes = imageHelper.ImageToByteArray(image);
 
             using (var connection = _connection) {
                 Patient patient = GetSelectedPatient();
