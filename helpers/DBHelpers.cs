@@ -2,6 +2,7 @@
 using Microsoft.Data.Sqlite;
 using System.Data;
 using System.Drawing.Imaging;
+using System.Windows.Forms;
 using System.Xml.Linq;
 
 namespace Jared.helpers {
@@ -31,26 +32,6 @@ namespace Jared.helpers {
 
                 command.Parameters.AddWithValue("@PatientId", patient.Id);
 
-                command.ExecuteNonQuery();
-            }
-        }
-
-        public void SaveImageToDatabase(Image image) {
-            // Convert the image to a byte array
-            ImageHelper imageHelper = new();
-            byte[] imageBytes = imageHelper.ImageToByteArray(image);
-
-            using (var connection = _connection) {
-                // Get what is the current selected patient
-                Patient patient = GetSelectedPatient();
-
-                connection.Open();
-
-                var command = connection.CreateCommand();
-                command.CommandText = "INSERT INTO PatientImage (PatientId,PatientImage) VALUES (@PatientId,@ImageData)";
-                command.Parameters.AddWithValue("@PatientId", patient.Id);
-                // Use a parameter to insert the byte array into the BLOB column
-                command.Parameters.AddWithValue("@ImageData", imageBytes);
                 command.ExecuteNonQuery();
             }
         }
@@ -149,6 +130,55 @@ namespace Jared.helpers {
 
                 return patient;
             }
+        }
+
+        public void SaveImageToDatabase(Image image) {
+            // Convert the image to a byte array
+            ImageHelper imageHelper = new();
+            byte[] imageBytes = imageHelper.ImageToByteArray(image);
+
+            using (var connection = _connection) {
+                // Get what is the current selected patient
+                Patient patient = GetSelectedPatient();
+
+                connection.Open();
+
+                var command = connection.CreateCommand();
+                command.CommandText = "INSERT INTO PatientImage (PatientId,PatientImage) VALUES (@PatientId,@ImageData)";
+                command.Parameters.AddWithValue("@PatientId", patient.Id);
+                // Use a parameter to insert the byte array into the BLOB column
+                command.Parameters.AddWithValue("@ImageData", imageBytes);
+                command.ExecuteNonQuery();
+            }
+        }
+
+        public ImageList GetImagesOfPatient(long patientId) {
+            ImageList imageList = new();
+            using (var connection = _connection) {
+                _connection.Open();
+
+                var command = connection.CreateCommand();
+                command.CommandText = 
+                    $"SELECT PatientImage FROM PatientImage " +
+                    $"WHERE PatientId = {patientId}";
+
+                using (var reader = command.ExecuteReader()) {
+                    while (reader.Read()) {
+                        // Get the BLOB data from the reader
+                        byte[] imageData = (byte[])reader["PatientImage"];
+
+                        // Convert the BLOB data to an Image
+                        using (MemoryStream ms = new MemoryStream(imageData)) {
+                            Image image = Image.FromStream(ms);
+
+                            // Add the Image to the ImageList
+                            imageList.Images.Add(image);
+                        }
+                    }
+                }
+            }
+
+            return imageList;
         }
 
         private Patient CastRowToPatient(DataRow row) {

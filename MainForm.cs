@@ -113,9 +113,10 @@ namespace Jared {
             ImageListMain.ImageSize = new Size(64, 64); // Set image size
 
             // Add images to the ImageList
-            string[] imagePaths = { "captured_image.png", "captured_image.png" };
-            foreach (var path in imagePaths) {
-                ImageListMain.Images.Add(Image.FromFile(path));
+            long selectedPatient = dbHelpers.GetSelectedPatient().Id;
+            ImageList temp = dbHelpers.GetImagesOfPatient(selectedPatient);
+            foreach (Image image in temp.Images) {
+                ImageListMain.Images.Add(image);
             }
 
             // Configure the ListView
