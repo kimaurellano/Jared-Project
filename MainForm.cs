@@ -4,6 +4,7 @@ using Microsoft.Data.Sqlite;
 using System.Data;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using System;
 
 namespace Jared {
     public partial class MainForm : Form {
@@ -84,8 +85,13 @@ namespace Jared {
         private void BtnCapture_Click(object sender, EventArgs e) {
             // Capture the image displayed in the PictureBox
             if (pictureBoxCamera.Image != null) {
+                DateTime dateTime = DateTime.Now;
+                DateTime epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+                var epochTime = (long)(dateTime.ToUniversalTime() - epoch).TotalSeconds;
+
                 // Save the image to a file
-                string filePath = "captured_image.png"; // You can customize the file path and name
+                string filePath = $"{epochTime}.png"; // You can customize the file path and name
+                string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
                 pictureBoxCamera.Image.Save(filePath, System.Drawing.Imaging.ImageFormat.Png);
                 
                 MessageBox.Show("Image captured and saved to " + filePath);
