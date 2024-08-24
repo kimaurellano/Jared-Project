@@ -5,10 +5,12 @@ using System.Data;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using System;
+using Jared.helpers;
 
 namespace Jared {
     public partial class MainForm : Form {
 
+        private DBHelpers dbHelpers = new();
         private FilterInfoCollection videoDevices;
         private VideoCaptureDevice videoSource;
 
@@ -86,7 +88,7 @@ namespace Jared {
             // Capture the image displayed in the PictureBox
             if (pictureBoxCamera.Image != null) {
                 DateTime dateTime = DateTime.Now;
-                DateTime epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+                DateTime epoch = new(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
                 var epochTime = (long)(dateTime.ToUniversalTime() - epoch).TotalSeconds;
 
                 // Save the image to a file
@@ -95,6 +97,9 @@ namespace Jared {
                 pictureBoxCamera.Image.Save(filePath, System.Drawing.Imaging.ImageFormat.Png);
                 
                 MessageBox.Show("Image captured and saved to " + filePath);
+
+                // Insert image into to database as blob.
+                dbHelpers.SaveImageToDatabase(pictureBoxCamera.Image);
             } else {
                 MessageBox.Show("No image to capture.");
             }
