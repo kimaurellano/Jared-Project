@@ -65,8 +65,8 @@ namespace Jared {
             Bitmap frame = (Bitmap)eventArgs.Frame.Clone();
 
             // Display the frame in the PictureBox
-            pictureBoxCamera.Image = frame;
-            pictureBoxCamera.SizeMode = PictureBoxSizeMode.CenterImage;
+            PictureBoxCamera.Image = frame;
+            PictureBoxCamera.SizeMode = PictureBoxSizeMode.CenterImage;
         }
 
         private void TabControlMain_SelectedIndexChanged(object sender, EventArgs e) {
@@ -86,7 +86,7 @@ namespace Jared {
 
         private void BtnCapture_Click(object sender, EventArgs e) {
             // Capture the image displayed in the PictureBox
-            if (pictureBoxCamera.Image != null) {
+            if (PictureBoxCamera.Image != null) {
                 DateTime dateTime = DateTime.Now;
                 DateTime epoch = new(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
                 var epochTime = (long)(dateTime.ToUniversalTime() - epoch).TotalSeconds;
@@ -94,12 +94,12 @@ namespace Jared {
                 // Save the image to a file
                 string filePath = $"{epochTime}.png"; // You can customize the file path and name
                 string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-                pictureBoxCamera.Image.Save(filePath, System.Drawing.Imaging.ImageFormat.Png);
+                PictureBoxCamera.Image.Save(filePath, System.Drawing.Imaging.ImageFormat.Png);
                 
                 MessageBox.Show("Image captured and saved to " + filePath);
 
                 // Insert image into to database as blob.
-                dbHelpers.SaveImageToDatabase(pictureBoxCamera.Image);
+                dbHelpers.SaveImageToDatabase(PictureBoxCamera.Image);
             } else {
                 MessageBox.Show("No image to capture.");
             }

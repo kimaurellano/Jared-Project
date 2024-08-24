@@ -33,7 +33,7 @@
             PanelPatients = new Panel();
             tabPageCapture = new TabPage();
             BtnCapture = new Button();
-            pictureBoxCamera = new PictureBox();
+            PictureBoxCamera = new PictureBox();
             PanelPictureList = new Panel();
             ListViewImages = new ListView();
             tabPageCompare = new TabPage();
@@ -48,7 +48,7 @@
             tabControlMain.SuspendLayout();
             tabPagePatients.SuspendLayout();
             tabPageCapture.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBoxCamera).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)PictureBoxCamera).BeginInit();
             PanelPictureList.SuspendLayout();
             tabPagemark.SuspendLayout();
             MainPanelMark.SuspendLayout();
@@ -129,7 +129,7 @@
             // tabPageCapture
             // 
             tabPageCapture.Controls.Add(BtnCapture);
-            tabPageCapture.Controls.Add(pictureBoxCamera);
+            tabPageCapture.Controls.Add(PictureBoxCamera);
             tabPageCapture.Controls.Add(PanelPictureList);
             tabPageCapture.Location = new Point(8, 46);
             tabPageCapture.Margin = new Padding(6);
@@ -153,13 +153,13 @@
             // 
             // pictureBoxCamera
             // 
-            pictureBoxCamera.Dock = DockStyle.Fill;
-            pictureBoxCamera.Location = new Point(480, 6);
-            pictureBoxCamera.Name = "pictureBoxCamera";
-            pictureBoxCamera.Size = new Size(1128, 1091);
-            pictureBoxCamera.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBoxCamera.TabIndex = 0;
-            pictureBoxCamera.TabStop = false;
+            PictureBoxCamera.Dock = DockStyle.Fill;
+            PictureBoxCamera.Location = new Point(480, 6);
+            PictureBoxCamera.Name = "pictureBoxCamera";
+            PictureBoxCamera.Size = new Size(1128, 1091);
+            PictureBoxCamera.SizeMode = PictureBoxSizeMode.StretchImage;
+            PictureBoxCamera.TabIndex = 0;
+            PictureBoxCamera.TabStop = false;
             // 
             // PanelPictureList
             // 
@@ -275,7 +275,7 @@
             tabControlMain.ResumeLayout(false);
             tabPagePatients.ResumeLayout(false);
             tabPageCapture.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureBoxCamera).EndInit();
+            ((System.ComponentModel.ISupportInitialize)PictureBoxCamera).EndInit();
             PanelPictureList.ResumeLayout(false);
             tabPagemark.ResumeLayout(false);
             MainPanelMark.ResumeLayout(false);
@@ -298,7 +298,7 @@
         private Panel MainPanelMark;
         private Panel panel4;
         private Panel panel3;
-        private PictureBox pictureBoxCamera;
+        private PictureBox PictureBoxCamera;
         private Button BtnCapture;
         private Panel PanelPictureList;
         private ListView ListViewImages;

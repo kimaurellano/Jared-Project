@@ -27,9 +27,9 @@ namespace Jared.helpers {
                 connection.Open();
 
                 var command = connection.CreateCommand();
-                command.CommandText = @"INSERT INTO SelectedPatient (Name) VALUES (@Name);";
+                command.CommandText = @"INSERT INTO SelectedPatient (PatientId) VALUES (@PatientId);";
 
-                command.Parameters.AddWithValue("@Name", patient.Name);
+                command.Parameters.AddWithValue("@PatientId", patient.Id);
 
                 command.ExecuteNonQuery();
             }
@@ -41,23 +41,20 @@ namespace Jared.helpers {
             byte[] imageBytes = imageHelper.ImageToByteArray(image);
 
             using (var connection = _connection) {
+                // Get what is the current selected patient
                 Patient patient = GetSelectedPatient();
+
+                // Get the patient provided in the current selected patient
+                long patientId = SelectPatient(patient.Id).Id;
 
                 connection.Open();
 
                 var command = connection.CreateCommand();
                 command.CommandText = "INSERT INTO PatientImage (PatientId,PatientImage) VALUES (@PatientId,@ImageData)";
-                command.Parameters.AddWithValue("@PatientId", patient.Id);
+                command.Parameters.AddWithValue("@PatientId", patientId);
                 // Use a parameter to insert the byte array into the BLOB column
                 command.Parameters.AddWithValue("@ImageData", imageBytes);
                 command.ExecuteNonQuery();
-            }
-        }
-
-        private byte[] ImageToByteArray(Image image) {
-            using (MemoryStream memoryStream = new()) {
-                image.Save(memoryStream, ImageFormat.Png); // Save image as PNG format in the stream
-                return memoryStream.ToArray(); // Convert stream to byte array
             }
         }
 
@@ -92,6 +89,28 @@ namespace Jared.helpers {
                 }
 
                 return dataTable;
+            }
+        }
+
+        public Patient SelectPatient(long patientId) {
+            using (var connection = _connection) {
+                connection.Open();
+
+                var command = connection.CreateCommand();
+                command.CommandText = $"SELECT * FROM Patient WHERE @Id=${patientId}";
+
+                DataTable dataTable = new();
+
+                using (var reader = command.ExecuteReader()) {
+                    dataTable.Load(reader);
+                }
+
+                Patient patient = new();
+                if (dataTable.Rows.Count > 0) {
+                    patient = CastRowToPatient(dataTable.Rows[0]);
+                }
+
+                return patient;
             }
         }
 
@@ -137,6 +156,5 @@ namespace Jared.helpers {
                 Name = row["Name"].ToString() // Assuming "Name" is the name of the column
             };
         }
-
     }
 }
