@@ -2,6 +2,7 @@
 using Microsoft.Data.Sqlite;
 using System.Data;
 using System.Drawing.Imaging;
+using System.Reflection.Metadata;
 using System.Windows.Forms;
 using System.Xml.Linq;
 
@@ -152,8 +153,35 @@ namespace Jared.helpers {
             }
         }
 
-        public ImageList GetImagesOfPatient(long patientId) {
-            ImageList imageList = new();
+        public List<Image> GetAllImages() {
+            ImageHelper imageHelper = new();
+            List<Image> imageList = new();
+            using (var connection = _connection) {
+                _connection.Open();
+
+                var command = connection.CreateCommand();
+                command.CommandText =
+                    $"SELECT PatientImage FROM PatientImage";
+
+                using (var reader = command.ExecuteReader()) {
+                    while (reader.Read()) {
+                        // Get the BLOB data from the reader
+                        byte[] imageData = (byte[])reader["PatientImage"];
+
+                        Image byteImage = imageHelper.ByteToImage(imageData);
+                        
+                        // Add the Image to the ImageList
+                        imageList.Add(byteImage);
+                    }
+                }
+            }
+
+            return imageList;
+        }
+
+        public List<Image> GetImagesOfPatient(long patientId) {
+            ImageHelper imageHelper = new();
+            List<Image> imageList = new List<Image>();
             using (var connection = _connection) {
                 _connection.Open();
 
@@ -167,18 +195,38 @@ namespace Jared.helpers {
                         // Get the BLOB data from the reader
                         byte[] imageData = (byte[])reader["PatientImage"];
 
-                        // Convert the BLOB data to an Image
-                        using (MemoryStream ms = new MemoryStream(imageData)) {
-                            Image image = Image.FromStream(ms);
+                        Image byteImage = imageHelper.ByteToImage(imageData);
 
-                            // Add the Image to the ImageList
-                            imageList.Images.Add(image);
-                        }
+                        imageList.Add(byteImage);
                     }
                 }
             }
 
             return imageList;
+        }
+
+        public Image GetImage(long imageId) {
+            Image image = null;
+            ImageHelper imageHelper = new();
+            using (var connection = _connection) {
+                _connection.Open();
+
+                var command = connection.CreateCommand();
+                command.CommandText =
+                    $"SELECT PatientImage FROM PatientImage " +
+                    $"WHERE Id = {imageId}";
+
+                using (var reader = command.ExecuteReader()) {
+                    while (reader.Read()) {
+                        // Get the BLOB data from the reader
+                        byte[] imageData = (byte[])reader["PatientImage"];
+
+                        image = imageHelper.ByteToImage(imageData);
+                    }
+                }
+
+                return image;
+            }    
         }
 
         private Patient CastRowToPatient(DataRow row) {

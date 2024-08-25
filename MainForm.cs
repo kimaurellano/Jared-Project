@@ -16,6 +16,7 @@ namespace Jared {
 
         public MainForm() {
             InitializeComponent();
+            InitializeListView();
         }
 
         private void BtnCreateNewPatient_Click(object sender, EventArgs e) {
@@ -73,7 +74,6 @@ namespace Jared {
             if (tabControlMain != null) {
                 if (tabControlMain.SelectedIndex == 1) {
                     InitializeCamera();
-                    InitializeListView();
                 } else {
                     CloseCamera();
                 }
@@ -110,12 +110,11 @@ namespace Jared {
             ListViewImages.Items.Clear();
             ImageListMain.Images.Clear();
 
-            ImageListMain.ImageSize = new Size(64, 64); // Set image size
+            ImageListMain.ImageSize = new Size(256, 156); // Set image size
 
             // Add images to the ImageList
-            long selectedPatient = dbHelpers.GetSelectedPatient().Id;
-            ImageList temp = dbHelpers.GetImagesOfPatient(selectedPatient);
-            foreach (Image image in temp.Images) {
+            List<Image> temp = dbHelpers.GetAllImages();
+            foreach (Image image in temp) {
                 ImageListMain.Images.Add(image);
             }
 
