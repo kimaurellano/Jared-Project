@@ -22,8 +22,7 @@
         ///  Required method for Designer support - do not modify
         ///  the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent()
-        {
+        private void InitializeComponent() {
             components = new System.ComponentModel.Container();
             panel1 = new Panel();
             btnSearchPatient = new Button();
@@ -34,8 +33,6 @@
             tabPageCapture = new TabPage();
             BtnCapture = new Button();
             PictureBoxCamera = new PictureBox();
-            PanelPictureList = new Panel();
-            ListViewImages = new ListView();
             tabPageCompare = new TabPage();
             tabPagemark = new TabPage();
             MainPanelMark = new Panel();
@@ -43,15 +40,19 @@
             panel3 = new Panel();
             panel2 = new Panel();
             Settings = new TabPage();
+            PanelPictureList = new Panel();
+            ListViewImages = new ListView();
             ImageListMain = new ImageList(components);
+            MainPanel = new Panel();
             panel1.SuspendLayout();
             tabControlMain.SuspendLayout();
             tabPagePatients.SuspendLayout();
             tabPageCapture.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)PictureBoxCamera).BeginInit();
-            PanelPictureList.SuspendLayout();
             tabPagemark.SuspendLayout();
             MainPanelMark.SuspendLayout();
+            PanelPictureList.SuspendLayout();
+            MainPanel.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
@@ -62,7 +63,7 @@
             panel1.Location = new Point(6, 6);
             panel1.Margin = new Padding(6);
             panel1.Name = "panel1";
-            panel1.Size = new Size(550, 1091);
+            panel1.Size = new Size(550, 1114);
             panel1.TabIndex = 0;
             // 
             // btnSearchPatient
@@ -99,7 +100,7 @@
             tabControlMain.Margin = new Padding(6);
             tabControlMain.Name = "tabControlMain";
             tabControlMain.SelectedIndex = 0;
-            tabControlMain.Size = new Size(1630, 1157);
+            tabControlMain.Size = new Size(1424, 1180);
             tabControlMain.TabIndex = 1;
             tabControlMain.SelectedIndexChanged += TabControlMain_SelectedIndexChanged;
             // 
@@ -111,7 +112,7 @@
             tabPagePatients.Margin = new Padding(6);
             tabPagePatients.Name = "tabPagePatients";
             tabPagePatients.Padding = new Padding(6);
-            tabPagePatients.Size = new Size(1614, 1103);
+            tabPagePatients.Size = new Size(1408, 1126);
             tabPagePatients.TabIndex = 0;
             tabPagePatients.Text = "Patients";
             tabPagePatients.UseVisualStyleBackColor = true;
@@ -123,19 +124,18 @@
             PanelPatients.Location = new Point(556, 6);
             PanelPatients.Margin = new Padding(6);
             PanelPatients.Name = "PanelPatients";
-            PanelPatients.Size = new Size(1052, 1091);
+            PanelPatients.Size = new Size(846, 1114);
             PanelPatients.TabIndex = 1;
             // 
             // tabPageCapture
             // 
             tabPageCapture.Controls.Add(BtnCapture);
             tabPageCapture.Controls.Add(PictureBoxCamera);
-            tabPageCapture.Controls.Add(PanelPictureList);
             tabPageCapture.Location = new Point(8, 46);
             tabPageCapture.Margin = new Padding(6);
             tabPageCapture.Name = "tabPageCapture";
             tabPageCapture.Padding = new Padding(6);
-            tabPageCapture.Size = new Size(1614, 1103);
+            tabPageCapture.Size = new Size(1408, 1126);
             tabPageCapture.TabIndex = 1;
             tabPageCapture.Text = "Capture";
             tabPageCapture.UseVisualStyleBackColor = true;
@@ -143,50 +143,30 @@
             // BtnCapture
             // 
             BtnCapture.Dock = DockStyle.Bottom;
-            BtnCapture.Location = new Point(480, 1015);
+            BtnCapture.Location = new Point(6, 1038);
             BtnCapture.Name = "BtnCapture";
-            BtnCapture.Size = new Size(1128, 82);
+            BtnCapture.Size = new Size(1396, 82);
             BtnCapture.TabIndex = 2;
             BtnCapture.Text = "Capture";
             BtnCapture.UseVisualStyleBackColor = true;
             BtnCapture.Click += BtnCapture_Click;
             // 
-            // pictureBoxCamera
+            // PictureBoxCamera
             // 
             PictureBoxCamera.Dock = DockStyle.Fill;
-            PictureBoxCamera.Location = new Point(480, 6);
-            PictureBoxCamera.Name = "pictureBoxCamera";
-            PictureBoxCamera.Size = new Size(1128, 1091);
+            PictureBoxCamera.Location = new Point(6, 6);
+            PictureBoxCamera.Name = "PictureBoxCamera";
+            PictureBoxCamera.Size = new Size(1396, 1114);
             PictureBoxCamera.SizeMode = PictureBoxSizeMode.StretchImage;
             PictureBoxCamera.TabIndex = 0;
             PictureBoxCamera.TabStop = false;
-            // 
-            // PanelPictureList
-            // 
-            PanelPictureList.BackColor = Color.Gainsboro;
-            PanelPictureList.Controls.Add(ListViewImages);
-            PanelPictureList.Dock = DockStyle.Left;
-            PanelPictureList.Location = new Point(6, 6);
-            PanelPictureList.Margin = new Padding(6);
-            PanelPictureList.Name = "PanelPictureList";
-            PanelPictureList.Size = new Size(474, 1091);
-            PanelPictureList.TabIndex = 1;
-            // 
-            // ListViewImages
-            // 
-            ListViewImages.Dock = DockStyle.Fill;
-            ListViewImages.Location = new Point(0, 0);
-            ListViewImages.Name = "ListViewImages";
-            ListViewImages.Size = new Size(474, 1091);
-            ListViewImages.TabIndex = 3;
-            ListViewImages.UseCompatibleStateImageBehavior = false;
             // 
             // tabPageCompare
             // 
             tabPageCompare.Location = new Point(8, 46);
             tabPageCompare.Margin = new Padding(6);
             tabPageCompare.Name = "tabPageCompare";
-            tabPageCompare.Size = new Size(1614, 1103);
+            tabPageCompare.Size = new Size(1408, 1126);
             tabPageCompare.TabIndex = 2;
             tabPageCompare.Text = "Compare";
             tabPageCompare.UseVisualStyleBackColor = true;
@@ -198,7 +178,7 @@
             tabPagemark.Location = new Point(8, 46);
             tabPagemark.Margin = new Padding(6);
             tabPagemark.Name = "tabPagemark";
-            tabPagemark.Size = new Size(1614, 1103);
+            tabPagemark.Size = new Size(1408, 1126);
             tabPagemark.TabIndex = 3;
             tabPagemark.Text = "Mark";
             tabPagemark.UseVisualStyleBackColor = true;
@@ -211,7 +191,7 @@
             MainPanelMark.Location = new Point(410, 0);
             MainPanelMark.Margin = new Padding(6);
             MainPanelMark.Name = "MainPanelMark";
-            MainPanelMark.Size = new Size(1204, 1103);
+            MainPanelMark.Size = new Size(998, 1126);
             MainPanelMark.TabIndex = 1;
             // 
             // panel4
@@ -221,17 +201,17 @@
             panel4.Location = new Point(0, 0);
             panel4.Margin = new Padding(6);
             panel4.Name = "panel4";
-            panel4.Size = new Size(1204, 890);
+            panel4.Size = new Size(998, 913);
             panel4.TabIndex = 1;
             // 
             // panel3
             // 
             panel3.BackColor = Color.WhiteSmoke;
             panel3.Dock = DockStyle.Bottom;
-            panel3.Location = new Point(0, 890);
+            panel3.Location = new Point(0, 913);
             panel3.Margin = new Padding(6);
             panel3.Name = "panel3";
-            panel3.Size = new Size(1204, 213);
+            panel3.Size = new Size(998, 213);
             panel3.TabIndex = 0;
             // 
             // panel2
@@ -240,7 +220,7 @@
             panel2.Location = new Point(0, 0);
             panel2.Margin = new Padding(6);
             panel2.Name = "panel2";
-            panel2.Size = new Size(410, 1103);
+            panel2.Size = new Size(410, 1126);
             panel2.TabIndex = 0;
             // 
             // Settings
@@ -248,10 +228,30 @@
             Settings.Location = new Point(8, 46);
             Settings.Margin = new Padding(6);
             Settings.Name = "Settings";
-            Settings.Size = new Size(1614, 1103);
+            Settings.Size = new Size(1408, 1126);
             Settings.TabIndex = 4;
             Settings.Text = "Settings";
             Settings.UseVisualStyleBackColor = true;
+            // 
+            // PanelPictureList
+            // 
+            PanelPictureList.BackColor = Color.RosyBrown;
+            PanelPictureList.Controls.Add(ListViewImages);
+            PanelPictureList.Dock = DockStyle.Right;
+            PanelPictureList.Location = new Point(1424, 0);
+            PanelPictureList.Margin = new Padding(6);
+            PanelPictureList.Name = "PanelPictureList";
+            PanelPictureList.Size = new Size(474, 1180);
+            PanelPictureList.TabIndex = 1;
+            // 
+            // ListViewImages
+            // 
+            ListViewImages.Dock = DockStyle.Fill;
+            ListViewImages.Location = new Point(0, 0);
+            ListViewImages.Name = "ListViewImages";
+            ListViewImages.Size = new Size(474, 1180);
+            ListViewImages.TabIndex = 3;
+            ListViewImages.UseCompatibleStateImageBehavior = false;
             // 
             // ImageListMain
             // 
@@ -259,12 +259,22 @@
             ImageListMain.ImageSize = new Size(16, 16);
             ImageListMain.TransparentColor = Color.Transparent;
             // 
+            // MainPanel
+            // 
+            MainPanel.Controls.Add(tabControlMain);
+            MainPanel.Controls.Add(PanelPictureList);
+            MainPanel.Dock = DockStyle.Fill;
+            MainPanel.Location = new Point(0, 0);
+            MainPanel.Name = "MainPanel";
+            MainPanel.Size = new Size(1898, 1180);
+            MainPanel.TabIndex = 2;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1630, 1157);
-            Controls.Add(tabControlMain);
+            ClientSize = new Size(1898, 1180);
+            Controls.Add(MainPanel);
             Margin = new Padding(6);
             Name = "MainForm";
             StartPosition = FormStartPosition.CenterScreen;
@@ -276,9 +286,10 @@
             tabPagePatients.ResumeLayout(false);
             tabPageCapture.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)PictureBoxCamera).EndInit();
-            PanelPictureList.ResumeLayout(false);
             tabPagemark.ResumeLayout(false);
             MainPanelMark.ResumeLayout(false);
+            PanelPictureList.ResumeLayout(false);
+            MainPanel.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -303,5 +314,6 @@
         private Panel PanelPictureList;
         private ListView ListViewImages;
         private ImageList ImageListMain;
+        private Panel MainPanel;
     }
 }
