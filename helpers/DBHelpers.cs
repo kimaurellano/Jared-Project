@@ -16,10 +16,9 @@ namespace Jared.helpers {
                 connection.Open();
 
                 var command = connection.CreateCommand();
-                command.CommandText = @"INSERT INTO Patient (Name) VALUES (@Name);";
-
-                command.Parameters.AddWithValue("@Name", name);
-
+                command.CommandText = 
+                    $"INSERT INTO Patient (Name,CreationDate) " +
+                    $"VALUES ('{name}','{DateTime.Now}');";
                 command.ExecuteNonQuery();
             }
         }
@@ -29,7 +28,9 @@ namespace Jared.helpers {
                 connection.Open();
 
                 var command = connection.CreateCommand();
-                command.CommandText = @"INSERT INTO SelectedPatient (PatientId) VALUES (@PatientId);";
+                command.CommandText =
+                    $"INSERT INTO SelectedPatient (PatientId,CreationDate) " +
+                    $"VALUES ('{patient.Id}','{DateTime.Now}');";
 
                 command.Parameters.AddWithValue("@PatientId", patient.Id);
 
