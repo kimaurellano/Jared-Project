@@ -100,6 +100,9 @@ namespace Jared {
 
                 // Insert image into to database as blob.
                 dbHelpers.SaveImageToDatabase(PictureBoxCamera.Image);
+
+                // This should effectively restart the image list
+                InitializeListView();
             } else {
                 MessageBox.Show("No image to capture.");
             }
