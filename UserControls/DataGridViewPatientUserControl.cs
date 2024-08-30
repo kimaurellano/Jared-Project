@@ -7,17 +7,17 @@ namespace Jared.UserControls {
     public partial class DataGridViewPatientUserControl : UserControl, INotifyPropertyChanged {
 
         private DBHelpers dbHelpers = new();
-        private string _myProperty = string.Empty;
+        private string _selectedPatient = string.Empty;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public string MyProperty {
-            get { return _myProperty; }
+        public string SelectedPatient {
+            get { return _selectedPatient; }
             set {
-                if (_myProperty != value) {
-                    Debug.WriteLine($"{_myProperty} property changed.");
-                    _myProperty = value;
-                    OnPropertyChanged(nameof(MyProperty));
+                if (_selectedPatient != value) {
+                    Debug.WriteLine($"{_selectedPatient} property changed.");
+                    _selectedPatient = value;
+                    OnPropertyChanged(nameof(SelectedPatient));
                 }
             }
         }
@@ -56,7 +56,7 @@ namespace Jared.UserControls {
             dbHelpers.InsertToSelectedPatientTable(patient);
 
             // Trigger the observer
-            MyProperty = dbHelpers.GetSelectedPatient().Name;
+            SelectedPatient = dbHelpers.GetSelectedPatient().Name;
         }
     }
 }

@@ -23,8 +23,8 @@ namespace Jared {
             InitializePages();
         }
 
-        private void MyUserControl_PropertyChanged(object sender, PropertyChangedEventArgs e) {
-            if (e.PropertyName == nameof(DataGridViewPatientUserControl.MyProperty)) {
+        private void SelectedPatient_PropertyChanged(object sender, PropertyChangedEventArgs e) {
+            if (e.PropertyName == nameof(DataGridViewPatientUserControl.SelectedPatient)) {
                 // Handle the property change
                 LabelCurrentPatient.Text = $"Current Patient: {dbHelpers.GetSelectedPatient().Name}";
             }
@@ -56,11 +56,6 @@ namespace Jared {
 
         private void BtnSearchPatient_Click(object sender, EventArgs e) {
             ShowContentInTabPatients(searchPatientUserControl);
-            //foreach (Control child in searchPatientUserControl.Controls[0].Controls) {
-            //    if (child is SelectedPersonUserControl) {
-            //        searchPatientUserControl.Controls[0].Controls.Remove(child);
-            //    }
-            //}
         }
 
         private void ShowContentInTabPatients(UserControl userControl) {
