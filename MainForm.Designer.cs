@@ -44,6 +44,8 @@
             ListViewImages = new ListView();
             ImageListMain = new ImageList(components);
             MainPanel = new Panel();
+            BottomPanel = new Panel();
+            LabelCurrentPatient = new Label();
             panel1.SuspendLayout();
             tabControlMain.SuspendLayout();
             tabPagePatients.SuspendLayout();
@@ -53,6 +55,7 @@
             MainPanelMark.SuspendLayout();
             PanelPictureList.SuspendLayout();
             MainPanel.SuspendLayout();
+            BottomPanel.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
@@ -269,11 +272,32 @@
             MainPanel.Size = new Size(1898, 1180);
             MainPanel.TabIndex = 2;
             // 
+            // BottomPanel
+            // 
+            BottomPanel.BackColor = Color.Transparent;
+            BottomPanel.BorderStyle = BorderStyle.FixedSingle;
+            BottomPanel.Controls.Add(LabelCurrentPatient);
+            BottomPanel.Dock = DockStyle.Bottom;
+            BottomPanel.Location = new Point(0, 1117);
+            BottomPanel.Name = "BottomPanel";
+            BottomPanel.Size = new Size(1898, 63);
+            BottomPanel.TabIndex = 3;
+            // 
+            // LabelCurrentpatient
+            // 
+            LabelCurrentPatient.AutoSize = true;
+            LabelCurrentPatient.Location = new Point(14, 17);
+            LabelCurrentPatient.Name = "LabelCurrentpatient";
+            LabelCurrentPatient.Size = new Size(256, 32);
+            LabelCurrentPatient.TabIndex = 0;
+            LabelCurrentPatient.Text = "Current Patient: Admin";
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1898, 1180);
+            Controls.Add(BottomPanel);
             Controls.Add(MainPanel);
             Margin = new Padding(6);
             Name = "MainForm";
@@ -290,6 +314,8 @@
             MainPanelMark.ResumeLayout(false);
             PanelPictureList.ResumeLayout(false);
             MainPanel.ResumeLayout(false);
+            BottomPanel.ResumeLayout(false);
+            BottomPanel.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -315,5 +341,7 @@
         private ListView ListViewImages;
         private ImageList ImageListMain;
         private Panel MainPanel;
+        private Panel BottomPanel;
+        private Label LabelCurrentPatient;
     }
 }

@@ -1,11 +1,9 @@
 using AForge.Video.DirectShow;
 using AForge.Video;
-using Microsoft.Data.Sqlite;
-using System.Data;
-using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using System;
 using Jared.helpers;
+using System.ComponentModel;
+using Jared.UserControls;
+using System.Diagnostics;
 
 namespace Jared {
     public partial class MainForm : Form {
@@ -14,24 +12,85 @@ namespace Jared {
         private FilterInfoCollection videoDevices;
         private VideoCaptureDevice videoSource;
 
+        private DataGridViewPatientUserControl dataGridViewPatientUserControl;
+        private SearchPatientUserControl searchPatientUserControl;
+        private CreateNewPatientUserControl createNewPatientUserControl;
+
         public MainForm() {
             InitializeComponent();
+            Debug.WriteLine($"{Name}");
             InitializeListView();
+            InitializePages();
+        }
+
+        private void MyUserControl_PropertyChanged(object sender, PropertyChangedEventArgs e) {
+            if (e.PropertyName == nameof(DataGridViewPatientUserControl.MyProperty)) {
+                // Handle the property change
+                LabelCurrentPatient.Text = $"Current Patient: {dbHelpers.GetSelectedPatient().Name}";
+            }
+        }
+
+        private void InitializePages() {
+            searchPatientUserControl = new SearchPatientUserControl();
+            createNewPatientUserControl = new CreateNewPatientUserControl();
+
+            PanelPatients.Controls.Add(searchPatientUserControl);
+            PanelPatients.Controls.Add(createNewPatientUserControl);
+
+            // Default control to show on load.
+            ShowContentInTabPatients(searchPatientUserControl);
+
+            searchPatientUserControl.DataGridViewPatientUserControlInstance.PropertyChanged += DataGridViewPatientUserControlInstance_PropertyChanged;
+        }
+
+        private void DataGridViewPatientUserControlInstance_PropertyChanged(object sender, PropertyChangedEventArgs e) {
+            if (e.PropertyName == "YourProperty") {
+                // Handle the property change event here
+                MessageBox.Show("Property changed in DataGridViewPatientUserControl!");
+            }
         }
 
         private void BtnCreateNewPatient_Click(object sender, EventArgs e) {
-            ShowContentInTabPatients(new CreateNewPatientUserControl());
+            ShowContentInTabPatients(createNewPatientUserControl);
         }
 
         private void BtnSearchPatient_Click(object sender, EventArgs e) {
-            ShowContentInTabPatients(new SearchPatientUserControl());
+            ShowContentInTabPatients(searchPatientUserControl);
+            //foreach (Control child in searchPatientUserControl.Controls[0].Controls) {
+            //    if (child is SelectedPersonUserControl) {
+            //        searchPatientUserControl.Controls[0].Controls.Remove(child);
+            //    }
+            //}
         }
 
         private void ShowContentInTabPatients(UserControl userControl) {
-            Panel patientsPanel = PanelPatients;
-            patientsPanel.Controls.Clear();
-            userControl.Dock = DockStyle.Fill;
-            patientsPanel.Controls.Add(userControl);
+            Panel panel = PanelPatients;
+            if (panel != null) {
+                foreach (Control control in panel.Controls) {
+                    // Check if usercontrol exists in the panel
+                    if (userControl.Name == control.Name) {
+                        ShowControl(userControl, panel);
+
+                        return;
+                    }
+                }
+
+                // Only add usercontrol if does not exists in the panel
+                userControl.Dock = DockStyle.Fill;
+                panel.Controls.Add(userControl);
+                ShowControl(userControl, panel);
+            }
+        }
+
+        private void ShowControl(Control controlToShow, Panel ofPanel) {
+            // Loop through all controls in the panel
+            foreach (Control control in ofPanel.Controls) {
+                control.Visible = false; // Hide all controls
+            }
+
+            // Show the selected control
+            controlToShow.Visible = true;
+            controlToShow.BringToFront(); // Bring the control to the front if needed
         }
 
         private void InitializeCamera() {
@@ -87,12 +146,14 @@ namespace Jared {
         private void BtnCapture_Click(object sender, EventArgs e) {
             // Capture the image displayed in the PictureBox
             if (PictureBoxCamera.Image != null) {
+                string patientName = dbHelpers.GetSelectedPatient().Name;
+
                 DateTime dateTime = DateTime.Now;
                 DateTime epoch = new(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
                 var epochTime = (long)(dateTime.ToUniversalTime() - epoch).TotalSeconds;
 
                 // Save the image to a file
-                string filePath = $"{epochTime}.png"; // You can customize the file path and name
+                string filePath = $"{patientName}_{epochTime}.png"; // You can customize the file path and name
                 string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
                 PictureBoxCamera.Image.Save(filePath, System.Drawing.Imaging.ImageFormat.Png);
                 
@@ -108,6 +169,7 @@ namespace Jared {
             }
         }
 
+        // Image List on the right panel
         private void InitializeListView() {
             // Clear first before populating
             ListViewImages.Items.Clear();

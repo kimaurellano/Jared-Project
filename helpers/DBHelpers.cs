@@ -146,7 +146,9 @@ namespace Jared.helpers {
                 connection.Open();
 
                 var command = connection.CreateCommand();
-                command.CommandText = "INSERT INTO PatientImage (PatientId,PatientImage) VALUES (@PatientId,@ImageData)";
+                command.CommandText = 
+                    $"INSERT INTO PatientImage (PatientId,PatientImage) " +
+                    $"VALUES (@PatientId,@ImageData)";
                 command.Parameters.AddWithValue("@PatientId", patient.Id);
                 // Use a parameter to insert the byte array into the BLOB column
                 command.Parameters.AddWithValue("@ImageData", imageBytes);
