@@ -31,9 +31,10 @@
             tabPagePatients = new TabPage();
             PanelPatients = new Panel();
             tabPageCapture = new TabPage();
+            pictureBox1 = new PictureBox();
             BtnCapture = new Button();
             PictureBoxCamera = new PictureBox();
-            tabPageCompare = new TabPage();
+            TabPageCompare = new TabPage();
             tabPagemark = new TabPage();
             MainPanelMark = new Panel();
             panel4 = new Panel();
@@ -46,16 +47,26 @@
             MainPanel = new Panel();
             BottomPanel = new Panel();
             LabelCurrentPatient = new Label();
+            PictureBoxTopLeft = new PictureBox();
+            PictureBoxTopRight = new PictureBox();
+            PictureBoxBottomLeft = new PictureBox();
+            PictureBoxBottomRight = new PictureBox();
             panel1.SuspendLayout();
             tabControlMain.SuspendLayout();
             tabPagePatients.SuspendLayout();
             tabPageCapture.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)PictureBoxCamera).BeginInit();
+            TabPageCompare.SuspendLayout();
             tabPagemark.SuspendLayout();
             MainPanelMark.SuspendLayout();
             PanelPictureList.SuspendLayout();
             MainPanel.SuspendLayout();
             BottomPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)PictureBoxTopLeft).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)PictureBoxTopRight).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)PictureBoxBottomLeft).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)PictureBoxBottomRight).BeginInit();
             SuspendLayout();
             // 
             // panel1
@@ -95,7 +106,7 @@
             // 
             tabControlMain.Controls.Add(tabPagePatients);
             tabControlMain.Controls.Add(tabPageCapture);
-            tabControlMain.Controls.Add(tabPageCompare);
+            tabControlMain.Controls.Add(TabPageCompare);
             tabControlMain.Controls.Add(tabPagemark);
             tabControlMain.Controls.Add(Settings);
             tabControlMain.Dock = DockStyle.Fill;
@@ -132,6 +143,7 @@
             // 
             // tabPageCapture
             // 
+            tabPageCapture.Controls.Add(pictureBox1);
             tabPageCapture.Controls.Add(BtnCapture);
             tabPageCapture.Controls.Add(PictureBoxCamera);
             tabPageCapture.Location = new Point(8, 46);
@@ -142,6 +154,15 @@
             tabPageCapture.TabIndex = 1;
             tabPageCapture.Text = "Capture";
             tabPageCapture.UseVisualStyleBackColor = true;
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.Location = new Point(9, 9);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(664, 518);
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox1.TabIndex = 3;
+            pictureBox1.TabStop = false;
             // 
             // BtnCapture
             // 
@@ -164,15 +185,19 @@
             PictureBoxCamera.TabIndex = 0;
             PictureBoxCamera.TabStop = false;
             // 
-            // tabPageCompare
+            // TabPageCompare
             // 
-            tabPageCompare.Location = new Point(8, 46);
-            tabPageCompare.Margin = new Padding(6);
-            tabPageCompare.Name = "tabPageCompare";
-            tabPageCompare.Size = new Size(1408, 1062);
-            tabPageCompare.TabIndex = 2;
-            tabPageCompare.Text = "Compare";
-            tabPageCompare.UseVisualStyleBackColor = true;
+            TabPageCompare.Controls.Add(PictureBoxBottomRight);
+            TabPageCompare.Controls.Add(PictureBoxBottomLeft);
+            TabPageCompare.Controls.Add(PictureBoxTopRight);
+            TabPageCompare.Controls.Add(PictureBoxTopLeft);
+            TabPageCompare.Location = new Point(8, 46);
+            TabPageCompare.Margin = new Padding(6);
+            TabPageCompare.Name = "TabPageCompare";
+            TabPageCompare.Size = new Size(1408, 1062);
+            TabPageCompare.TabIndex = 2;
+            TabPageCompare.Text = "Compare";
+            TabPageCompare.UseVisualStyleBackColor = true;
             // 
             // tabPagemark
             // 
@@ -292,6 +317,42 @@
             LabelCurrentPatient.TabIndex = 0;
             LabelCurrentPatient.Text = "Current Patient: Admin";
             // 
+            // PictureBoxTopLeft
+            // 
+            PictureBoxTopLeft.BackColor = Color.WhiteSmoke;
+            PictureBoxTopLeft.Location = new Point(4, 3);
+            PictureBoxTopLeft.Name = "PictureBoxTopLeft";
+            PictureBoxTopLeft.Size = new Size(683, 550);
+            PictureBoxTopLeft.TabIndex = 0;
+            PictureBoxTopLeft.TabStop = false;
+            // 
+            // PictureBoxTopRight
+            // 
+            PictureBoxTopRight.BackColor = Color.WhiteSmoke;
+            PictureBoxTopRight.Location = new Point(693, 3);
+            PictureBoxTopRight.Name = "PictureBoxTopRight";
+            PictureBoxTopRight.Size = new Size(712, 550);
+            PictureBoxTopRight.TabIndex = 1;
+            PictureBoxTopRight.TabStop = false;
+            // 
+            // PictureBoxBottomLeft
+            // 
+            PictureBoxBottomLeft.BackColor = Color.WhiteSmoke;
+            PictureBoxBottomLeft.Location = new Point(7, 559);
+            PictureBoxBottomLeft.Name = "PictureBoxBottomLeft";
+            PictureBoxBottomLeft.Size = new Size(680, 500);
+            PictureBoxBottomLeft.TabIndex = 2;
+            PictureBoxBottomLeft.TabStop = false;
+            // 
+            // PictureBoxBottomRight
+            // 
+            PictureBoxBottomRight.BackColor = Color.WhiteSmoke;
+            PictureBoxBottomRight.Location = new Point(693, 559);
+            PictureBoxBottomRight.Name = "PictureBoxBottomRight";
+            PictureBoxBottomRight.Size = new Size(712, 500);
+            PictureBoxBottomRight.TabIndex = 3;
+            PictureBoxBottomRight.TabStop = false;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(13F, 32F);
@@ -309,13 +370,19 @@
             tabControlMain.ResumeLayout(false);
             tabPagePatients.ResumeLayout(false);
             tabPageCapture.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)PictureBoxCamera).EndInit();
+            TabPageCompare.ResumeLayout(false);
             tabPagemark.ResumeLayout(false);
             MainPanelMark.ResumeLayout(false);
             PanelPictureList.ResumeLayout(false);
             MainPanel.ResumeLayout(false);
             BottomPanel.ResumeLayout(false);
             BottomPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)PictureBoxTopLeft).EndInit();
+            ((System.ComponentModel.ISupportInitialize)PictureBoxTopRight).EndInit();
+            ((System.ComponentModel.ISupportInitialize)PictureBoxBottomLeft).EndInit();
+            ((System.ComponentModel.ISupportInitialize)PictureBoxBottomRight).EndInit();
             ResumeLayout(false);
         }
 
@@ -328,7 +395,7 @@
         private TabPage tabPagePatients;
         private TabPage tabPageCapture;
         private Panel PanelPatients;
-        private TabPage tabPageCompare;
+        private TabPage TabPageCompare;
         private TabPage tabPagemark;
         private TabPage Settings;
         private Panel panel2;
@@ -343,5 +410,10 @@
         private Panel MainPanel;
         private Panel BottomPanel;
         private Label LabelCurrentPatient;
+        private PictureBox pictureBox1;
+        private PictureBox PictureBoxBottomLeft;
+        private PictureBox PictureBoxTopRight;
+        private PictureBox PictureBoxTopLeft;
+        private PictureBox PictureBoxBottomRight;
     }
 }
