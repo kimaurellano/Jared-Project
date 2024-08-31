@@ -60,5 +60,9 @@ namespace Madentra {
             controlToShow.Visible = true;
             controlToShow.BringToFront(); // Bring the control to the front if needed
         }
+
+        public void ShowDefaultPanel() {
+            ShowContentInTabPatients(DataGridViewPatientUserControlInstance);
+        }
     }
 }

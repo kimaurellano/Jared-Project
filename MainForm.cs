@@ -55,7 +55,7 @@ namespace Madentra {
         }
 
         private void BtnSearchPatient_Click(object sender, EventArgs e) {
-            ShowContentInTabPatients(searchPatientUserControl);
+            searchPatientUserControl.ShowDefaultPanel();
         }
 
         private void ShowContentInTabPatients(UserControl userControl) {
