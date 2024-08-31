@@ -47,6 +47,7 @@
             Controls.Add(dataGridViewPatients);
             Name = "DataGridViewPatientUserControl";
             Size = new Size(1086, 926);
+            Paint += DataGridViewPatientUserControl_Paint;
             ((System.ComponentModel.ISupportInitialize)dataGridViewPatients).EndInit();
             ResumeLayout(false);
         }

@@ -9,6 +9,8 @@ namespace Jared.UserControls {
         private DBHelpers dbHelpers = new();
         private string _selectedPatient = string.Empty;
 
+        private DataGridViewPatientUserControl dataGridViewPatientUserControl;
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         public string SelectedPatient {
@@ -57,6 +59,10 @@ namespace Jared.UserControls {
 
             // Trigger the observer
             SelectedPatient = dbHelpers.GetSelectedPatient().Name;
+        }
+
+        private void DataGridViewPatientUserControl_Paint(object sender, PaintEventArgs e) {
+            PopulatePatientDataGrid();
         }
     }
 }

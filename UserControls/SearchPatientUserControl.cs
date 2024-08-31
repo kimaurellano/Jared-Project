@@ -1,4 +1,6 @@
-﻿using Jared.UserControls;
+﻿using Jared.helpers;
+using Jared.UserControls;
+using System.ComponentModel;
 using System.Diagnostics;
 
 namespace Jared {
@@ -18,6 +20,14 @@ namespace Jared {
             SearchPatientSubPanel.Controls.Add(selectedPersonUserControl);
 
             ShowContentInTabPatients(DataGridViewPatientUserControlInstance);
+
+            DataGridViewPatientUserControlInstance.PropertyChanged += SelectedPatient_PropertyChanged;
+        }
+
+        private void SelectedPatient_PropertyChanged(object sender, PropertyChangedEventArgs e) {
+            if (e.PropertyName == nameof(DataGridViewPatientUserControl.SelectedPatient)) {
+                ShowContentInTabPatients(selectedPersonUserControl);
+            }
         }
 
         private void ShowContentInTabPatients(UserControl userControl) {
