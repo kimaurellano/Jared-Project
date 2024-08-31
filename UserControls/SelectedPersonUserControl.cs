@@ -1,8 +1,8 @@
-﻿using Jared.helpers;
+﻿using Madentra.helpers;
 using System.ComponentModel;
 using System.Diagnostics;
 
-namespace Jared {
+namespace Madentra {
     public partial class SelectedPersonUserControl : UserControl {
 
         private DBHelpers dbHelpers = new();

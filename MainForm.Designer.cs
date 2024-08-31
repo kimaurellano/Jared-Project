@@ -1,4 +1,4 @@
-﻿namespace Jared {
+﻿namespace Madentra {
     partial class MainForm {
         /// <summary>
         ///  Required designer variable.

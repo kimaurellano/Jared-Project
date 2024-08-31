@@ -1,4 +1,4 @@
-﻿namespace Jared {
+﻿namespace Madentra {
     partial class CreateNewPatientUserControl {
         /// <summary> 
         /// Required designer variable.

@@ -1,4 +1,4 @@
-﻿namespace Jared {
+﻿namespace Madentra {
     partial class SelectedPersonUserControl {
         /// <summary> 
         /// Required designer variable.

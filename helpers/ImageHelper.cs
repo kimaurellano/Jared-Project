@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Jared.helpers {
+namespace Madentra.helpers {
     internal class ImageHelper {
         public byte[] ImageToByteArray(Image image) {
             using (MemoryStream memoryStream = new()) {

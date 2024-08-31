@@ -1,4 +1,4 @@
-﻿using Jared.Model;
+﻿using Madentra.Model;
 using Microsoft.Data.Sqlite;
 using System.Data;
 using System.Drawing.Imaging;
@@ -6,7 +6,7 @@ using System.Reflection.Metadata;
 using System.Windows.Forms;
 using System.Xml.Linq;
 
-namespace Jared.helpers {
+namespace Madentra.helpers {
     internal class DBHelpers {
 
         private static readonly SqliteConnection _connection = new($"Data Source=C:\\Users\\USER\\Documents\\Visual Studio 2022\\Project\\Jared\\jared.db");

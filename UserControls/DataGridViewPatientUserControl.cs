@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel;
-using Jared.helpers;
-using Jared.Model;
+using Madentra.helpers;
+using Madentra.Model;
 using System.Diagnostics;
 
-namespace Jared.UserControls {
+namespace Madentra.UserControls {
     public partial class DataGridViewPatientUserControl : UserControl, INotifyPropertyChanged {
 
         private DBHelpers dbHelpers = new();
@@ -40,6 +40,10 @@ namespace Jared.UserControls {
             dataGridViewPatients.DataSource = dbHelpers.SelectPatients();
         }
 
+        private void DataGridViewPatientUserControl_Paint(object sender, PaintEventArgs e) {
+            PopulatePatientDataGrid();
+        }
+
         private void DataGridViewPatients_CellDoubleClick(object sender, DataGridViewCellEventArgs e) {
             Patient patient = new();
             foreach (DataGridViewRow row in dataGridViewPatients.SelectedRows) {
@@ -59,10 +63,6 @@ namespace Jared.UserControls {
 
             // Trigger the observer
             SelectedPatient = dbHelpers.GetSelectedPatient().Name;
-        }
-
-        private void DataGridViewPatientUserControl_Paint(object sender, PaintEventArgs e) {
-            PopulatePatientDataGrid();
         }
     }
 }

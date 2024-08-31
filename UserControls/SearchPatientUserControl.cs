@@ -1,9 +1,9 @@
-﻿using Jared.helpers;
-using Jared.UserControls;
+﻿using Madentra.helpers;
+using Madentra.UserControls;
 using System.ComponentModel;
 using System.Diagnostics;
 
-namespace Jared {
+namespace Madentra {
     public partial class SearchPatientUserControl : UserControl {
 
         private SelectedPersonUserControl selectedPersonUserControl;

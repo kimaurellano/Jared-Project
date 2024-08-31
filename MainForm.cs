@@ -1,11 +1,11 @@
 using AForge.Video.DirectShow;
 using AForge.Video;
-using Jared.helpers;
+using Madentra.helpers;
 using System.ComponentModel;
-using Jared.UserControls;
+using Madentra.UserControls;
 using System.Diagnostics;
 
-namespace Jared {
+namespace Madentra {
     public partial class MainForm : Form {
 
         private DBHelpers dbHelpers = new();

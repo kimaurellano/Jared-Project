@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Jared.Properties {
+namespace Madentra.Properties {
     using System;
     
     

@@ -1,4 +1,4 @@
-﻿namespace Jared.UserControls {
+﻿namespace Madentra.UserControls {
     partial class DataGridViewPatientUserControl {
         /// <summary> 
         /// Required designer variable.
@@ -39,6 +39,7 @@
             dataGridViewPatients.RowHeadersWidth = 82;
             dataGridViewPatients.Size = new Size(1086, 926);
             dataGridViewPatients.TabIndex = 0;
+            dataGridViewPatients.CellDoubleClick += DataGridViewPatients_CellDoubleClick;
             // 
             // DataGridViewPatientUserControl
             // 
