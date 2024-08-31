@@ -4,13 +4,15 @@ using Madentra.helpers;
 using System.ComponentModel;
 using Madentra.UserControls;
 using System.Diagnostics;
+using System.Windows.Forms;
+using Jared.helpers;
 
 namespace Madentra {
     public partial class MainForm : Form {
 
         private DBHelpers dbHelpers = new();
-        private FilterInfoCollection videoDevices;
-        private VideoCaptureDevice videoSource;
+        private VideoFeedManager singleFeedManager;
+        private VideoFeedManager quadFeedManager;
 
         private DataGridViewPatientUserControl dataGridViewPatientUserControl;
         private SearchPatientUserControl searchPatientUserControl;
@@ -21,6 +23,8 @@ namespace Madentra {
             Debug.WriteLine($"{Name}");
             InitializeListView();
             InitializePages();
+
+            LabelCurrentPatient.Text = $"Current Patient: {dbHelpers.GetSelectedPatient().Name}";
         }
 
         private void SelectedPatient_PropertyChanged(object sender, PropertyChangedEventArgs e) {
@@ -41,6 +45,19 @@ namespace Madentra {
             ShowContentInTabPatients(searchPatientUserControl);
 
             searchPatientUserControl.DataGridViewPatientUserControlInstance.PropertyChanged += DataGridViewPatientUserControlInstance_PropertyChanged;
+
+            var videoDevices = new FilterInfoCollection(FilterCategory.VideoInputDevice);
+            singleFeedManager = new VideoFeedManager(
+                videoDevices, 
+                PictureBoxCamera);
+            quadFeedManager = new VideoFeedManager(
+                videoDevices, 
+                PictureBoxBottomLeft, 
+                PictureBoxBottomRight, 
+                PictureBoxTopLeft, 
+                PictureBoxTopRight);
+
+            TabControlMain.SelectedIndexChanged += TabControlMain_SelectedIndexChanged;
         }
 
         private void DataGridViewPatientUserControlInstance_PropertyChanged(object sender, PropertyChangedEventArgs e) {
@@ -86,54 +103,49 @@ namespace Madentra {
             controlToShow.BringToFront(); // Bring the control to the front if needed
         }
 
-        private void InitializeCamera() {
-            // Get the available video devices
-            videoDevices = new FilterInfoCollection(FilterCategory.VideoInputDevice);
-
-            if (videoDevices.Count == 0) {
-                MessageBox.Show("No video sources found");
-                return;
-            }
-
-            // Choose the first available video device
-            videoSource = new VideoCaptureDevice(videoDevices[0].MonikerString);
-
-            // Set NewFrame event handler to capture frames from the video source
-            videoSource.NewFrame += new NewFrameEventHandler(VideoSource_NewFrame);
-
-            // Start the video source
-            videoSource.Start();
-        }
-
-        private void CloseCamera() {
-            // Stop the video source when closing the form
-            if (videoSource != null && videoSource.IsRunning) {
-                videoSource.SignalToStop();
-                videoSource.WaitForStop();
-            }
-        }
-
         private void VideoSource_NewFrame(object sender, NewFrameEventArgs eventArgs) {
-            // Get the frame from the camera
-            Bitmap frame = (Bitmap)eventArgs.Frame.Clone();
+            Bitmap bitmap = (Bitmap)eventArgs.Frame.Clone();
 
-            // Display the frame in the PictureBox
-            PictureBoxCamera.Image = frame;
-            PictureBoxCamera.SizeMode = PictureBoxSizeMode.CenterImage;
+            // Display the same frame in the single feed PictureBox
+            if (TabControlMain.SelectedIndex == 0) {
+                PictureBoxCamera.Image?.Dispose();
+                PictureBoxCamera.Image = (Bitmap)bitmap.Clone();
+            }
+
+            // Display the same frame in all four PictureBoxes
+            if (TabControlMain.SelectedIndex == 1) {
+                PictureBoxBottomLeft.Image?.Dispose();
+                PictureBoxBottomRight.Image?.Dispose();
+                PictureBoxTopLeft.Image?.Dispose();
+                PictureBoxTopRight.Image?.Dispose();
+
+                PictureBoxBottomLeft.Image = (Bitmap)bitmap.Clone();
+                PictureBoxBottomRight.Image = (Bitmap)bitmap.Clone();
+                PictureBoxTopLeft.Image = (Bitmap)bitmap.Clone();
+                PictureBoxTopRight.Image = (Bitmap)bitmap.Clone();
+            }
+
+            // Dispose the original bitmap to free memory
+            bitmap.Dispose();
         }
 
         private void TabControlMain_SelectedIndexChanged(object sender, EventArgs e) {
-            if (tabControlMain != null) {
-                if (tabControlMain.SelectedIndex == 1) {
-                    InitializeCamera();
-                } else {
-                    CloseCamera();
-                }
+            switch (TabControlMain.SelectedIndex) {
+                case 1: // Single feed tab
+                    singleFeedManager.StartFeed();
+                    quadFeedManager.StopFeed();
+                    break;
+
+                case 2: // Quad feed tab
+                    quadFeedManager.StartFeed();
+                    singleFeedManager.StopFeed();
+                    break;
             }
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e) {
-            CloseCamera();
+            singleFeedManager.StopFeed();
+            quadFeedManager.StopFeed();
         }
 
         private void BtnCapture_Click(object sender, EventArgs e) {
