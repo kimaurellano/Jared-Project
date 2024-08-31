@@ -44,10 +44,7 @@ namespace Madentra {
         }
 
         private void DataGridViewPatientUserControlInstance_PropertyChanged(object sender, PropertyChangedEventArgs e) {
-            if (e.PropertyName == "YourProperty") {
-                // Handle the property change event here
-                MessageBox.Show("Property changed in DataGridViewPatientUserControl!");
-            }
+            LabelCurrentPatient.Text = $"Current Patient: {dbHelpers.GetSelectedPatient().Name}";
         }
 
         private void BtnCreateNewPatient_Click(object sender, EventArgs e) {
