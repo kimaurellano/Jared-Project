@@ -13,11 +13,14 @@ namespace Madentra {
             InitializeComponent();
             Debug.WriteLine($"{Name}");
 
+            Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom;
+            Dock = DockStyle.Fill;
+
             selectedPersonUserControl = new SelectedPersonUserControl();
             DataGridViewPatientUserControlInstance = new DataGridViewPatientUserControl();
 
-            SearchPatientSubPanel.Controls.Add(DataGridViewPatientUserControlInstance);
-            SearchPatientSubPanel.Controls.Add(selectedPersonUserControl);
+            SearchPatientParentPanel.Controls.Add(DataGridViewPatientUserControlInstance);
+            SearchPatientParentPanel.Controls.Add(selectedPersonUserControl);
 
             ShowContentInTabPatients(DataGridViewPatientUserControlInstance);
 
@@ -31,7 +34,7 @@ namespace Madentra {
         }
 
         private void ShowContentInTabPatients(UserControl userControl) {
-            Panel panel = SearchPatientSubPanel;
+            Panel panel = SearchPatientParentPanel;
             if (panel != null) {
                 foreach (Control control in panel.Controls) {
                     // Check if usercontrol exists in the panel

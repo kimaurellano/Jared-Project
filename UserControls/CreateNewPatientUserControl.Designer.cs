@@ -31,24 +31,27 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(32, 25);
+            label1.Location = new Point(59, 53);
+            label1.Margin = new Padding(6, 0, 6, 0);
             label1.Name = "label1";
-            label1.Size = new Size(39, 15);
+            label1.Size = new Size(78, 32);
             label1.TabIndex = 0;
             label1.Text = "Name";
             // 
             // TextBoxName
             // 
-            TextBoxName.Location = new Point(77, 22);
+            TextBoxName.Location = new Point(143, 47);
+            TextBoxName.Margin = new Padding(6, 6, 6, 6);
             TextBoxName.Name = "TextBoxName";
-            TextBoxName.Size = new Size(100, 23);
+            TextBoxName.Size = new Size(182, 39);
             TextBoxName.TabIndex = 1;
             // 
             // BtnCreatePatient
             // 
-            BtnCreatePatient.Location = new Point(390, 332);
+            BtnCreatePatient.Location = new Point(724, 708);
+            BtnCreatePatient.Margin = new Padding(6, 6, 6, 6);
             BtnCreatePatient.Name = "BtnCreatePatient";
-            BtnCreatePatient.Size = new Size(75, 23);
+            BtnCreatePatient.Size = new Size(139, 49);
             BtnCreatePatient.TabIndex = 2;
             BtnCreatePatient.Text = "Create";
             BtnCreatePatient.UseVisualStyleBackColor = true;
@@ -56,13 +59,15 @@
             // 
             // CreateNewPatientUserControl
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = SystemColors.ActiveCaption;
             Controls.Add(BtnCreatePatient);
             Controls.Add(TextBoxName);
             Controls.Add(label1);
+            Margin = new Padding(6, 6, 6, 6);
             Name = "CreateNewPatientUserControl";
-            Size = new Size(496, 373);
+            Size = new Size(921, 796);
             ResumeLayout(false);
             PerformLayout();
         }

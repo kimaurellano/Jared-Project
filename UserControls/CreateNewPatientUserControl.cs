@@ -17,6 +17,10 @@ namespace Madentra {
 
         public CreateNewPatientUserControl() {
             InitializeComponent();
+
+            Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom;
+            Dock = DockStyle.Fill;
+
             Debug.WriteLine($"{Name}");
         }
 

@@ -33,6 +33,9 @@ namespace Madentra.UserControls {
             InitializeComponent();
             Debug.WriteLine($"{Name}");
 
+            Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom;
+            Dock = DockStyle.Fill;
+
             PopulatePatientDataGrid();
         }
 
@@ -45,24 +48,25 @@ namespace Madentra.UserControls {
         }
 
         private void DataGridViewPatients_CellDoubleClick(object sender, DataGridViewCellEventArgs e) {
-            Patient patient = new();
-            foreach (DataGridViewRow row in dataGridViewPatients.SelectedRows) {
-                // Access data in the selected row.
-                var cellValue = row.Cells["Id"].Value;
-                patient.Id = (long)cellValue;
+            if (e.RowIndex >= 0) { // Ensures the click wasn't on the header row
+                Patient patient = new();
+
+                // Get the selected row and cell value
+                var selectedRow = ((DataGridView)sender).Rows[e.RowIndex];
+                patient.Id = (long)selectedRow.Cells["Id"].Value;
+
+                // Need to refresh the Selected Patient table.
+                var checkSelectedPatient = dbHelpers.GetSelectedPatient();
+                if (checkSelectedPatient != null) {
+                    dbHelpers.ClearSelectedPatient();
+                }
+
+                // Insert selected patient to SelectedPatient table.
+                dbHelpers.InsertToSelectedPatientTable(patient);
+
+                // Trigger the observer
+                SelectedPatient = dbHelpers.GetSelectedPatient().Name;
             }
-
-            // Need to refresh the Selected Patient table.
-            var checkSelectedPatient = dbHelpers.GetSelectedPatient();
-            if (checkSelectedPatient != null) {
-                dbHelpers.ClearSelectedPatient();
-            }
-
-            // Insert selected patient to SelectedPatient table.
-            dbHelpers.InsertToSelectedPatientTable(patient);
-
-            // Trigger the observer
-            SelectedPatient = dbHelpers.GetSelectedPatient().Name;
         }
     }
 }
