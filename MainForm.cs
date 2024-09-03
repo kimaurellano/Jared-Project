@@ -6,6 +6,7 @@ using Madentra.UserControls;
 using System.Diagnostics;
 using System.Windows.Forms;
 using Jared.helpers;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Madentra {
     public partial class MainForm : Form {
@@ -17,6 +18,9 @@ namespace Madentra {
         private DataGridViewPatientUserControl dataGridViewPatientUserControl;
         private SearchPatientUserControl searchPatientUserControl;
         private CreateNewPatientUserControl createNewPatientUserControl;
+
+        // To remember selected image in the listview
+        private int lastSelectedIndex = -1;
 
         public MainForm() {
             InitializeComponent();
@@ -48,13 +52,13 @@ namespace Madentra {
 
             var videoDevices = new FilterInfoCollection(FilterCategory.VideoInputDevice);
             singleFeedManager = new VideoFeedManager(
-                videoDevices, 
+                videoDevices,
                 PictureBoxCamera);
             quadFeedManager = new VideoFeedManager(
-                videoDevices, 
-                PictureBoxBottomLeft, 
-                PictureBoxBottomRight, 
-                PictureBoxTopLeft, 
+                videoDevices,
+                PictureBoxBottomLeft,
+                PictureBoxBottomRight,
+                PictureBoxTopLeft,
                 PictureBoxTopRight);
 
             TabControlMain.SelectedIndexChanged += TabControlMain_SelectedIndexChanged;
@@ -161,7 +165,7 @@ namespace Madentra {
                 string filePath = $"{patientName}_{epochTime}.png"; // You can customize the file path and name
                 string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
                 PictureBoxCamera.Image.Save(filePath, System.Drawing.Imaging.ImageFormat.Png);
-                
+
                 MessageBox.Show("Image captured and saved to " + filePath);
 
                 // Insert image into to database as blob.
@@ -199,6 +203,42 @@ namespace Madentra {
                 item.Text = $"Image {i + 1}"; // Optionally add a text label
                 ListViewImages.Items.Add(item);
             }
+        }
+
+        private void ListViewImages_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e) {
+            if (ListViewImages.SelectedItems.Count > 0) {
+                // Get the selected item
+                ListViewItem selectedItem = ListViewImages.SelectedItems[0];
+
+                // Just remember the last selected item
+                lastSelectedIndex = selectedItem.Index;
+            }
+        }
+
+        private void PictureBoxTopRight_Click(object sender, EventArgs e) {
+            quadFeedManager.StopFeed(PictureBoxTopRight);
+            DisplaySelectedImage(PictureBoxTopRight);
+        }
+
+        private void PictureBoxTopLeft_Click(object sender, EventArgs e) {
+            quadFeedManager.StopFeed(PictureBoxTopLeft);
+            DisplaySelectedImage(PictureBoxTopLeft);
+        }
+
+        private void PictureBoxBottomLeft_Click(object sender, EventArgs e) {
+            quadFeedManager.StopFeed(PictureBoxBottomLeft);
+            DisplaySelectedImage(PictureBoxBottomLeft);
+        }
+
+        private void PictureBoxBottomRight_Click(object sender, EventArgs e) {
+            quadFeedManager.StopFeed(PictureBoxBottomRight);
+            DisplaySelectedImage(PictureBoxBottomRight);
+        }
+
+        private void DisplaySelectedImage(PictureBox pictureBox) {
+            Image selectedImage = ImageListMain.Images[lastSelectedIndex];
+            pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox.Image = selectedImage;
         }
     }
 }

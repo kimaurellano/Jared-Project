@@ -4,11 +4,11 @@ using AForge.Video;
 namespace Jared.helpers {
     internal class VideoFeedManager {
         private VideoCaptureDevice videoSource;
-        private PictureBox[] pictureBoxes;
+        private List<PictureBox> pictureBoxes;
 
         public VideoFeedManager(FilterInfoCollection videoDevices, params PictureBox[] pictureBoxes) {
             this.videoSource = new VideoCaptureDevice(videoDevices[0].MonikerString);
-            this.pictureBoxes = pictureBoxes;
+            this.pictureBoxes = pictureBoxes.ToList();
             this.videoSource.NewFrame += VideoSource_NewFrame;
         }
 
@@ -34,6 +34,10 @@ namespace Jared.helpers {
                     pictureBox.Image = null;
                 }
             }
+        }
+
+        public void StopFeed(PictureBox pictureBox) {
+            pictureBoxes.Remove(pictureBox);
         }
     }
 }

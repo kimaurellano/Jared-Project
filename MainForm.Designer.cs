@@ -41,9 +41,9 @@
             PictureBoxBottomLeft = new PictureBox();
             tabPagemark = new TabPage();
             MainPanelMark = new Panel();
+            PanelMark = new Panel();
             panel4 = new Panel();
             panel3 = new Panel();
-            panel2 = new Panel();
             Settings = new TabPage();
             PanelPictureList = new Panel();
             ListViewImages = new ListView();
@@ -64,6 +64,7 @@
             ((System.ComponentModel.ISupportInitialize)PictureBoxBottomLeft).BeginInit();
             tabPagemark.SuspendLayout();
             MainPanelMark.SuspendLayout();
+            PanelMark.SuspendLayout();
             PanelPictureList.SuspendLayout();
             MainPanel.SuspendLayout();
             BottomPanel.SuspendLayout();
@@ -214,6 +215,7 @@
             PictureBoxTopLeft.SizeMode = PictureBoxSizeMode.CenterImage;
             PictureBoxTopLeft.TabIndex = 0;
             PictureBoxTopLeft.TabStop = false;
+            PictureBoxTopLeft.Click += PictureBoxTopLeft_Click;
             // 
             // PictureBoxBottomRight
             // 
@@ -225,6 +227,7 @@
             PictureBoxBottomRight.SizeMode = PictureBoxSizeMode.CenterImage;
             PictureBoxBottomRight.TabIndex = 3;
             PictureBoxBottomRight.TabStop = false;
+            PictureBoxBottomRight.Click += PictureBoxBottomRight_Click;
             // 
             // PictureBoxTopRight
             // 
@@ -236,6 +239,7 @@
             PictureBoxTopRight.SizeMode = PictureBoxSizeMode.CenterImage;
             PictureBoxTopRight.TabIndex = 1;
             PictureBoxTopRight.TabStop = false;
+            PictureBoxTopRight.Click += PictureBoxTopRight_Click;
             // 
             // PictureBoxBottomLeft
             // 
@@ -247,11 +251,11 @@
             PictureBoxBottomLeft.SizeMode = PictureBoxSizeMode.CenterImage;
             PictureBoxBottomLeft.TabIndex = 2;
             PictureBoxBottomLeft.TabStop = false;
+            PictureBoxBottomLeft.Click += PictureBoxBottomLeft_Click;
             // 
             // tabPagemark
             // 
             tabPagemark.Controls.Add(MainPanelMark);
-            tabPagemark.Controls.Add(panel2);
             tabPagemark.Location = new Point(8, 46);
             tabPagemark.Margin = new Padding(6);
             tabPagemark.Name = "tabPagemark";
@@ -262,14 +266,23 @@
             // 
             // MainPanelMark
             // 
-            MainPanelMark.Controls.Add(panel4);
-            MainPanelMark.Controls.Add(panel3);
+            MainPanelMark.Controls.Add(PanelMark);
             MainPanelMark.Dock = DockStyle.Fill;
-            MainPanelMark.Location = new Point(410, 0);
+            MainPanelMark.Location = new Point(0, 0);
             MainPanelMark.Margin = new Padding(6);
             MainPanelMark.Name = "MainPanelMark";
-            MainPanelMark.Size = new Size(998, 1062);
+            MainPanelMark.Size = new Size(1408, 1062);
             MainPanelMark.TabIndex = 1;
+            // 
+            // PanelMark
+            // 
+            PanelMark.Controls.Add(panel4);
+            PanelMark.Controls.Add(panel3);
+            PanelMark.Dock = DockStyle.Fill;
+            PanelMark.Location = new Point(0, 0);
+            PanelMark.Name = "PanelMark";
+            PanelMark.Size = new Size(1408, 1062);
+            PanelMark.TabIndex = 0;
             // 
             // panel4
             // 
@@ -278,8 +291,8 @@
             panel4.Location = new Point(0, 0);
             panel4.Margin = new Padding(6);
             panel4.Name = "panel4";
-            panel4.Size = new Size(998, 849);
-            panel4.TabIndex = 1;
+            panel4.Size = new Size(1408, 849);
+            panel4.TabIndex = 3;
             // 
             // panel3
             // 
@@ -288,17 +301,8 @@
             panel3.Location = new Point(0, 849);
             panel3.Margin = new Padding(6);
             panel3.Name = "panel3";
-            panel3.Size = new Size(998, 213);
-            panel3.TabIndex = 0;
-            // 
-            // panel2
-            // 
-            panel2.Dock = DockStyle.Left;
-            panel2.Location = new Point(0, 0);
-            panel2.Margin = new Padding(6);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(410, 1062);
-            panel2.TabIndex = 0;
+            panel3.Size = new Size(1408, 213);
+            panel3.TabIndex = 2;
             // 
             // Settings
             // 
@@ -329,6 +333,7 @@
             ListViewImages.Size = new Size(474, 1116);
             ListViewImages.TabIndex = 3;
             ListViewImages.UseCompatibleStateImageBehavior = false;
+            ListViewImages.ItemSelectionChanged += ListViewImages_ItemSelectionChanged;
             // 
             // ImageListMain
             // 
@@ -392,6 +397,7 @@
             ((System.ComponentModel.ISupportInitialize)PictureBoxBottomLeft).EndInit();
             tabPagemark.ResumeLayout(false);
             MainPanelMark.ResumeLayout(false);
+            PanelMark.ResumeLayout(false);
             PanelPictureList.ResumeLayout(false);
             MainPanel.ResumeLayout(false);
             BottomPanel.ResumeLayout(false);
@@ -411,10 +417,7 @@
         private TabPage TabPageCompare;
         private TabPage tabPagemark;
         private TabPage Settings;
-        private Panel panel2;
         private Panel MainPanelMark;
-        private Panel panel4;
-        private Panel panel3;
         private PictureBox PictureBoxCamera;
         private Button BtnCapture;
         private Panel PanelPictureList;
@@ -428,5 +431,8 @@
         private PictureBox PictureBoxTopLeft;
         private PictureBox PictureBoxBottomRight;
         private TableLayoutPanel tableLayoutPanel1;
+        private Panel PanelMark;
+        private Panel panel4;
+        private Panel panel3;
     }
 }
