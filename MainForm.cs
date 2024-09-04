@@ -134,16 +134,18 @@ namespace Madentra {
         }
 
         private void TabControlMain_SelectedIndexChanged(object sender, EventArgs e) {
-            switch (TabControlMain.SelectedIndex) {
-                case 1: // Single feed tab
-                    singleFeedManager.StartFeed();
-                    quadFeedManager.StopFeed();
-                    break;
+            // We do not need feed on other tabs
+            if (TabControlMain.SelectedIndex != 1 && TabControlMain.SelectedIndex != 2) {
+                singleFeedManager.StopFeed();
+                quadFeedManager.StopFeed();
+            }
 
-                case 2: // Quad feed tab
-                    quadFeedManager.StartFeed();
-                    singleFeedManager.StopFeed();
-                    break;
+            if (TabControlMain.SelectedIndex == 1) {
+                singleFeedManager.StartFeed();
+                quadFeedManager.StopFeed();
+            } else if (TabControlMain.SelectedIndex == 2) {
+                quadFeedManager.StartFeed();
+                singleFeedManager.StopFeed();
             }
         }
 
