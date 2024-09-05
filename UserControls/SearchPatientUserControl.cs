@@ -64,5 +64,9 @@ namespace Madentra {
         public void ShowDefaultPanel() {
             ShowContentInTabPatients(DataGridViewPatientUserControlInstance);
         }
+
+        public void ShowSelectedPatientPanel() {
+            ShowContentInTabPatients(selectedPersonUserControl);
+        }
     }
 }

@@ -242,5 +242,10 @@ namespace Madentra {
             pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox.Image = selectedImage;
         }
+
+        private void BtnSelectedPatient_Click(object sender, EventArgs e) {
+            ShowContentInTabPatients(searchPatientUserControl);
+            searchPatientUserControl.ShowSelectedPatientPanel();
+        }
     }
 }
