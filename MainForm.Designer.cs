@@ -51,6 +51,7 @@
             MainPanel = new Panel();
             BottomPanel = new Panel();
             LabelCurrentPatient = new Label();
+            BtnSelectedPatient = new Button();
             panel1.SuspendLayout();
             TabControlMain.SuspendLayout();
             tabPagePatients.SuspendLayout();
@@ -72,6 +73,7 @@
             // 
             // panel1
             // 
+            panel1.Controls.Add(BtnSelectedPatient);
             panel1.Controls.Add(btnSearchPatient);
             panel1.Controls.Add(btnCreateNewPatient);
             panel1.Dock = DockStyle.Left;
@@ -371,6 +373,17 @@
             LabelCurrentPatient.TabIndex = 0;
             LabelCurrentPatient.Text = "Current Patient: Admin";
             // 
+            // BtnSelectedPatient
+            // 
+            BtnSelectedPatient.Location = new Point(6, 183);
+            BtnSelectedPatient.Margin = new Padding(6);
+            BtnSelectedPatient.Name = "BtnSelectedPatient";
+            BtnSelectedPatient.Size = new Size(539, 102);
+            BtnSelectedPatient.TabIndex = 3;
+            BtnSelectedPatient.Text = "Selected Patient";
+            BtnSelectedPatient.UseVisualStyleBackColor = true;
+            BtnSelectedPatient.Click += BtnSelectedPatient_Click;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(13F, 32F);
@@ -434,5 +447,6 @@
         private Panel PanelMark;
         private Panel panel4;
         private Panel panel3;
+        private Button BtnSelectedPatient;
     }
 }
