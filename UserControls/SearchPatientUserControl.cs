@@ -24,6 +24,7 @@ namespace Madentra {
 
             ShowContentInTabPatients(DataGridViewPatientUserControlInstance);
 
+            // If property PropertyChanged changed, subscribing function will be notified.
             DataGridViewPatientUserControlInstance.PropertyChanged += SelectedPatient_PropertyChanged;
         }
 
@@ -62,6 +63,7 @@ namespace Madentra {
         }
 
         public void ShowDefaultPanel() {
+            DataGridViewPatientUserControlInstance.PopulatePatientDataGrid();
             ShowContentInTabPatients(DataGridViewPatientUserControlInstance);
         }
 

@@ -39,7 +39,7 @@ namespace Madentra.UserControls {
             PopulatePatientDataGrid();
         }
 
-        private void PopulatePatientDataGrid() {
+        public void PopulatePatientDataGrid() {
             dataGridViewPatients.DataSource = dbHelpers.SelectPatients();
         }
 
