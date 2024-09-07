@@ -65,7 +65,7 @@ namespace Madentra.UserControls {
                 dbHelpers.InsertToSelectedPatientTable(patient);
 
                 // Trigger the observer
-                SelectedPatient = dbHelpers.GetSelectedPatient().Name;
+                SelectedPatient = dbHelpers.GetSelectedPatient().FullName;
             }
         }
     }

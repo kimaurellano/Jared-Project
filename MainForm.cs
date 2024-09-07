@@ -28,13 +28,13 @@ namespace Madentra {
             InitializeListView();
             InitializePages();
 
-            LabelCurrentPatient.Text = $"Current Patient: {dbHelpers.GetSelectedPatient().Name}";
+            LabelCurrentPatient.Text = $"Current Patient: {dbHelpers.GetSelectedPatient().FullName}";
         }
 
         private void SelectedPatient_PropertyChanged(object sender, PropertyChangedEventArgs e) {
             if (e.PropertyName == nameof(DataGridViewPatientUserControl.SelectedPatient)) {
                 // Handle the property change
-                LabelCurrentPatient.Text = $"Current Patient: {dbHelpers.GetSelectedPatient().Name}";
+                LabelCurrentPatient.Text = $"Current Patient: {dbHelpers.GetSelectedPatient().FullName}";
             }
         }
 
@@ -65,7 +65,7 @@ namespace Madentra {
         }
 
         private void DataGridViewPatientUserControlInstance_PropertyChanged(object sender, PropertyChangedEventArgs e) {
-            LabelCurrentPatient.Text = $"Current Patient: {dbHelpers.GetSelectedPatient().Name}";
+            LabelCurrentPatient.Text = $"Current Patient: {dbHelpers.GetSelectedPatient().FullName}";
         }
 
         private void BtnCreateNewPatient_Click(object sender, EventArgs e) {
@@ -157,7 +157,7 @@ namespace Madentra {
         private void BtnCapture_Click(object sender, EventArgs e) {
             // Capture the image displayed in the PictureBox
             if (PictureBoxCamera.Image != null) {
-                string patientName = dbHelpers.GetSelectedPatient().Name;
+                string patientName = dbHelpers.GetSelectedPatient().FullName;
 
                 DateTime dateTime = DateTime.Now;
                 DateTime epoch = new(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);

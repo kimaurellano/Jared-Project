@@ -12,6 +12,9 @@ namespace Madentra {
         public SelectedPersonUserControl() {
             InitializeComponent();
             Debug.WriteLine($"{Name}");
+
+            Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom;
+            Dock = DockStyle.Fill;
         }
 
         private void SelectedPersonUserControl_Load(object sender, EventArgs e) {
@@ -19,7 +22,7 @@ namespace Madentra {
         }
 
         private void SelectedPersonUserControl_Paint(object sender, PaintEventArgs e) {
-            label1.Text = dbHelpers.GetSelectedPatient().Name;
+            label1.Text = dbHelpers.GetSelectedPatient().FullName;
         }
     }
 }

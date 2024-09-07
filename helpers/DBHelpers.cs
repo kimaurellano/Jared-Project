@@ -11,14 +11,22 @@ namespace Madentra.helpers {
 
         private static readonly SqliteConnection _connection = new($"Data Source=C:\\Users\\USER\\Documents\\Visual Studio 2022\\Project\\Jared\\jared.db");
 
-        public void InsertPatient(string name) {
+        public void InsertPatient(Patient patient) {
             using (var connection = _connection) {
                 connection.Open();
 
                 var command = connection.CreateCommand();
                 command.CommandText = 
-                    $"INSERT INTO Patient (Name,CreationDate) " +
-                    $"VALUES ('{name}','{DateTime.Now}');";
+                    $"INSERT INTO Patient (FullName,Sex,PhoneNumber,IDCard,Address,Remarks,CreationDate) " +
+                    $"VALUES (" +
+                    $"'{patient.FullName}'," +
+                    $"'{patient.Sex}'," +
+                    $"'{patient.PhoneNumber}'," +
+                    $"'{patient.IdCard}'," +
+                    $"'{patient.Address}'," +
+                    $"'{patient.Remarks}'," +
+                    $"'{DateTime.Now}');";
+
                 command.ExecuteNonQuery();
             }
         }
@@ -114,7 +122,7 @@ namespace Madentra.helpers {
 
                 var command = connection.CreateCommand();
                 command.CommandText =
-                    $"SELECT Patient.Id, Patient.name FROM Patient " +
+                    $"SELECT Patient.Id, Patient.FullName FROM Patient " +
                     $"LEFT JOIN SelectedPatient " +
                     $"ON Patient.Id = SelectedPatient.PatientId " +
                     $"WHERE SelectedPatient.PatientId NOT NULL";
@@ -235,7 +243,7 @@ namespace Madentra.helpers {
         private Patient CastRowToPatient(DataRow row) {
             return new Patient {
                 Id = (long) row["Id"],
-                Name = row["Name"].ToString() // Assuming "Name" is the name of the column
+                FullName = row["Name"].ToString() // Assuming "Name" is the name of the column
             };
         }
     }
