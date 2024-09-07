@@ -1,10 +1,6 @@
 ﻿using Madentra.Model;
 using Microsoft.Data.Sqlite;
 using System.Data;
-using System.Drawing.Imaging;
-using System.Reflection.Metadata;
-using System.Windows.Forms;
-using System.Xml.Linq;
 
 namespace Madentra.helpers {
     internal class DBHelpers {
@@ -243,7 +239,7 @@ namespace Madentra.helpers {
         private Patient CastRowToPatient(DataRow row) {
             return new Patient {
                 Id = (long) row["Id"],
-                FullName = row["Name"].ToString() // Assuming "Name" is the name of the column
+                FullName = row["FullName"].ToString() // Assuming "Name" is the name of the column
             };
         }
     }
