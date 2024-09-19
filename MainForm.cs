@@ -214,6 +214,8 @@ namespace Madentra {
 
                 // Just remember the last selected item
                 lastSelectedIndex = selectedItem.Index;
+
+                DisplaySelectedImage(PictureBoxMark);
             }
         }
 
@@ -237,6 +239,7 @@ namespace Madentra {
             DisplaySelectedImage(PictureBoxBottomRight);
         }
 
+        // Displays selected image from Image List to picture boxes in Compare Tab
         private void DisplaySelectedImage(PictureBox pictureBox) {
             Image selectedImage = ImageListMain.Images[lastSelectedIndex];
             pictureBox.SizeMode = PictureBoxSizeMode.Zoom;

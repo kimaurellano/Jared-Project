@@ -46,12 +46,13 @@
             PictureBoxBottomLeft = new PictureBox();
             tabPagemark = new TabPage();
             MainPanelMark = new Panel();
+            PanelMarkContainer = new Panel();
             PanelMark = new Panel();
-            panel4 = new Panel();
-            panel3 = new Panel();
+            PanelMarkControllers = new Panel();
             Settings = new TabPage();
             BottomPanel = new Panel();
             LabelCurrentPatient = new Label();
+            PictureBoxMark = new PictureBox();
             PanelPictureList.SuspendLayout();
             MainPanel.SuspendLayout();
             TabControlMain.SuspendLayout();
@@ -67,8 +68,10 @@
             ((System.ComponentModel.ISupportInitialize)PictureBoxBottomLeft).BeginInit();
             tabPagemark.SuspendLayout();
             MainPanelMark.SuspendLayout();
+            PanelMarkContainer.SuspendLayout();
             PanelMark.SuspendLayout();
             BottomPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)PictureBoxMark).BeginInit();
             SuspendLayout();
             // 
             // PanelPictureList
@@ -204,7 +207,7 @@
             tabPageCapture.Margin = new Padding(6);
             tabPageCapture.Name = "tabPageCapture";
             tabPageCapture.Padding = new Padding(6);
-            tabPageCapture.Size = new Size(1408, 937);
+            tabPageCapture.Size = new Size(1408, 942);
             tabPageCapture.TabIndex = 1;
             tabPageCapture.Text = "Capture";
             tabPageCapture.UseVisualStyleBackColor = true;
@@ -212,7 +215,7 @@
             // BtnCapture
             // 
             BtnCapture.Dock = DockStyle.Bottom;
-            BtnCapture.Location = new Point(6, 850);
+            BtnCapture.Location = new Point(6, 855);
             BtnCapture.Margin = new Padding(4, 2, 4, 2);
             BtnCapture.Name = "BtnCapture";
             BtnCapture.Size = new Size(1396, 81);
@@ -227,7 +230,7 @@
             PictureBoxCamera.Location = new Point(6, 6);
             PictureBoxCamera.Margin = new Padding(4, 2, 4, 2);
             PictureBoxCamera.Name = "PictureBoxCamera";
-            PictureBoxCamera.Size = new Size(1396, 925);
+            PictureBoxCamera.Size = new Size(1396, 930);
             PictureBoxCamera.SizeMode = PictureBoxSizeMode.CenterImage;
             PictureBoxCamera.TabIndex = 0;
             PictureBoxCamera.TabStop = false;
@@ -238,7 +241,7 @@
             TabPageCompare.Location = new Point(8, 46);
             TabPageCompare.Margin = new Padding(6);
             TabPageCompare.Name = "TabPageCompare";
-            TabPageCompare.Size = new Size(1408, 937);
+            TabPageCompare.Size = new Size(1408, 942);
             TabPageCompare.TabIndex = 2;
             TabPageCompare.Text = "Compare";
             TabPageCompare.UseVisualStyleBackColor = true;
@@ -259,7 +262,7 @@
             tableLayoutPanel1.RowCount = 2;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.Size = new Size(1408, 937);
+            tableLayoutPanel1.Size = new Size(1408, 942);
             tableLayoutPanel1.TabIndex = 4;
             // 
             // PictureBoxTopLeft
@@ -269,7 +272,7 @@
             PictureBoxTopLeft.Location = new Point(4, 2);
             PictureBoxTopLeft.Margin = new Padding(4, 2, 4, 2);
             PictureBoxTopLeft.Name = "PictureBoxTopLeft";
-            PictureBoxTopLeft.Size = new Size(696, 464);
+            PictureBoxTopLeft.Size = new Size(696, 467);
             PictureBoxTopLeft.SizeMode = PictureBoxSizeMode.CenterImage;
             PictureBoxTopLeft.TabIndex = 0;
             PictureBoxTopLeft.TabStop = false;
@@ -279,10 +282,10 @@
             // 
             PictureBoxBottomRight.BackColor = Color.WhiteSmoke;
             PictureBoxBottomRight.Dock = DockStyle.Fill;
-            PictureBoxBottomRight.Location = new Point(708, 470);
+            PictureBoxBottomRight.Location = new Point(708, 473);
             PictureBoxBottomRight.Margin = new Padding(4, 2, 4, 2);
             PictureBoxBottomRight.Name = "PictureBoxBottomRight";
-            PictureBoxBottomRight.Size = new Size(696, 465);
+            PictureBoxBottomRight.Size = new Size(696, 467);
             PictureBoxBottomRight.SizeMode = PictureBoxSizeMode.CenterImage;
             PictureBoxBottomRight.TabIndex = 3;
             PictureBoxBottomRight.TabStop = false;
@@ -295,7 +298,7 @@
             PictureBoxTopRight.Location = new Point(708, 2);
             PictureBoxTopRight.Margin = new Padding(4, 2, 4, 2);
             PictureBoxTopRight.Name = "PictureBoxTopRight";
-            PictureBoxTopRight.Size = new Size(696, 464);
+            PictureBoxTopRight.Size = new Size(696, 467);
             PictureBoxTopRight.SizeMode = PictureBoxSizeMode.CenterImage;
             PictureBoxTopRight.TabIndex = 1;
             PictureBoxTopRight.TabStop = false;
@@ -305,10 +308,10 @@
             // 
             PictureBoxBottomLeft.BackColor = Color.WhiteSmoke;
             PictureBoxBottomLeft.Dock = DockStyle.Fill;
-            PictureBoxBottomLeft.Location = new Point(4, 470);
+            PictureBoxBottomLeft.Location = new Point(4, 473);
             PictureBoxBottomLeft.Margin = new Padding(4, 2, 4, 2);
             PictureBoxBottomLeft.Name = "PictureBoxBottomLeft";
-            PictureBoxBottomLeft.Size = new Size(696, 465);
+            PictureBoxBottomLeft.Size = new Size(696, 467);
             PictureBoxBottomLeft.SizeMode = PictureBoxSizeMode.CenterImage;
             PictureBoxBottomLeft.TabIndex = 2;
             PictureBoxBottomLeft.TabStop = false;
@@ -320,58 +323,59 @@
             tabPagemark.Location = new Point(8, 46);
             tabPagemark.Margin = new Padding(6);
             tabPagemark.Name = "tabPagemark";
-            tabPagemark.Size = new Size(1408, 937);
+            tabPagemark.Size = new Size(1408, 942);
             tabPagemark.TabIndex = 3;
             tabPagemark.Text = "Mark";
             tabPagemark.UseVisualStyleBackColor = true;
             // 
             // MainPanelMark
             // 
-            MainPanelMark.Controls.Add(PanelMark);
+            MainPanelMark.Controls.Add(PanelMarkContainer);
             MainPanelMark.Dock = DockStyle.Fill;
             MainPanelMark.Location = new Point(0, 0);
             MainPanelMark.Margin = new Padding(6);
             MainPanelMark.Name = "MainPanelMark";
-            MainPanelMark.Size = new Size(1408, 937);
+            MainPanelMark.Size = new Size(1408, 942);
             MainPanelMark.TabIndex = 1;
+            // 
+            // PanelMarkContainer
+            // 
+            PanelMarkContainer.Controls.Add(PanelMark);
+            PanelMarkContainer.Controls.Add(PanelMarkControllers);
+            PanelMarkContainer.Dock = DockStyle.Fill;
+            PanelMarkContainer.Location = new Point(0, 0);
+            PanelMarkContainer.Margin = new Padding(4, 2, 4, 2);
+            PanelMarkContainer.Name = "PanelMarkContainer";
+            PanelMarkContainer.Size = new Size(1408, 942);
+            PanelMarkContainer.TabIndex = 0;
             // 
             // PanelMark
             // 
-            PanelMark.Controls.Add(panel4);
-            PanelMark.Controls.Add(panel3);
+            PanelMark.BackColor = Color.Gainsboro;
+            PanelMark.Controls.Add(PictureBoxMark);
             PanelMark.Dock = DockStyle.Fill;
             PanelMark.Location = new Point(0, 0);
-            PanelMark.Margin = new Padding(4, 2, 4, 2);
+            PanelMark.Margin = new Padding(6);
             PanelMark.Name = "PanelMark";
-            PanelMark.Size = new Size(1408, 937);
-            PanelMark.TabIndex = 0;
+            PanelMark.Size = new Size(1408, 729);
+            PanelMark.TabIndex = 3;
             // 
-            // panel4
+            // PanelMarkControllers
             // 
-            panel4.BackColor = Color.Gainsboro;
-            panel4.Dock = DockStyle.Fill;
-            panel4.Location = new Point(0, 0);
-            panel4.Margin = new Padding(6);
-            panel4.Name = "panel4";
-            panel4.Size = new Size(1408, 724);
-            panel4.TabIndex = 3;
-            // 
-            // panel3
-            // 
-            panel3.BackColor = Color.WhiteSmoke;
-            panel3.Dock = DockStyle.Bottom;
-            panel3.Location = new Point(0, 724);
-            panel3.Margin = new Padding(6);
-            panel3.Name = "panel3";
-            panel3.Size = new Size(1408, 213);
-            panel3.TabIndex = 2;
+            PanelMarkControllers.BackColor = Color.WhiteSmoke;
+            PanelMarkControllers.Dock = DockStyle.Bottom;
+            PanelMarkControllers.Location = new Point(0, 729);
+            PanelMarkControllers.Margin = new Padding(6);
+            PanelMarkControllers.Name = "PanelMarkControllers";
+            PanelMarkControllers.Size = new Size(1408, 213);
+            PanelMarkControllers.TabIndex = 2;
             // 
             // Settings
             // 
             Settings.Location = new Point(8, 46);
             Settings.Margin = new Padding(6);
             Settings.Name = "Settings";
-            Settings.Size = new Size(1408, 937);
+            Settings.Size = new Size(1408, 942);
             Settings.TabIndex = 4;
             Settings.Text = "Settings";
             Settings.UseVisualStyleBackColor = true;
@@ -397,6 +401,15 @@
             LabelCurrentPatient.Size = new Size(256, 32);
             LabelCurrentPatient.TabIndex = 0;
             LabelCurrentPatient.Text = "Current Patient: Admin";
+            // 
+            // PictureBoxMark
+            // 
+            PictureBoxMark.Dock = DockStyle.Fill;
+            PictureBoxMark.Location = new Point(0, 0);
+            PictureBoxMark.Name = "PictureBoxMark";
+            PictureBoxMark.Size = new Size(1408, 729);
+            PictureBoxMark.TabIndex = 0;
+            PictureBoxMark.TabStop = false;
             // 
             // MainForm
             // 
@@ -426,9 +439,11 @@
             ((System.ComponentModel.ISupportInitialize)PictureBoxBottomLeft).EndInit();
             tabPagemark.ResumeLayout(false);
             MainPanelMark.ResumeLayout(false);
+            PanelMarkContainer.ResumeLayout(false);
             PanelMark.ResumeLayout(false);
             BottomPanel.ResumeLayout(false);
             BottomPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)PictureBoxMark).EndInit();
             ResumeLayout(false);
         }
 
@@ -457,9 +472,10 @@
         private PictureBox PictureBoxBottomLeft;
         private TabPage tabPagemark;
         private Panel MainPanelMark;
+        private Panel PanelMarkContainer;
         private Panel PanelMark;
-        private Panel panel4;
-        private Panel panel3;
+        private Panel PanelMarkControllers;
         private TabPage Settings;
+        private PictureBox PictureBoxMark;
     }
 }
