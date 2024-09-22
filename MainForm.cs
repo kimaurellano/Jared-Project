@@ -29,6 +29,7 @@ namespace Madentra {
 
         // To remember selected image in the listview
         private int lastSelectedIndex = -1;
+        private Image? lastSelectedImage = null;
 
         public MainForm() {
             InitializeComponent();
@@ -262,9 +263,9 @@ namespace Madentra {
             ImageListMain.ImageSize = new Size(256, 156); // Set image size
 
             // Add images to the ImageList
-            List<Image> temp = dbHelpers.GetAllImages();
-            foreach (Image image in temp) {
-                ImageListMain.Images.Add(image);
+            List<KeyValuePair<long, Image>> temp = dbHelpers.GetAllImages();
+            foreach (var image in temp) {
+                ImageListMain.Images.Add(image.Value);
             }
 
             // Configure the ListView
@@ -275,7 +276,7 @@ namespace Madentra {
             for (int i = 0; i < ImageListMain.Images.Count; i++) {
                 ListViewItem item = new ListViewItem();
                 item.ImageIndex = i; // Associate image with the item
-                item.Text = $"Image {i + 1}"; // Optionally add a text label
+                item.Text = temp[i].Key.ToString(); // Optionally add a text label
                 ListViewImages.Items.Add(item);
             }
         }
@@ -285,38 +286,37 @@ namespace Madentra {
                 // Get the selected item
                 ListViewItem selectedItem = ListViewImages.SelectedItems[0];
 
-                // Just remember the last selected item
-                lastSelectedIndex = selectedItem.Index;
+                // Get blob ID from the database and remember.
+                lastSelectedImage = dbHelpers.GetImage(Convert.ToInt64(selectedItem.Text));
 
-                DisplaySelectedImage(PictureBoxMark);
+                DisplaySelectedImage(PictureBoxMark, lastSelectedImage);
             }
         }
 
         private void PictureBoxTopRight_Click(object sender, EventArgs e) {
             quadFeedManager.StopFeed(PictureBoxTopRight);
-            DisplaySelectedImage(PictureBoxTopRight);
+            DisplaySelectedImage(PictureBoxTopRight, lastSelectedImage);
         }
 
         private void PictureBoxTopLeft_Click(object sender, EventArgs e) {
             quadFeedManager.StopFeed(PictureBoxTopLeft);
-            DisplaySelectedImage(PictureBoxTopLeft);
+            DisplaySelectedImage(PictureBoxTopLeft, lastSelectedImage);
         }
 
         private void PictureBoxBottomLeft_Click(object sender, EventArgs e) {
             quadFeedManager.StopFeed(PictureBoxBottomLeft);
-            DisplaySelectedImage(PictureBoxBottomLeft);
+            DisplaySelectedImage(PictureBoxBottomLeft, lastSelectedImage);
         }
 
         private void PictureBoxBottomRight_Click(object sender, EventArgs e) {
             quadFeedManager.StopFeed(PictureBoxBottomRight);
-            DisplaySelectedImage(PictureBoxBottomRight);
+            DisplaySelectedImage(PictureBoxBottomRight, lastSelectedImage);
         }
 
         // Displays selected image from Image List to picture boxes in Compare Tab
-        private void DisplaySelectedImage(PictureBox pictureBox) {
-            Image selectedImage = ImageListMain.Images[lastSelectedIndex];
+        private void DisplaySelectedImage(PictureBox pictureBox, Image image) {
             pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox.Image = selectedImage;
+            pictureBox.Image = image;
         }
 
         private void BtnSelectedPatient_Click(object sender, EventArgs e) {

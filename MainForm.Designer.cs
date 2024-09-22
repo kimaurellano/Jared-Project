@@ -48,11 +48,11 @@
             MainPanelMark = new Panel();
             PanelMarkContainer = new Panel();
             PanelMark = new Panel();
+            PictureBoxMark = new PictureBox();
             PanelMarkControllers = new Panel();
             Settings = new TabPage();
             BottomPanel = new Panel();
             LabelCurrentPatient = new Label();
-            PictureBoxMark = new PictureBox();
             PanelPictureList.SuspendLayout();
             MainPanel.SuspendLayout();
             TabControlMain.SuspendLayout();
@@ -70,8 +70,8 @@
             MainPanelMark.SuspendLayout();
             PanelMarkContainer.SuspendLayout();
             PanelMark.SuspendLayout();
-            BottomPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)PictureBoxMark).BeginInit();
+            BottomPanel.SuspendLayout();
             SuspendLayout();
             // 
             // PanelPictureList
@@ -360,6 +360,15 @@
             PanelMark.Size = new Size(1408, 729);
             PanelMark.TabIndex = 3;
             // 
+            // PictureBoxMark
+            // 
+            PictureBoxMark.Dock = DockStyle.Fill;
+            PictureBoxMark.Location = new Point(0, 0);
+            PictureBoxMark.Name = "PictureBoxMark";
+            PictureBoxMark.Size = new Size(1408, 729);
+            PictureBoxMark.TabIndex = 0;
+            PictureBoxMark.TabStop = false;
+            // 
             // PanelMarkControllers
             // 
             PanelMarkControllers.BackColor = Color.WhiteSmoke;
@@ -402,15 +411,6 @@
             LabelCurrentPatient.TabIndex = 0;
             LabelCurrentPatient.Text = "Current Patient: Admin";
             // 
-            // PictureBoxMark
-            // 
-            PictureBoxMark.Dock = DockStyle.Fill;
-            PictureBoxMark.Location = new Point(0, 0);
-            PictureBoxMark.Name = "PictureBoxMark";
-            PictureBoxMark.Size = new Size(1408, 729);
-            PictureBoxMark.TabIndex = 0;
-            PictureBoxMark.TabStop = false;
-            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(13F, 32F);
@@ -441,9 +441,9 @@
             MainPanelMark.ResumeLayout(false);
             PanelMarkContainer.ResumeLayout(false);
             PanelMark.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)PictureBoxMark).EndInit();
             BottomPanel.ResumeLayout(false);
             BottomPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)PictureBoxMark).EndInit();
             ResumeLayout(false);
         }
 

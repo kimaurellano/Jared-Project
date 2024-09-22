@@ -160,25 +160,26 @@ namespace Madentra.helpers {
             }
         }
 
-        public List<Image> GetAllImages() {
+        public List<KeyValuePair<long, Image>> GetAllImages() {
             ImageHelper imageHelper = new();
-            List<Image> imageList = new();
+            List<KeyValuePair<long, Image>> imageList = new();
             using (var connection = _connection) {
                 _connection.Open();
 
                 var command = connection.CreateCommand();
                 command.CommandText =
-                    $"SELECT PatientImage FROM PatientImage";
+                    $"SELECT Id,PatientImage FROM PatientImage";
 
                 using (var reader = command.ExecuteReader()) {
                     while (reader.Read()) {
                         // Get the BLOB data from the reader
                         byte[] imageData = (byte[])reader["PatientImage"];
+                        long imageId = (long)reader["Id"];
 
                         Image byteImage = imageHelper.ByteToImage(imageData);
                         
                         // Add the Image to the ImageList
-                        imageList.Add(byteImage);
+                        imageList.Add(new KeyValuePair<long, Image>(imageId, byteImage));
                     }
                 }
             }
