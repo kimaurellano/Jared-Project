@@ -5,7 +5,6 @@ using System.Data;
 namespace Madentra.helpers {
     internal class DBHelpers {
 
-        //private static readonly SqliteConnection _connection = new($"Data Source=C:\\Users\\USER\\Documents\\Visual Studio 2022\\Project\\Jared\\jared.db");
         private static readonly SqliteConnection _connection = new(@"Data Source=App_Data\jared.db;");
 
         public void InsertPatient(Patient patient) {
