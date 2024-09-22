@@ -48,8 +48,6 @@
             MainPanelMark = new Panel();
             PanelMarkContainer = new Panel();
             PanelMark = new Panel();
-            PictureBoxMark = new PictureBox();
-            PanelMarkControllers = new Panel();
             Settings = new TabPage();
             BottomPanel = new Panel();
             LabelCurrentPatient = new Label();
@@ -69,8 +67,6 @@
             tabPagemark.SuspendLayout();
             MainPanelMark.SuspendLayout();
             PanelMarkContainer.SuspendLayout();
-            PanelMark.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)PictureBoxMark).BeginInit();
             BottomPanel.SuspendLayout();
             SuspendLayout();
             // 
@@ -341,7 +337,6 @@
             // PanelMarkContainer
             // 
             PanelMarkContainer.Controls.Add(PanelMark);
-            PanelMarkContainer.Controls.Add(PanelMarkControllers);
             PanelMarkContainer.Dock = DockStyle.Fill;
             PanelMarkContainer.Location = new Point(0, 0);
             PanelMarkContainer.Margin = new Padding(4, 2, 4, 2);
@@ -352,32 +347,12 @@
             // PanelMark
             // 
             PanelMark.BackColor = Color.Gainsboro;
-            PanelMark.Controls.Add(PictureBoxMark);
             PanelMark.Dock = DockStyle.Fill;
             PanelMark.Location = new Point(0, 0);
             PanelMark.Margin = new Padding(6);
             PanelMark.Name = "PanelMark";
-            PanelMark.Size = new Size(1408, 729);
+            PanelMark.Size = new Size(1408, 942);
             PanelMark.TabIndex = 3;
-            // 
-            // PictureBoxMark
-            // 
-            PictureBoxMark.Dock = DockStyle.Fill;
-            PictureBoxMark.Location = new Point(0, 0);
-            PictureBoxMark.Name = "PictureBoxMark";
-            PictureBoxMark.Size = new Size(1408, 729);
-            PictureBoxMark.TabIndex = 0;
-            PictureBoxMark.TabStop = false;
-            // 
-            // PanelMarkControllers
-            // 
-            PanelMarkControllers.BackColor = Color.WhiteSmoke;
-            PanelMarkControllers.Dock = DockStyle.Bottom;
-            PanelMarkControllers.Location = new Point(0, 729);
-            PanelMarkControllers.Margin = new Padding(6);
-            PanelMarkControllers.Name = "PanelMarkControllers";
-            PanelMarkControllers.Size = new Size(1408, 213);
-            PanelMarkControllers.TabIndex = 2;
             // 
             // Settings
             // 
@@ -440,8 +415,6 @@
             tabPagemark.ResumeLayout(false);
             MainPanelMark.ResumeLayout(false);
             PanelMarkContainer.ResumeLayout(false);
-            PanelMark.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)PictureBoxMark).EndInit();
             BottomPanel.ResumeLayout(false);
             BottomPanel.PerformLayout();
             ResumeLayout(false);
@@ -474,8 +447,6 @@
         private Panel MainPanelMark;
         private Panel PanelMarkContainer;
         private Panel PanelMark;
-        private Panel PanelMarkControllers;
         private TabPage Settings;
-        private PictureBox PictureBoxMark;
     }
 }

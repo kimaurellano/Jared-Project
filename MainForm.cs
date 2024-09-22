@@ -8,14 +8,10 @@ using System.Windows.Forms;
 using Jared.helpers;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using System.Drawing.Drawing2D;
+using Jared.UserControls;
 
 namespace Madentra {
     public partial class MainForm : Form {
-
-        // PictureBox Compare
-        private Point startPoint;
-        private Point currentPoint;
-        private bool isDrawing = false;
 
         // VideoFeeds
         private DBHelpers dbHelpers = new();
@@ -26,6 +22,7 @@ namespace Madentra {
         private DataGridViewPatientUserControl dataGridViewPatientUserControl;
         private SearchPatientUserControl searchPatientUserControl;
         private CreateNewPatientUserControl createNewPatientUserControl;
+        private MarkingUserControl markingUserControl;
 
         // To remember selected image in the listview
         private int lastSelectedIndex = -1;
@@ -38,72 +35,7 @@ namespace Madentra {
             InitializePages();
 
             LabelCurrentPatient.Text = $"Current Patient: {dbHelpers.GetSelectedPatient().FullName}";
-
-            // Initialize the PictureBox with a blank bitmap
-            Bitmap bitmap = new(PictureBoxMark.Width, PictureBoxMark.Height);
-            PictureBoxMark.Image = bitmap;
-
-            // Wire up the mouse events
-            PictureBoxMark.MouseDown += pictureBox_MouseDown;
-            PictureBoxMark.MouseMove += pictureBox_MouseMove;
-            PictureBoxMark.MouseUp += pictureBox_MouseUp;
-            PictureBoxMark.Paint += pictureBox_Paint;
         }
-
-        #region MouseMarking
-        private void pictureBox_MouseDown(object sender, MouseEventArgs e) {
-            if (e.Button == MouseButtons.Left) {
-                isDrawing = true;
-                startPoint = e.Location;
-                currentPoint = e.Location;
-            }
-        }
-
-        private void pictureBox_MouseMove(object sender, MouseEventArgs e) {
-            if (isDrawing) {
-                currentPoint = e.Location;
-                PictureBoxMark.Invalidate();
-            }
-        }
-
-        private void pictureBox_MouseUp(object sender, MouseEventArgs e) {
-            if (isDrawing) {
-                isDrawing = false;
-                DrawCircle();
-            }
-        }
-
-        private void pictureBox_Paint(object sender, PaintEventArgs e) {
-            if (isDrawing) {
-                Rectangle rect = GetCircleRectangle(startPoint, currentPoint);
-                e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
-                e.Graphics.DrawEllipse(Pens.Red, rect);
-            }
-        }
-
-        private void DrawCircle() {
-            using (Graphics g = Graphics.FromImage(PictureBoxMark.Image)) {
-                Rectangle rect = GetCircleRectangle(startPoint, currentPoint);
-                g.SmoothingMode = SmoothingMode.AntiAlias;
-                g.DrawEllipse(Pens.Red, rect);
-            }
-            PictureBoxMark.Invalidate();
-        }
-
-        private Rectangle GetCircleRectangle(Point p1, Point p2) {
-            // Calculate the radius
-            int radius = (int)Math.Sqrt(Math.Pow(p2.X - p1.X, 2) + Math.Pow(p2.Y - p1.Y, 2));
-
-            // Create the rectangle that bounds the circle
-            Rectangle rect = new Rectangle(
-                p1.X - radius,
-                p1.Y - radius,
-                radius * 2,
-                radius * 2
-            );
-            return rect;
-        }
-        #endregion
 
         private void SelectedPatient_PropertyChanged(object sender, PropertyChangedEventArgs e) {
             if (e.PropertyName == nameof(DataGridViewPatientUserControl.SelectedPatient)) {
@@ -115,9 +47,11 @@ namespace Madentra {
         private void InitializePages() {
             searchPatientUserControl = new SearchPatientUserControl();
             createNewPatientUserControl = new CreateNewPatientUserControl();
+            markingUserControl = new MarkingUserControl();
 
             PanelPatients.Controls.Add(searchPatientUserControl);
             PanelPatients.Controls.Add(createNewPatientUserControl);
+            PanelMark.Controls.Add(markingUserControl);
 
             // Default control to show on load.
             ShowContentInTabPatients(searchPatientUserControl);
@@ -289,7 +223,7 @@ namespace Madentra {
                 // Get blob ID from the database and remember.
                 lastSelectedImage = dbHelpers.GetImage(Convert.ToInt64(selectedItem.Text));
 
-                DisplaySelectedImage(PictureBoxMark, lastSelectedImage);
+                markingUserControl.DisplaySelectedImage(lastSelectedImage);
             }
         }
 
