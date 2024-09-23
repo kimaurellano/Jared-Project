@@ -7,6 +7,10 @@ namespace Jared.helpers {
         private List<PictureBox> pictureBoxes;
 
         public VideoFeedManager(FilterInfoCollection videoDevices, params PictureBox[] pictureBoxes) {
+            if (videoDevices.Count <= 0) {
+                MessageBox.Show("No camera device found.");
+                return;
+            }
             this.videoSource = new VideoCaptureDevice(videoDevices[0].MonikerString);
             this.pictureBoxes = pictureBoxes.ToList();
             this.videoSource.NewFrame += VideoSource_NewFrame;
@@ -22,12 +26,20 @@ namespace Jared.helpers {
         }
 
         public void StartFeed() {
+            if (videoSource == null) {
+                return;
+            }
+
             if (!videoSource.IsRunning) {
                 videoSource.Start();
             }
         }
 
         public void StopFeed() {
+            if (videoSource == null) {
+                return;
+            }
+
             if (videoSource.IsRunning) {
                 videoSource.SignalToStop();
                 foreach (var pictureBox in pictureBoxes) {
