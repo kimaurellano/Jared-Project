@@ -25,6 +25,7 @@
         private void InitializeComponent() {
             components = new System.ComponentModel.Container();
             PanelPictureList = new Panel();
+            LabelEmpty = new Label();
             ListViewImages = new ListView();
             ImageListMain = new ImageList(components);
             MainPanel = new Panel();
@@ -73,6 +74,7 @@
             // PanelPictureList
             // 
             PanelPictureList.BackColor = Color.Transparent;
+            PanelPictureList.Controls.Add(LabelEmpty);
             PanelPictureList.Controls.Add(ListViewImages);
             PanelPictureList.Dock = DockStyle.Right;
             PanelPictureList.Location = new Point(1424, 0);
@@ -81,6 +83,17 @@
             PanelPictureList.Padding = new Padding(0, 45, 0, 0);
             PanelPictureList.Size = new Size(474, 996);
             PanelPictureList.TabIndex = 1;
+            // 
+            // LabelEmpty
+            // 
+            LabelEmpty.AutoSize = true;
+            LabelEmpty.BackColor = SystemColors.Window;
+            LabelEmpty.ForeColor = SystemColors.ControlText;
+            LabelEmpty.Location = new Point(181, 436);
+            LabelEmpty.Name = "LabelEmpty";
+            LabelEmpty.Size = new Size(123, 32);
+            LabelEmpty.TabIndex = 4;
+            LabelEmpty.Text = "Empty List";
             // 
             // ListViewImages
             // 
@@ -400,6 +413,7 @@
             WindowState = FormWindowState.Maximized;
             FormClosing += MainForm_FormClosing;
             PanelPictureList.ResumeLayout(false);
+            PanelPictureList.PerformLayout();
             MainPanel.ResumeLayout(false);
             TabControlMain.ResumeLayout(false);
             tabPagePatients.ResumeLayout(false);
@@ -448,5 +462,6 @@
         private Panel PanelMarkContainer;
         private Panel PanelMark;
         private TabPage Settings;
+        private Label LabelEmpty;
     }
 }

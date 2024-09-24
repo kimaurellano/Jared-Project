@@ -202,6 +202,10 @@ namespace Madentra {
                 ImageListMain.Images.Add(image.Value);
             }
 
+            if (temp.Count > 0) { 
+                LabelEmpty.Visible = false;
+            }
+
             // Configure the ListView
             ListViewImages.View = View.LargeIcon;
             ListViewImages.LargeImageList = ImageListMain;
