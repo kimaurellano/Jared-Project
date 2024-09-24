@@ -14,7 +14,7 @@
 
   <ItemGroup>
     <Content Include="App_Data\jared.db">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 
