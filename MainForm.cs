@@ -258,6 +258,11 @@ namespace Madentra {
         }
 
         private void BtnSelectedPatient_Click(object sender, EventArgs e) {
+            if (dbHelpers.GetSelectedPatient().FullName == null) {
+                MessageBox.Show("No patient selected.");
+                return;
+            }
+
             ShowContentInTabPatients(searchPatientUserControl);
             searchPatientUserControl.ShowSelectedPatientPanel();
         }
