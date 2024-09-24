@@ -24,12 +24,12 @@
         /// </summary>
         private void InitializeComponent() {
             panel1 = new Panel();
-            PanelMarkControllers = new Panel();
-            PictureBoxMark = new PictureBox();
             PanelPictureBox = new Panel();
+            PictureBoxMark = new PictureBox();
+            PanelMarkControllers = new Panel();
             panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)PictureBoxMark).BeginInit();
             PanelPictureBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)PictureBoxMark).BeginInit();
             SuspendLayout();
             // 
             // panel1
@@ -42,6 +42,28 @@
             panel1.Size = new Size(1632, 1065);
             panel1.TabIndex = 1;
             // 
+            // PanelPictureBox
+            // 
+            PanelPictureBox.Controls.Add(PictureBoxMark);
+            PanelPictureBox.Dock = DockStyle.Fill;
+            PanelPictureBox.Location = new Point(0, 0);
+            PanelPictureBox.Name = "PanelPictureBox";
+            PanelPictureBox.Size = new Size(1632, 852);
+            PanelPictureBox.TabIndex = 4;
+            // 
+            // PictureBoxMark
+            // 
+            PictureBoxMark.Dock = DockStyle.Fill;
+            PictureBoxMark.Location = new Point(0, 0);
+            PictureBoxMark.Name = "PictureBoxMark";
+            PictureBoxMark.Size = new Size(1632, 852);
+            PictureBoxMark.TabIndex = 1;
+            PictureBoxMark.TabStop = false;
+            PictureBoxMark.Paint += PictureBoxMark_Paint;
+            PictureBoxMark.MouseDown += PictureBoxMark_MouseDown;
+            PictureBoxMark.MouseMove += PictureBoxMark_MouseMove;
+            PictureBoxMark.MouseUp += PictureBoxMark_MouseUp;
+            // 
             // PanelMarkControllers
             // 
             PanelMarkControllers.BackColor = Color.WhiteSmoke;
@@ -52,41 +74,23 @@
             PanelMarkControllers.Size = new Size(1632, 213);
             PanelMarkControllers.TabIndex = 3;
             // 
-            // PictureBoxMark
-            // 
-            PictureBoxMark.Dock = DockStyle.Fill;
-            PictureBoxMark.Location = new Point(0, 0);
-            PictureBoxMark.Name = "PictureBoxMark";
-            PictureBoxMark.Size = new Size(1632, 852);
-            PictureBoxMark.TabIndex = 1;
-            PictureBoxMark.TabStop = false;
-            // 
-            // PanelPictureBox
-            // 
-            PanelPictureBox.Controls.Add(PictureBoxMark);
-            PanelPictureBox.Dock = DockStyle.Fill;
-            PanelPictureBox.Location = new Point(0, 0);
-            PanelPictureBox.Name = "PanelPictureBox";
-            PanelPictureBox.Size = new Size(1632, 852);
-            PanelPictureBox.TabIndex = 4;
-            // 
-            // UserControlMarking
+            // MarkingUserControl
             // 
             AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(panel1);
-            Name = "UserControlMarking";
+            Name = "MarkingUserControl";
             Size = new Size(1632, 1065);
             panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)PictureBoxMark).EndInit();
             PanelPictureBox.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)PictureBoxMark).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
         private Panel panel1;
-        private PictureBox PictureBoxMark;
         private Panel PanelMarkControllers;
         private Panel PanelPictureBox;
+        private PictureBox PictureBoxMark;
     }
 }
