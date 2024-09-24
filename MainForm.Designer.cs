@@ -395,9 +395,9 @@
             LabelCurrentPatient.Location = new Point(15, 17);
             LabelCurrentPatient.Margin = new Padding(4, 0, 4, 0);
             LabelCurrentPatient.Name = "LabelCurrentPatient";
-            LabelCurrentPatient.Size = new Size(256, 32);
+            LabelCurrentPatient.Size = new Size(245, 32);
             LabelCurrentPatient.TabIndex = 0;
-            LabelCurrentPatient.Text = "Current Patient: Admin";
+            LabelCurrentPatient.Text = "Current Patient: None";
             // 
             // MainForm
             // 
