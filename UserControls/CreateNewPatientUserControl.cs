@@ -41,6 +41,7 @@ namespace Madentra {
             Patient patient = new Patient { 
                 FullName = fullName,
                 IdCard = patientId,
+                PhoneNumber = Convert.ToInt64(phoneNumber),
                 Sex = sex,
                 Address = address,
                 Remarks = remarks,

@@ -1,4 +1,5 @@
 ﻿using Madentra.helpers;
+using Madentra.Model;
 using System.ComponentModel;
 using System.Diagnostics;
 
@@ -22,7 +23,13 @@ namespace Madentra {
         }
 
         private void SelectedPersonUserControl_Paint(object sender, PaintEventArgs e) {
-            label1.Text = dbHelpers.GetSelectedPatient().FullName;
+            Patient patient = dbHelpers.GetSelectedPatient() as Patient;
+            LabelSelectedPatient.Text = patient.FullName;
+            LabelGender.Text = patient.Sex;
+            LabelIDCard.Text = patient.IdCard;
+            LabelPhoneNumber.Text = patient.PhoneNumber.ToString();
+            LabelAddress.Text = patient.Address;
+            LabelRemarks.Text = patient.Remarks;
         }
     }
 }

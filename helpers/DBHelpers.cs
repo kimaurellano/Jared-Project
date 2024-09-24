@@ -118,7 +118,14 @@ namespace Madentra.helpers {
 
                 var command = connection.CreateCommand();
                 command.CommandText =
-                    $"SELECT Patient.Id, Patient.FullName FROM Patient " +
+                    $"SELECT " +
+                    $"Patient.Id, " +
+                    $"Patient.FullName, " +
+                    $"Patient.Sex, " +
+                    $"Patient.PhoneNumber, " +
+                    $"Patient.IDCard, " +
+                    $"Patient.Address, " +
+                    $"Patient.Remarks FROM Patient " +
                     $"LEFT JOIN SelectedPatient " +
                     $"ON Patient.Id = SelectedPatient.PatientId " +
                     $"WHERE SelectedPatient.PatientId NOT NULL";
@@ -240,7 +247,12 @@ namespace Madentra.helpers {
         private Patient CastRowToPatient(DataRow row) {
             return new Patient {
                 Id = (long) row["Id"],
-                FullName = row["FullName"].ToString() // Assuming "Name" is the name of the column
+                FullName = row["FullName"].ToString(), // Assuming "Name" is the name of the column
+                Sex = row["Sex"].ToString(),
+                IdCard = row["IDCard"].ToString(),
+                PhoneNumber = (long) row["PhoneNumber"],
+                Address = row["Address"].ToString(),
+                Remarks = row["Remarks"].ToString()
             };
         }
     }

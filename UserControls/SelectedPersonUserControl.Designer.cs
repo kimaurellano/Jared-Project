@@ -23,24 +23,34 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            label1 = new Label();
+            LabelSelectedPatient = new Label();
             GroupBoxSelectedPatient = new GroupBox();
+            LabelGender = new Label();
+            LabelIDCard = new Label();
+            LabelPhoneNumber = new Label();
+            LabelAddress = new Label();
+            LabelRemarks = new Label();
             GroupBoxSelectedPatient.SuspendLayout();
             SuspendLayout();
             // 
-            // label1
+            // LabelSelectedPatient
             // 
-            label1.AutoSize = true;
-            label1.Location = new Point(138, 123);
-            label1.Margin = new Padding(6, 0, 6, 0);
-            label1.Name = "label1";
-            label1.Size = new Size(175, 32);
-            label1.TabIndex = 0;
-            label1.Text = "selectedPatient";
+            LabelSelectedPatient.AutoSize = true;
+            LabelSelectedPatient.Location = new Point(70, 102);
+            LabelSelectedPatient.Margin = new Padding(6, 0, 6, 0);
+            LabelSelectedPatient.Name = "LabelSelectedPatient";
+            LabelSelectedPatient.Size = new Size(158, 32);
+            LabelSelectedPatient.TabIndex = 0;
+            LabelSelectedPatient.Text = "Patient Name";
             // 
             // GroupBoxSelectedPatient
             // 
-            GroupBoxSelectedPatient.Controls.Add(label1);
+            GroupBoxSelectedPatient.Controls.Add(LabelRemarks);
+            GroupBoxSelectedPatient.Controls.Add(LabelAddress);
+            GroupBoxSelectedPatient.Controls.Add(LabelPhoneNumber);
+            GroupBoxSelectedPatient.Controls.Add(LabelIDCard);
+            GroupBoxSelectedPatient.Controls.Add(LabelGender);
+            GroupBoxSelectedPatient.Controls.Add(LabelSelectedPatient);
             GroupBoxSelectedPatient.Dock = DockStyle.Fill;
             GroupBoxSelectedPatient.Location = new Point(20, 20);
             GroupBoxSelectedPatient.Name = "GroupBoxSelectedPatient";
@@ -49,6 +59,56 @@
             GroupBoxSelectedPatient.TabIndex = 1;
             GroupBoxSelectedPatient.TabStop = false;
             GroupBoxSelectedPatient.Text = "Current Patient";
+            // 
+            // LabelGender
+            // 
+            LabelGender.AutoSize = true;
+            LabelGender.Location = new Point(71, 195);
+            LabelGender.Margin = new Padding(6, 0, 6, 0);
+            LabelGender.Name = "LabelGender";
+            LabelGender.Size = new Size(92, 32);
+            LabelGender.TabIndex = 1;
+            LabelGender.Text = "Gender";
+            // 
+            // LabelIDCard
+            // 
+            LabelIDCard.AutoSize = true;
+            LabelIDCard.Location = new Point(70, 283);
+            LabelIDCard.Margin = new Padding(6, 0, 6, 0);
+            LabelIDCard.Name = "LabelIDCard";
+            LabelIDCard.Size = new Size(93, 32);
+            LabelIDCard.TabIndex = 2;
+            LabelIDCard.Text = "ID Card";
+            // 
+            // LabelPhoneNumber
+            // 
+            LabelPhoneNumber.AutoSize = true;
+            LabelPhoneNumber.Location = new Point(70, 369);
+            LabelPhoneNumber.Margin = new Padding(6, 0, 6, 0);
+            LabelPhoneNumber.Name = "LabelPhoneNumber";
+            LabelPhoneNumber.Size = new Size(170, 32);
+            LabelPhoneNumber.TabIndex = 3;
+            LabelPhoneNumber.Text = "PhoneNumber";
+            // 
+            // LabelAddress
+            // 
+            LabelAddress.AutoSize = true;
+            LabelAddress.Location = new Point(71, 460);
+            LabelAddress.Margin = new Padding(6, 0, 6, 0);
+            LabelAddress.Name = "LabelAddress";
+            LabelAddress.Size = new Size(98, 32);
+            LabelAddress.TabIndex = 4;
+            LabelAddress.Text = "Address";
+            // 
+            // LabelRemarks
+            // 
+            LabelRemarks.AutoSize = true;
+            LabelRemarks.Location = new Point(71, 552);
+            LabelRemarks.Margin = new Padding(6, 0, 6, 0);
+            LabelRemarks.Name = "LabelRemarks";
+            LabelRemarks.Size = new Size(103, 32);
+            LabelRemarks.TabIndex = 5;
+            LabelRemarks.Text = "Remarks";
             // 
             // SelectedPersonUserControl
             // 
@@ -68,7 +128,12 @@
 
         #endregion
 
-        private Label label1;
+        private Label LabelSelectedPatient;
         private GroupBox GroupBoxSelectedPatient;
+        private Label LabelGender;
+        private Label LabelIDCard;
+        private Label LabelRemarks;
+        private Label LabelAddress;
+        private Label LabelPhoneNumber;
     }
 }
