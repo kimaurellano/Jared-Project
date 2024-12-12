@@ -1,5 +1,4 @@
-﻿using Madentra.helpers;
-using Madentra.UserControls;
+﻿using Madentra.UserControls;
 using System.ComponentModel;
 using System.Diagnostics;
 

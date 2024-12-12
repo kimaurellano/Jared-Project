@@ -1,26 +1,17 @@
 ﻿using Madentra.helpers;
 using Madentra.Model;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace Madentra {
     public partial class CreateNewPatientUserControl : UserControl {
 
         private DBHelpers dBHelpers = new();
-
         private RadioButton radioButtonFemale => RadioButtonFemale;
         private RadioButton radioButtonMale => RadioButtonMale;
         private string fullName => TextBoxName.Text;
         private string phoneNumber => TextBoxPhoneNumber.Text;
         private string patientId => TextBoxIDCard.Text;
+
         private string sex;
         private string address => RichTextBoxAddress.Text;
         private string remarks => RichTextBoxRemarks.Text;

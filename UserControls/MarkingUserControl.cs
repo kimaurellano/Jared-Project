@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-
-namespace Jared.UserControls {
+﻿namespace Jared.UserControls {
     public partial class MarkingUserControl : UserControl {
 
         // PictureBox Compare
