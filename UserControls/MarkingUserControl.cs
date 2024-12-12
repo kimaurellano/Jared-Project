@@ -7,7 +7,12 @@ namespace Jared.UserControls {
         private bool isMoving = false;
         private Point mouseDownPosition = Point.Empty;
         private Point mouseMovePosition = Point.Empty;
-        private Dictionary<Point, Point> circles = new();
+        // Key: Start Point, Value: Tuple<End Point, Thickness>
+        private Dictionary<Point, (Point EndPoint, float Thickness)> circles = new();
+
+
+        private float currentPenThickness = 2.0f; // Adjustable thickness for the current ellipse
+
 
         public MarkingUserControl() {
             InitializeComponent();
@@ -25,18 +30,38 @@ namespace Jared.UserControls {
 
             // Initialize the PictureBox with a blank bitmap
             Bitmap bitmap = new(PictureBoxMark.Width, PictureBoxMark.Height);
-            PictureBoxMark.Image = bitmap;   
+            PictureBoxMark.Image = bitmap;
         }
 
         private void PictureBoxMark_Paint(object sender, PaintEventArgs e) {
-            Pen p = new(Color.Red);
+            // Pen for the current ellipse
+            Pen currentPen = new(Color.Red, currentPenThickness);
+
             var g = e.Graphics;
+
+            // Draw the currently moving ellipse with adjustable thickness
             if (isMoving) {
-                g.DrawEllipse(p, new Rectangle(mouseDownPosition, new Size(mouseMovePosition.X - mouseDownPosition.X, mouseMovePosition.Y - mouseDownPosition.Y)));
-                foreach (var circle in circles) {
-                    g.DrawEllipse(p, new Rectangle(circle.Key, new Size(circle.Value.X - circle.Key.X, circle.Value.Y - circle.Key.Y)));
-                }
+                g.DrawEllipse(
+                    currentPen,
+                    new Rectangle(
+                        mouseDownPosition,
+                        new Size(mouseMovePosition.X - mouseDownPosition.X, mouseMovePosition.Y - mouseDownPosition.Y)
+                    )
+                );
             }
+
+            // Draw all stored ellipses with a fixed thickness
+            foreach (var circle in circles) {
+                using Pen pen = new(Color.Red, circle.Value.Thickness);
+                g.DrawEllipse(
+                    pen,
+                    new Rectangle(
+                        circle.Key,
+                        new Size(circle.Value.EndPoint.X - circle.Key.X, circle.Value.EndPoint.Y - circle.Key.Y)
+                    )
+                );
+            }
+
         }
 
         private void PictureBoxMark_MouseDown(object sender, MouseEventArgs e) {
@@ -55,15 +80,25 @@ namespace Jared.UserControls {
         private void PictureBoxMark_MouseUp(object sender, MouseEventArgs e) {
             PictureBoxMark.Cursor = Cursors.Default;
             if (isMoving) {
-                circles.Add(mouseDownPosition, mouseMovePosition);
+                circles.Add(mouseDownPosition, (mouseMovePosition, currentPenThickness));
             }
             isMoving = false;
         }
 
         // Displays selected image from Image List to picture boxes in Compare Tab
         public void DisplaySelectedImage(Image image) {
+            if (PictureBoxMark.Image != null) {
+                MessageBox.Show("Markings will be removed upon selection change. Are you sure?");
+                circles.Clear();
+            }
+
             PictureBoxMark.SizeMode = PictureBoxSizeMode.Zoom;
             PictureBoxMark.Image = image;
+        }
+
+        private void trackBarPen_Scroll(object sender, EventArgs e) {
+            currentPenThickness = trackBarPen.Value;
+            PictureBoxMark.Invalidate(); // Refresh the PictureBox to apply the new thickness
         }
     }
 }

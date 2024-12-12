@@ -27,9 +27,12 @@
             PanelPictureBox = new Panel();
             PictureBoxMark = new PictureBox();
             PanelMarkControllers = new Panel();
+            trackBarPen = new TrackBar();
             panel1.SuspendLayout();
             PanelPictureBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)PictureBoxMark).BeginInit();
+            PanelMarkControllers.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)trackBarPen).BeginInit();
             SuspendLayout();
             // 
             // panel1
@@ -67,12 +70,21 @@
             // PanelMarkControllers
             // 
             PanelMarkControllers.BackColor = Color.WhiteSmoke;
+            PanelMarkControllers.Controls.Add(trackBarPen);
             PanelMarkControllers.Dock = DockStyle.Bottom;
             PanelMarkControllers.Location = new Point(0, 852);
             PanelMarkControllers.Margin = new Padding(6);
             PanelMarkControllers.Name = "PanelMarkControllers";
             PanelMarkControllers.Size = new Size(1632, 213);
             PanelMarkControllers.TabIndex = 3;
+            // 
+            // trackBarPen
+            // 
+            trackBarPen.Location = new Point(53, 37);
+            trackBarPen.Name = "trackBarPen";
+            trackBarPen.Size = new Size(208, 90);
+            trackBarPen.TabIndex = 2;
+            trackBarPen.Scroll += trackBarPen_Scroll;
             // 
             // MarkingUserControl
             // 
@@ -84,6 +96,9 @@
             panel1.ResumeLayout(false);
             PanelPictureBox.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)PictureBoxMark).EndInit();
+            PanelMarkControllers.ResumeLayout(false);
+            PanelMarkControllers.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)trackBarPen).EndInit();
             ResumeLayout(false);
         }
 
@@ -92,5 +107,6 @@
         private Panel PanelMarkControllers;
         private Panel PanelPictureBox;
         private PictureBox PictureBoxMark;
+        private TrackBar trackBarPen;
     }
 }
