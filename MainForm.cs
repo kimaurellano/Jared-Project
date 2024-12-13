@@ -37,13 +37,6 @@ namespace Madentra {
             LabelCurrentPatient.Text = $"Current Patient: {dbHelpers.GetSelectedPatient().FullName}";
         }
 
-        private void SelectedPatient_PropertyChanged(object sender, PropertyChangedEventArgs e) {
-            if (e.PropertyName == nameof(DataGridViewPatientUserControl.SelectedPatient)) {
-                // Handle the property change
-                LabelCurrentPatient.Text = $"Current Patient: {dbHelpers.GetSelectedPatient().FullName}";
-            }
-        }
-
         private void InitializePages() {
             searchPatientUserControl = new SearchPatientUserControl();
             createNewPatientUserControl = new CreateNewPatientUserControl();
@@ -57,6 +50,7 @@ namespace Madentra {
             ShowContentInTabPatients(searchPatientUserControl);
 
             searchPatientUserControl.DataGridViewPatientUserControlInstance.PropertyChanged += DataGridViewPatientUserControlInstance_PropertyChanged;
+            createNewPatientUserControl.PropertyChanged += CreateNewPatientUserControlInstance_PropertyChanged;
 
             var videoDevices = new FilterInfoCollection(FilterCategory.VideoInputDevice);
             singleFeedManager = new VideoFeedManager(
@@ -74,6 +68,11 @@ namespace Madentra {
 
         private void DataGridViewPatientUserControlInstance_PropertyChanged(object sender, PropertyChangedEventArgs e) {
             LabelCurrentPatient.Text = $"Current Patient: {dbHelpers.GetSelectedPatient().FullName}";
+        }
+
+        private void CreateNewPatientUserControlInstance_PropertyChanged(object sender, PropertyChangedEventArgs e) {
+            ShowContentInTabPatients(searchPatientUserControl);
+            searchPatientUserControl.ShowDefaultPanel();
         }
 
         private void BtnCreateNewPatient_Click(object sender, EventArgs e) {

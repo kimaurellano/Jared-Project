@@ -39,6 +39,7 @@
             TextBoxPhoneNumber = new TextBox();
             RichTextBoxAddress = new RichTextBox();
             RichTextBoxRemarks = new RichTextBox();
+            buttonClear = new Button();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)PictureBoxProfile).BeginInit();
             SuspendLayout();
@@ -55,6 +56,7 @@
             // 
             // TextBoxName
             // 
+            TextBoxName.CharacterCasing = CharacterCasing.Upper;
             TextBoxName.Location = new Point(130, 53);
             TextBoxName.Margin = new Padding(6);
             TextBoxName.Name = "TextBoxName";
@@ -140,11 +142,11 @@
             groupBox1.TabStop = false;
             groupBox1.Text = "Sex";
             // 
-            // RadioButtonFemail
+            // RadioButtonFemale
             // 
             RadioButtonFemale.AutoSize = true;
             RadioButtonFemale.Location = new Point(248, 55);
-            RadioButtonFemale.Name = "RadioButtonFemail";
+            RadioButtonFemale.Name = "RadioButtonFemale";
             RadioButtonFemale.Size = new Size(122, 36);
             RadioButtonFemale.TabIndex = 6;
             RadioButtonFemale.TabStop = true;
@@ -172,6 +174,7 @@
             TextBoxIDCard.Name = "TextBoxIDCard";
             TextBoxIDCard.Size = new Size(378, 39);
             TextBoxIDCard.TabIndex = 13;
+            TextBoxIDCard.KeyPress += TextBoxIDCard_KeyPress;
             // 
             // TextBoxPhoneNumber
             // 
@@ -180,6 +183,7 @@
             TextBoxPhoneNumber.Name = "TextBoxPhoneNumber";
             TextBoxPhoneNumber.Size = new Size(294, 39);
             TextBoxPhoneNumber.TabIndex = 14;
+            TextBoxPhoneNumber.KeyPress += TextBoxPhoneNumber_KeyPress;
             // 
             // RichTextBoxAddress
             // 
@@ -197,11 +201,25 @@
             RichTextBoxRemarks.TabIndex = 16;
             RichTextBoxRemarks.Text = "";
             // 
+            // buttonClear
+            // 
+            buttonClear.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            buttonClear.DialogResult = DialogResult.Yes;
+            buttonClear.Location = new Point(481, 948);
+            buttonClear.Margin = new Padding(6);
+            buttonClear.Name = "buttonClear";
+            buttonClear.Size = new Size(387, 69);
+            buttonClear.TabIndex = 17;
+            buttonClear.Text = "Clear";
+            buttonClear.UseVisualStyleBackColor = true;
+            buttonClear.Click += buttonClear_Click;
+            // 
             // CreateNewPatientUserControl
             // 
             AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
+            Controls.Add(buttonClear);
             Controls.Add(RichTextBoxRemarks);
             Controls.Add(RichTextBoxAddress);
             Controls.Add(TextBoxPhoneNumber);
@@ -242,5 +260,6 @@
         private TextBox TextBoxPhoneNumber;
         private RichTextBox RichTextBoxAddress;
         private RichTextBox RichTextBoxRemarks;
+        private Button buttonClear;
     }
 }

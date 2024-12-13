@@ -1,5 +1,7 @@
 ﻿using Madentra.helpers;
 using Madentra.Model;
+using Madentra.UserControls;
+using System.ComponentModel;
 using System.Diagnostics;
 
 namespace Madentra {
@@ -16,6 +18,28 @@ namespace Madentra {
         private string address => RichTextBoxAddress.Text;
         private string remarks => RichTextBoxRemarks.Text;
 
+        private bool _patientCreated = false;
+
+        private CreateNewPatientUserControl createNewPatientUserControl;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public bool PatientCreated {
+            get { return _patientCreated; }
+            set {
+                if (_patientCreated != value) {
+                    Debug.WriteLine($"{_patientCreated} property changed.");
+                    _patientCreated = value;
+                    OnPropertyChanged(nameof(PatientCreated));
+                }
+            }
+        }
+
+        protected virtual void OnPropertyChanged(string propertyName) {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            Debug.WriteLine($"property changed invoked.");
+        }
+
         public CreateNewPatientUserControl() {
             InitializeComponent();
 
@@ -29,7 +53,7 @@ namespace Madentra {
         }
 
         private void BtnCreatePatient_Click(object sender, EventArgs e) {
-            Patient patient = new Patient { 
+            Patient patient = new Patient {
                 FullName = fullName,
                 IdCard = patientId,
                 PhoneNumber = Convert.ToInt64(phoneNumber),
@@ -41,6 +65,10 @@ namespace Madentra {
             dBHelpers.InsertPatient(patient);
 
             MessageBox.Show("Patient created.");
+
+            ClearAllTextBoxes();
+
+            PatientCreated = !PatientCreated;
         }
 
         private void RadioButton_CheckChanged(object sender, EventArgs e) {
@@ -51,6 +79,48 @@ namespace Madentra {
             if (rb != null && rb.Checked) {
                 sex = rb.Text;
             }
+        }
+
+        public void ClearAllTextBoxes() {
+            // Recursively clear all textboxes in the UserControl
+            ClearTextBoxesRecursive(this);
+        }
+
+        private void ClearTextBoxesRecursive(Control parent) {
+            foreach (Control control in parent.Controls) {
+                if (control is TextBox textBox) {
+                    textBox.Text = ""; // Clear the text in the TextBox
+                } else if (control.HasChildren) {
+                    // Recursively call for child controls
+                    ClearTextBoxesRecursive(control);
+                }
+
+                if (control is RadioButton radioButton) {
+                    radioButton.Checked = false;
+                }
+
+                if (control is RichTextBox richTextBox) {
+                    richTextBox.Text = "";
+                }
+            }
+        }
+
+        private void TextBoxIDCard_KeyPress(object sender, KeyPressEventArgs e) {
+            // Allow only digits, control keys (e.g., backspace), and optionally a decimal point
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar)) {
+                e.Handled = true; // Prevent the character from being entered
+            }
+        }
+
+        private void TextBoxPhoneNumber_KeyPress(object sender, KeyPressEventArgs e) {
+            // Allow only digits, control keys (e.g., backspace), and optionally a decimal point
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar)) {
+                e.Handled = true; // Prevent the character from being entered
+            }
+        }
+
+        private void buttonClear_Click(object sender, EventArgs e) {
+            ClearAllTextBoxes();
         }
     }
 }

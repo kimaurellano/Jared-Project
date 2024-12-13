@@ -19,6 +19,7 @@ namespace Madentra.UserControls {
                 if (_selectedPatient != value) {
                     Debug.WriteLine($"{_selectedPatient} property changed.");
                     _selectedPatient = value;
+                    // Propagates change event to SelectedPatient
                     OnPropertyChanged(nameof(SelectedPatient));
                 }
             }
