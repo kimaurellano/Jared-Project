@@ -148,9 +148,9 @@
             radioButtonGreen.Name = "radioButtonGreen";
             radioButtonGreen.Size = new Size(113, 36);
             radioButtonGreen.TabIndex = 2;
-            radioButtonGreen.TabStop = true;
             radioButtonGreen.Text = "Green";
             radioButtonGreen.UseVisualStyleBackColor = true;
+            radioButtonGreen.CheckedChanged += radioButtonGreen_CheckedChanged;
             // 
             // radioButtonBlue
             // 
@@ -161,13 +161,14 @@
             radioButtonBlue.Name = "radioButtonBlue";
             radioButtonBlue.Size = new Size(95, 36);
             radioButtonBlue.TabIndex = 1;
-            radioButtonBlue.TabStop = true;
             radioButtonBlue.Text = "Blue";
             radioButtonBlue.UseVisualStyleBackColor = true;
+            radioButtonBlue.CheckedChanged += radioButtonBlue_CheckedChanged;
             // 
             // radioButtonRed
             // 
             radioButtonRed.AutoSize = true;
+            radioButtonRed.Checked = true;
             radioButtonRed.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             radioButtonRed.ForeColor = Color.Red;
             radioButtonRed.Location = new Point(30, 47);
@@ -177,6 +178,7 @@
             radioButtonRed.TabStop = true;
             radioButtonRed.Text = "Red";
             radioButtonRed.UseVisualStyleBackColor = true;
+            radioButtonRed.CheckedChanged += radioButtonRed_CheckedChanged;
             // 
             // MarkingUserControl
             // 

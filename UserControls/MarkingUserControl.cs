@@ -6,10 +6,11 @@
         private Point mouseDownPosition = Point.Empty;
         private Point mouseMovePosition = Point.Empty;
         // Key: Start Point, Value: Tuple<End Point, Thickness>
-        private Dictionary<Point, (Point EndPoint, float Thickness)> circles = new();
+        private Dictionary<Point, (Point EndPoint, float Thickness, Color Color)> circles = new();
 
 
         private float currentPenThickness = 2.0f; // Adjustable thickness for the current ellipse
+        private Color currentColor = Color.Red; // Default red
 
 
         public MarkingUserControl() {
@@ -33,7 +34,7 @@
 
         private void PictureBoxMark_Paint(object sender, PaintEventArgs e) {
             // Pen for the current ellipse
-            Pen currentPen = new(Color.Red, currentPenThickness);
+            Pen currentPen = new(currentColor, currentPenThickness);
 
             var g = e.Graphics;
 
@@ -50,7 +51,7 @@
 
             // Draw all stored ellipses with a fixed thickness
             foreach (var circle in circles) {
-                using Pen pen = new(Color.Red, circle.Value.Thickness);
+                using Pen pen = new(circle.Value.Color, circle.Value.Thickness);
                 g.DrawEllipse(
                     pen,
                     new Rectangle(
@@ -59,7 +60,6 @@
                     )
                 );
             }
-
         }
 
         private void PictureBoxMark_MouseDown(object sender, MouseEventArgs e) {
@@ -78,7 +78,7 @@
         private void PictureBoxMark_MouseUp(object sender, MouseEventArgs e) {
             PictureBoxMark.Cursor = Cursors.Default;
             if (isMoving) {
-                circles.Add(mouseDownPosition, (mouseMovePosition, currentPenThickness));
+                circles.Add(mouseDownPosition, (mouseMovePosition, currentPenThickness, currentColor));
             }
             isMoving = false;
         }
@@ -97,6 +97,24 @@
         private void trackBarPen_Scroll(object sender, EventArgs e) {
             currentPenThickness = trackBarPen.Value;
             PictureBoxMark.Invalidate(); // Refresh the PictureBox to apply the new thickness
+        }
+
+        private void radioButtonRed_CheckedChanged(object sender, EventArgs e) {
+            if (radioButtonRed.Checked) {
+                currentColor = Color.Red;
+            }
+        }
+
+        private void radioButtonBlue_CheckedChanged(object sender, EventArgs e) {
+            if (radioButtonBlue.Checked) {
+                currentColor = Color.Blue;
+            }
+        }
+
+        private void radioButtonGreen_CheckedChanged(object sender, EventArgs e) {
+            if (radioButtonGreen.Checked) {
+                currentColor = Color.Green;
+            }
         }
     }
 }
