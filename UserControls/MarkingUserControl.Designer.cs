@@ -35,6 +35,7 @@
             radioButtonGreen = new RadioButton();
             radioButtonBlue = new RadioButton();
             radioButtonRed = new RadioButton();
+            buttonClear = new Button();
             panel1.SuspendLayout();
             PanelPictureBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)PictureBoxMark).BeginInit();
@@ -79,6 +80,7 @@
             // PanelMarkControllers
             // 
             PanelMarkControllers.BackColor = Color.WhiteSmoke;
+            PanelMarkControllers.Controls.Add(buttonClear);
             PanelMarkControllers.Controls.Add(buttonSaveMark);
             PanelMarkControllers.Controls.Add(buttonDrawMode);
             PanelMarkControllers.Controls.Add(groupBox1);
@@ -180,6 +182,17 @@
             radioButtonRed.UseVisualStyleBackColor = true;
             radioButtonRed.CheckedChanged += radioButtonRed_CheckedChanged;
             // 
+            // buttonClear
+            // 
+            buttonClear.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            buttonClear.Location = new Point(1408, 109);
+            buttonClear.Name = "buttonClear";
+            buttonClear.Size = new Size(205, 46);
+            buttonClear.TabIndex = 8;
+            buttonClear.Text = "Clear";
+            buttonClear.UseVisualStyleBackColor = true;
+            buttonClear.Click += buttonClear_Click;
+            // 
             // MarkingUserControl
             // 
             AutoScaleDimensions = new SizeF(13F, 32F);
@@ -212,5 +225,6 @@
         private RadioButton radioButtonBlue;
         private Button buttonDrawMode;
         private Button buttonSaveMark;
+        private Button buttonClear;
     }
 }

@@ -116,5 +116,10 @@
                 currentColor = Color.Green;
             }
         }
+
+        private void buttonClear_Click(object sender, EventArgs e) {
+            circles.Clear();
+            PictureBoxMark.Invalidate();
+        }
     }
 }
