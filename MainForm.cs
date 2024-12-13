@@ -4,10 +4,7 @@ using Madentra.helpers;
 using System.ComponentModel;
 using Madentra.UserControls;
 using System.Diagnostics;
-using System.Windows.Forms;
 using Jared.helpers;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using System.Drawing.Drawing2D;
 using Jared.UserControls;
 
 namespace Madentra {
