@@ -8,6 +8,7 @@ namespace Madentra.UserControls {
 
         private DBHelpers dbHelpers = new();
         private string _selectedPatient = string.Empty;
+        private long _patientId;
 
         private DataGridViewPatientUserControl dataGridViewPatientUserControl;
 
@@ -59,7 +60,7 @@ namespace Madentra.UserControls {
                 // Need to refresh the Selected Patient table.
                 var checkSelectedPatient = dbHelpers.GetSelectedPatient();
                 if (checkSelectedPatient != null) {
-                    dbHelpers.ClearSelectedPatient();
+                    dbHelpers.DeleteSelectedPatient();
                 }
 
                 // Insert selected patient to SelectedPatient table.
@@ -67,6 +68,33 @@ namespace Madentra.UserControls {
 
                 // Trigger the observer
                 SelectedPatient = dbHelpers.GetSelectedPatient().FullName;
+            }
+        }
+
+        private void buttonDelete_Click(object sender, EventArgs e) {
+            DialogResult dialogResult = MessageBox.Show(
+                "You are permanently deleting this Patient's record. Are you sure?", 
+                "Record Delete", 
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning);
+
+            if (dialogResult == DialogResult.Yes) {
+                dbHelpers.DeletePatient(_patientId);
+                PopulatePatientDataGrid();
+            }   
+        }
+
+        private void dataGridViewPatients_CellClick(object sender, DataGridViewCellEventArgs e) {
+            if (e.RowIndex >= 0) { // Ensures the click wasn't on the header row
+                Patient patient = new();
+
+                // Get the selected row and cell value
+                var selectedRow = ((DataGridView)sender).Rows[e.RowIndex];
+                _patientId = (long)selectedRow.Cells["Id"].Value;
+
+                // Trigger the observer
+                SelectedPatient = dbHelpers.GetSelectedPatient().FullName.Equals(string.Empty) ?
+                    dbHelpers.GetSelectedPatient().FullName : string.Empty;
             }
         }
     }

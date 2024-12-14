@@ -104,7 +104,25 @@ namespace Madentra.helpers {
             }
         }
 
-        public void ClearSelectedPatient() {
+        public void DeletePatient(long patientId) {
+            using (var connection = _connection) {
+                connection.Open();
+
+                var command = connection.CreateCommand();
+                command.CommandText = 
+                    $"DELETE FROM Patient WHERE Id={patientId};" +
+                    $"DELETE FROM PatientImage WHERE PatientId={patientId};" +
+                    $"DELETE FROM SelectedPatient WHERE PatientId={patientId};";
+
+                command.ExecuteNonQuery();
+            }
+        }
+
+        /// <summary>
+        /// This delete data from SelectedPatient table used to mark 
+        /// which patient is currently selected.
+        /// </summary>
+        public void DeleteSelectedPatient() {
             using (var connection = _connection) {
                 connection.Open();
 
@@ -116,7 +134,8 @@ namespace Madentra.helpers {
         }
 
         /// <summary>
-        /// Selected Patient table will only contain 1 row of data always.
+        /// SelectedPatient table will only contain 1 row of data always
+        /// used to mark which patient is currently selected.
         /// </summary>
         public Patient GetSelectedPatient() {
             using (var connection = _connection) {

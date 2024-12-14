@@ -24,6 +24,7 @@
         /// </summary>
         private void InitializeComponent() {
             SearchBoxPanel = new Panel();
+            buttonDelete = new Button();
             TextBoxSearchPatientName = new TextBox();
             dataGridViewPatients = new DataGridView();
             SearchBoxPanel.SuspendLayout();
@@ -33,6 +34,7 @@
             // SearchBoxPanel
             // 
             SearchBoxPanel.BackColor = Color.White;
+            SearchBoxPanel.Controls.Add(buttonDelete);
             SearchBoxPanel.Controls.Add(TextBoxSearchPatientName);
             SearchBoxPanel.Dock = DockStyle.Top;
             SearchBoxPanel.Location = new Point(0, 0);
@@ -40,6 +42,16 @@
             SearchBoxPanel.Name = "SearchBoxPanel";
             SearchBoxPanel.Size = new Size(1782, 92);
             SearchBoxPanel.TabIndex = 4;
+            // 
+            // buttonDelete
+            // 
+            buttonDelete.Location = new Point(1408, 21);
+            buttonDelete.Name = "buttonDelete";
+            buttonDelete.Size = new Size(350, 46);
+            buttonDelete.TabIndex = 3;
+            buttonDelete.Text = "Delete Patient Record";
+            buttonDelete.UseVisualStyleBackColor = true;
+            buttonDelete.Click += buttonDelete_Click;
             // 
             // TextBoxSearchPatientName
             // 
@@ -66,6 +78,7 @@
             dataGridViewPatients.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridViewPatients.Size = new Size(1782, 1178);
             dataGridViewPatients.TabIndex = 0;
+            dataGridViewPatients.CellClick += dataGridViewPatients_CellClick;
             dataGridViewPatients.CellDoubleClick += DataGridViewPatients_CellDoubleClick;
             // 
             // DataGridViewPatientUserControl
@@ -87,5 +100,6 @@
         private Panel SearchBoxPanel;
         private TextBox TextBoxSearchPatientName;
         private DataGridView dataGridViewPatients;
+        private Button buttonDelete;
     }
 }
