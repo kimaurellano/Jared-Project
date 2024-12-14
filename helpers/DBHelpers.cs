@@ -70,7 +70,7 @@ namespace Madentra.helpers {
                 connection.Open();
 
                 var command = connection.CreateCommand();
-                command.CommandText = $"SELECT * FROM Patient WHERE @Name=${name}";
+                command.CommandText = $"SELECT * FROM Patient WHERE FullName LIKE '{name}%'";
 
                 DataTable dataTable = new();
 
@@ -87,7 +87,7 @@ namespace Madentra.helpers {
                 connection.Open();
 
                 var command = connection.CreateCommand();
-                command.CommandText = $"SELECT * FROM Patient WHERE @Id=${patientId}";
+                command.CommandText = $"SELECT * FROM Patient WHERE Id={patientId}";
 
                 DataTable dataTable = new();
 

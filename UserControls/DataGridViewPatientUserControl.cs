@@ -73,15 +73,15 @@ namespace Madentra.UserControls {
 
         private void buttonDelete_Click(object sender, EventArgs e) {
             DialogResult dialogResult = MessageBox.Show(
-                "You are permanently deleting this Patient's record. Are you sure?", 
-                "Record Delete", 
+                "You are permanently deleting this Patient's record. Are you sure?",
+                "Record Delete",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Warning);
 
             if (dialogResult == DialogResult.Yes) {
                 dbHelpers.DeletePatient(_patientId);
                 PopulatePatientDataGrid();
-            }   
+            }
         }
 
         private void dataGridViewPatients_CellClick(object sender, DataGridViewCellEventArgs e) {
@@ -96,6 +96,11 @@ namespace Madentra.UserControls {
                 SelectedPatient = dbHelpers.GetSelectedPatient().FullName.Equals(string.Empty) ?
                     dbHelpers.GetSelectedPatient().FullName : string.Empty;
             }
+        }
+
+        private void TextBoxSearchPatientName_TextChanged(object sender, EventArgs e) {
+            string patientName = TextBoxSearchPatientName.Text;
+            dataGridViewPatients.DataSource = dbHelpers.SelectPatient(patientName);
         }
     }
 }

@@ -62,6 +62,7 @@
             TextBoxSearchPatientName.PlaceholderText = "Search Patient";
             TextBoxSearchPatientName.Size = new Size(275, 39);
             TextBoxSearchPatientName.TabIndex = 2;
+            TextBoxSearchPatientName.TextChanged += TextBoxSearchPatientName_TextChanged;
             // 
             // dataGridViewPatients
             // 
