@@ -91,10 +91,6 @@ namespace Madentra.UserControls {
                 // Get the selected row and cell value
                 var selectedRow = ((DataGridView)sender).Rows[e.RowIndex];
                 _patientId = (long)selectedRow.Cells["Id"].Value;
-
-                // Trigger the observer
-                SelectedPatient = dbHelpers.GetSelectedPatient().FullName.Equals(string.Empty) ?
-                    dbHelpers.GetSelectedPatient().FullName : string.Empty;
             }
         }
 
