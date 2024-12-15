@@ -21,12 +21,12 @@ namespace Madentra.helpers {
                 command.CommandText = 
                     $"INSERT INTO Patient (FullName,Sex,PhoneNumber,IDCard,Address,Remarks,CreationDate) " +
                     $"VALUES (" +
-                    $"'{patient.FullName}'," +
-                    $"'{patient.Sex}'," +
+                    $"'{patient.FullName.ToUpper()}'," +
+                    $"'{patient.Sex.ToUpper()}'," +
                     $"'{patient.PhoneNumber}'," +
                     $"'{patient.IdCard}'," +
-                    $"'{patient.Address}'," +
-                    $"'{patient.Remarks}'," +
+                    $"'{patient.Address.ToUpper()}'," +
+                    $"'{patient.Remarks.ToUpper()}'," +
                     $"'{DateTime.Now}');";
 
                 command.ExecuteNonQuery();
