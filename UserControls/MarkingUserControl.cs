@@ -8,7 +8,6 @@
         // Key: Start Point, Value: Tuple<End Point, Thickness>
         private Dictionary<Point, (Point EndPoint, float Thickness, Color Color)> circles = new();
 
-
         private float currentPenThickness = 2.0f; // Adjustable thickness for the current ellipse
         private Color currentColor = Color.Red; // Default red
 
@@ -29,7 +28,7 @@
 
             // Initialize the PictureBox with a blank bitmap
             Bitmap bitmap = new(PictureBoxMark.Width, PictureBoxMark.Height);
-            PictureBoxMark.Image = bitmap;
+            PictureBoxMark.Image = null;
         }
 
         private void PictureBoxMark_Paint(object sender, PaintEventArgs e) {
