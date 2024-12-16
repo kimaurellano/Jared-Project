@@ -120,5 +120,17 @@
             circles.Clear();
             PictureBoxMark.Invalidate();
         }
+
+        private void buttonUndo_Click(object sender, EventArgs e) {
+            if (circles.Count <= 0) {
+                return;
+            }
+
+            int endIndex = circles.Count - 1;
+            var indexToRemove = circles.ElementAt(endIndex);
+            circles.Remove(indexToRemove.Key);
+
+            PictureBoxMark.Invalidate();
+        }
     }
 }

@@ -27,6 +27,7 @@
             PanelPictureBox = new Panel();
             PictureBoxMark = new PictureBox();
             PanelMarkControllers = new Panel();
+            buttonClear = new Button();
             buttonSaveMark = new Button();
             buttonDrawMode = new Button();
             groupBox1 = new GroupBox();
@@ -35,7 +36,7 @@
             radioButtonGreen = new RadioButton();
             radioButtonBlue = new RadioButton();
             radioButtonRed = new RadioButton();
-            buttonClear = new Button();
+            buttonUndo = new Button();
             panel1.SuspendLayout();
             PanelPictureBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)PictureBoxMark).BeginInit();
@@ -80,6 +81,7 @@
             // PanelMarkControllers
             // 
             PanelMarkControllers.BackColor = Color.WhiteSmoke;
+            PanelMarkControllers.Controls.Add(buttonUndo);
             PanelMarkControllers.Controls.Add(buttonClear);
             PanelMarkControllers.Controls.Add(buttonSaveMark);
             PanelMarkControllers.Controls.Add(buttonDrawMode);
@@ -91,6 +93,17 @@
             PanelMarkControllers.Name = "PanelMarkControllers";
             PanelMarkControllers.Size = new Size(1646, 246);
             PanelMarkControllers.TabIndex = 3;
+            // 
+            // buttonClear
+            // 
+            buttonClear.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            buttonClear.Location = new Point(1408, 180);
+            buttonClear.Name = "buttonClear";
+            buttonClear.Size = new Size(205, 46);
+            buttonClear.TabIndex = 8;
+            buttonClear.Text = "Clear All";
+            buttonClear.UseVisualStyleBackColor = true;
+            buttonClear.Click += buttonClear_Click;
             // 
             // buttonSaveMark
             // 
@@ -182,16 +195,16 @@
             radioButtonRed.UseVisualStyleBackColor = true;
             radioButtonRed.CheckedChanged += radioButtonRed_CheckedChanged;
             // 
-            // buttonClear
+            // buttonUndo
             // 
-            buttonClear.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            buttonClear.Location = new Point(1408, 109);
-            buttonClear.Name = "buttonClear";
-            buttonClear.Size = new Size(205, 46);
-            buttonClear.TabIndex = 8;
-            buttonClear.Text = "Clear";
-            buttonClear.UseVisualStyleBackColor = true;
-            buttonClear.Click += buttonClear_Click;
+            buttonUndo.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            buttonUndo.Location = new Point(1408, 109);
+            buttonUndo.Name = "buttonUndo";
+            buttonUndo.Size = new Size(205, 46);
+            buttonUndo.TabIndex = 9;
+            buttonUndo.Text = "Undo";
+            buttonUndo.UseVisualStyleBackColor = true;
+            buttonUndo.Click += buttonUndo_Click;
             // 
             // MarkingUserControl
             // 
@@ -226,5 +239,6 @@
         private Button buttonDrawMode;
         private Button buttonSaveMark;
         private Button buttonClear;
+        private Button buttonUndo;
     }
 }
