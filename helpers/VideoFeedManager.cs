@@ -3,8 +3,31 @@ using AForge.Video;
 
 namespace Jared.helpers {
     internal class VideoFeedManager {
+
         private VideoCaptureDevice videoSource;
         private List<PictureBox> pictureBoxes;
+
+        // This is static since we just want to see all the available capture devices
+        public static List<string> ListAvailableCameras() {
+            FilterInfoCollection videoDevices;
+
+            // Get the collection of video devices (cameras)
+            videoDevices = new FilterInfoCollection(FilterCategory.VideoInputDevice);
+
+            // Check if there are any cameras connected
+            if (videoDevices.Count == 0) {
+                MessageBox.Show("No cameras found.", "Camera List", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return [];
+            }
+
+            List<string> videoCaptureDevices = [];
+            // Add camera names to a ListBox or ComboBox
+            foreach (FilterInfo device in videoDevices) {
+                videoCaptureDevices.Add(device.Name);
+            }
+
+            return videoCaptureDevices;
+        }
 
         public VideoFeedManager(FilterInfoCollection videoDevices, params PictureBox[] pictureBoxes) {
             if (videoDevices.Count <= 0) {

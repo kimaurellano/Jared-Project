@@ -52,6 +52,8 @@
             Settings = new TabPage();
             BottomPanel = new Panel();
             LabelCurrentPatient = new Label();
+            comboBoxCameraList = new ComboBox();
+            label1 = new Label();
             PanelPictureList.SuspendLayout();
             MainPanel.SuspendLayout();
             TabControlMain.SuspendLayout();
@@ -68,6 +70,7 @@
             tabPagemark.SuspendLayout();
             MainPanelMark.SuspendLayout();
             PanelMarkContainer.SuspendLayout();
+            Settings.SuspendLayout();
             BottomPanel.SuspendLayout();
             SuspendLayout();
             // 
@@ -369,6 +372,8 @@
             // 
             // Settings
             // 
+            Settings.Controls.Add(label1);
+            Settings.Controls.Add(comboBoxCameraList);
             Settings.Location = new Point(8, 46);
             Settings.Margin = new Padding(6);
             Settings.Name = "Settings";
@@ -398,6 +403,23 @@
             LabelCurrentPatient.Size = new Size(245, 32);
             LabelCurrentPatient.TabIndex = 0;
             LabelCurrentPatient.Text = "Current Patient: None";
+            // 
+            // comboBoxCameraList
+            // 
+            comboBoxCameraList.FormattingEnabled = true;
+            comboBoxCameraList.Location = new Point(151, 71);
+            comboBoxCameraList.Name = "comboBoxCameraList";
+            comboBoxCameraList.Size = new Size(280, 40);
+            comboBoxCameraList.TabIndex = 0;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(46, 74);
+            label1.Name = "label1";
+            label1.Size = new Size(86, 32);
+            label1.TabIndex = 1;
+            label1.Text = "Device";
             // 
             // MainForm
             // 
@@ -429,6 +451,8 @@
             tabPagemark.ResumeLayout(false);
             MainPanelMark.ResumeLayout(false);
             PanelMarkContainer.ResumeLayout(false);
+            Settings.ResumeLayout(false);
+            Settings.PerformLayout();
             BottomPanel.ResumeLayout(false);
             BottomPanel.PerformLayout();
             ResumeLayout(false);
@@ -463,5 +487,7 @@
         private Panel PanelMark;
         private TabPage Settings;
         private Label LabelEmpty;
+        private Label label1;
+        private ComboBox comboBoxCameraList;
     }
 }

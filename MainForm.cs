@@ -30,6 +30,7 @@ namespace Madentra {
             Debug.WriteLine($"{Name}");
             InitializeListView();
             InitializePages();
+            LoadAvailableCaptureDevices();
 
             LabelCurrentPatient.Text = $"Current Patient: {dbHelpers.GetSelectedPatient().FullName}";
         }
@@ -262,6 +263,12 @@ namespace Madentra {
 
             ShowContentInTabPatients(searchPatientUserControl);
             searchPatientUserControl.ShowSelectedPatientPanel();
+        }
+
+        private void LoadAvailableCaptureDevices() {
+            foreach (var item in VideoFeedManager.ListAvailableCameras()) {
+                comboBoxCameraList.Items.Add(item);
+            }
         }
     }
 }
