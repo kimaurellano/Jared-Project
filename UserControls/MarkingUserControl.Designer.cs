@@ -27,6 +27,7 @@
             PanelPictureBox = new Panel();
             PictureBoxMark = new PictureBox();
             PanelMarkControllers = new Panel();
+            buttonUndo = new Button();
             buttonClear = new Button();
             buttonSaveMark = new Button();
             buttonDrawMode = new Button();
@@ -36,7 +37,6 @@
             radioButtonGreen = new RadioButton();
             radioButtonBlue = new RadioButton();
             radioButtonRed = new RadioButton();
-            buttonUndo = new Button();
             panel1.SuspendLayout();
             PanelPictureBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)PictureBoxMark).BeginInit();
@@ -94,6 +94,17 @@
             PanelMarkControllers.Size = new Size(1646, 246);
             PanelMarkControllers.TabIndex = 3;
             // 
+            // buttonUndo
+            // 
+            buttonUndo.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            buttonUndo.Location = new Point(1408, 109);
+            buttonUndo.Name = "buttonUndo";
+            buttonUndo.Size = new Size(205, 46);
+            buttonUndo.TabIndex = 9;
+            buttonUndo.Text = "Undo";
+            buttonUndo.UseVisualStyleBackColor = true;
+            buttonUndo.Click += buttonUndo_Click;
+            // 
             // buttonClear
             // 
             buttonClear.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
@@ -114,6 +125,7 @@
             buttonSaveMark.TabIndex = 7;
             buttonSaveMark.Text = "Save";
             buttonSaveMark.UseVisualStyleBackColor = true;
+            buttonSaveMark.Click += buttonSaveMark_Click;
             // 
             // buttonDrawMode
             // 
@@ -194,17 +206,6 @@
             radioButtonRed.Text = "Red";
             radioButtonRed.UseVisualStyleBackColor = true;
             radioButtonRed.CheckedChanged += radioButtonRed_CheckedChanged;
-            // 
-            // buttonUndo
-            // 
-            buttonUndo.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            buttonUndo.Location = new Point(1408, 109);
-            buttonUndo.Name = "buttonUndo";
-            buttonUndo.Size = new Size(205, 46);
-            buttonUndo.TabIndex = 9;
-            buttonUndo.Text = "Undo";
-            buttonUndo.UseVisualStyleBackColor = true;
-            buttonUndo.Click += buttonUndo_Click;
             // 
             // MarkingUserControl
             // 

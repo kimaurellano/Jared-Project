@@ -2,6 +2,7 @@
     public partial class MarkingUserControl : UserControl {
 
         // PictureBox Compare
+        private Bitmap bitmap;
         private bool isMoving = false;
         private Point mouseDownPosition = Point.Empty;
         private Point mouseMovePosition = Point.Empty;
@@ -10,7 +11,6 @@
 
         private float currentPenThickness = 2.0f; // Adjustable thickness for the current ellipse
         private Color currentColor = Color.Red; // Default red
-
 
         public MarkingUserControl() {
             InitializeComponent();
@@ -27,7 +27,7 @@
             PictureBoxMark.MouseUp += new MouseEventHandler(PictureBoxMark_MouseUp);
 
             // Initialize the PictureBox with a blank bitmap
-            Bitmap bitmap = new(PictureBoxMark.Width, PictureBoxMark.Height);
+            bitmap = new(PictureBoxMark.Width, PictureBoxMark.Height);
             PictureBoxMark.Image = null;
         }
 
@@ -59,6 +59,26 @@
                     )
                 );
             }
+        }
+
+        private void SavePictureBoxScreenshot(string filePath) {
+            // Create a bitmap with the size of the PictureBox
+            Bitmap bitmap = new Bitmap(PictureBoxMark.Width, PictureBoxMark.Height);
+
+            // Create a graphics object to capture the screen content
+            using (Graphics g = Graphics.FromImage(bitmap)) {
+                // Get the position of the PictureBox on the screen
+                Point screenPoint = PictureBoxMark.PointToScreen(Point.Empty);
+
+                // Capture the content of the PictureBox
+                g.CopyFromScreen(screenPoint, Point.Empty, PictureBoxMark.Size);
+            }
+
+            // Save the bitmap to a file
+            bitmap.Save(filePath, System.Drawing.Imaging.ImageFormat.Png);
+            bitmap.Dispose();
+
+            MessageBox.Show($"Screenshot saved to: {filePath}");
         }
 
         private void PictureBoxMark_MouseDown(object sender, MouseEventArgs e) {
@@ -131,6 +151,10 @@
             circles.Remove(indexToRemove.Key);
 
             PictureBoxMark.Invalidate();
+        }
+
+        private void buttonSaveMark_Click(object sender, EventArgs e) {
+            SavePictureBoxScreenshot("output.png");
         }
     }
 }
