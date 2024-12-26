@@ -37,6 +37,7 @@
             radioButtonGreen = new RadioButton();
             radioButtonBlue = new RadioButton();
             radioButtonRed = new RadioButton();
+            groupBox3 = new GroupBox();
             panel1.SuspendLayout();
             PanelPictureBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)PictureBoxMark).BeginInit();
@@ -44,6 +45,7 @@
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)trackBarPen).BeginInit();
             groupBox2.SuspendLayout();
+            groupBox3.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
@@ -81,10 +83,10 @@
             // PanelMarkControllers
             // 
             PanelMarkControllers.BackColor = Color.WhiteSmoke;
+            PanelMarkControllers.Controls.Add(groupBox3);
             PanelMarkControllers.Controls.Add(buttonUndo);
             PanelMarkControllers.Controls.Add(buttonClear);
             PanelMarkControllers.Controls.Add(buttonSaveMark);
-            PanelMarkControllers.Controls.Add(buttonDrawMode);
             PanelMarkControllers.Controls.Add(groupBox1);
             PanelMarkControllers.Controls.Add(groupBox2);
             PanelMarkControllers.Dock = DockStyle.Bottom;
@@ -101,7 +103,7 @@
             buttonUndo.Name = "buttonUndo";
             buttonUndo.Size = new Size(205, 46);
             buttonUndo.TabIndex = 9;
-            buttonUndo.Text = "Undo";
+            buttonUndo.Text = "Revoke";
             buttonUndo.UseVisualStyleBackColor = true;
             buttonUndo.Click += buttonUndo_Click;
             // 
@@ -112,7 +114,7 @@
             buttonClear.Name = "buttonClear";
             buttonClear.Size = new Size(205, 46);
             buttonClear.TabIndex = 8;
-            buttonClear.Text = "Clear All";
+            buttonClear.Text = "Revoke All";
             buttonClear.UseVisualStyleBackColor = true;
             buttonClear.Click += buttonClear_Click;
             // 
@@ -129,9 +131,9 @@
             // 
             // buttonDrawMode
             // 
-            buttonDrawMode.Location = new Point(519, 35);
+            buttonDrawMode.Location = new Point(40, 61);
             buttonDrawMode.Name = "buttonDrawMode";
-            buttonDrawMode.Size = new Size(232, 53);
+            buttonDrawMode.Size = new Size(158, 53);
             buttonDrawMode.TabIndex = 6;
             buttonDrawMode.Text = "Draw mode";
             buttonDrawMode.UseVisualStyleBackColor = true;
@@ -207,6 +209,16 @@
             radioButtonRed.UseVisualStyleBackColor = true;
             radioButtonRed.CheckedChanged += radioButtonRed_CheckedChanged;
             // 
+            // groupBox3
+            // 
+            groupBox3.Controls.Add(buttonDrawMode);
+            groupBox3.Location = new Point(507, 18);
+            groupBox3.Name = "groupBox3";
+            groupBox3.Size = new Size(237, 200);
+            groupBox3.TabIndex = 10;
+            groupBox3.TabStop = false;
+            groupBox3.Text = "Action";
+            // 
             // MarkingUserControl
             // 
             AutoScaleDimensions = new SizeF(13F, 32F);
@@ -223,6 +235,7 @@
             ((System.ComponentModel.ISupportInitialize)trackBarPen).EndInit();
             groupBox2.ResumeLayout(false);
             groupBox2.PerformLayout();
+            groupBox3.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -241,5 +254,6 @@
         private Button buttonSaveMark;
         private Button buttonClear;
         private Button buttonUndo;
+        private GroupBox groupBox3;
     }
 }
