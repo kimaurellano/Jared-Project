@@ -8,6 +8,8 @@ namespace Jared.helpers {
         private VideoCaptureDevice videoSource;
         private List<PictureBox> pictureBoxes;
 
+        public bool IsCameraRunning { get; private set; }
+
         // This is static since we just want to see all the available capture devices
         public static List<string> ListAvailableCameras() {
             FilterInfoCollection videoDevices;
@@ -64,10 +66,17 @@ namespace Jared.helpers {
 
         public void StartFeed() {
             if (videoSource == null) {
+                MessageBox.Show(
+                    "No camera device found or no camera device selected.", 
+                    "No device", 
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+                IsCameraRunning = false;
                 return;
             }
 
             if (!videoSource.IsRunning) {
+                IsCameraRunning = true;
                 videoSource.Start();
             }
         }

@@ -40,6 +40,7 @@ namespace Madentra {
             createNewPatientUserControl = new CreateNewPatientUserControl();
             markingUserControl = new MarkingUserControl();
 
+
             PanelPatients.Controls.Add(searchPatientUserControl);
             PanelPatients.Controls.Add(createNewPatientUserControl);
             PanelMark.Controls.Add(markingUserControl);
@@ -146,10 +147,18 @@ namespace Madentra {
 
             if (TabControlMain.SelectedIndex == 1) {
                 singleFeedManager.StartFeed();
+                // Force user to redirect to camera setup
+                if(!singleFeedManager.IsCameraRunning) {
+                    TabControlMain.SelectedIndex = 4;
+                }
                 quadFeedManager.StopFeed();
             }
             else if (TabControlMain.SelectedIndex == 2) {
                 quadFeedManager.StartFeed();
+                // Force user to redirect to camera setup
+                if (!singleFeedManager.IsCameraRunning) {
+                    TabControlMain.SelectedIndex = 4;
+                }
                 singleFeedManager.StopFeed();
             }
         }
