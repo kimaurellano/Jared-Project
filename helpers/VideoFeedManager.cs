@@ -1,5 +1,6 @@
 ﻿using AForge.Video.DirectShow;
 using AForge.Video;
+using System.Management;
 
 namespace Jared.helpers {
     internal class VideoFeedManager {
@@ -29,14 +30,27 @@ namespace Jared.helpers {
             return videoCaptureDevices;
         }
 
-        public VideoFeedManager(FilterInfoCollection videoDevices, params PictureBox[] pictureBoxes) {
+        public void SetPictureBoxes(params PictureBox[] pictureBoxes) {
+            this.pictureBoxes = pictureBoxes.ToList();
+        }
+
+        public void SetVideoSource(string videoSourceName) {
+            var videoDevices = new FilterInfoCollection(FilterCategory.VideoInputDevice);
             if (videoDevices.Count <= 0) {
                 MessageBox.Show("No camera device found.");
                 return;
+            } else if (videoSourceName == string.Empty) {
+                MessageBox.Show("No camera device selected.");
+                return;
             }
-            this.videoSource = new VideoCaptureDevice(videoDevices[0].MonikerString);
-            this.pictureBoxes = pictureBoxes.ToList();
-            this.videoSource.NewFrame += VideoSource_NewFrame;
+
+            for (int i = 0; i < videoDevices.Count; i++) {
+                if (videoDevices[i].Name == videoSourceName) {
+                    this.videoSource = new VideoCaptureDevice(videoDevices[i].MonikerString);
+                    this.pictureBoxes = pictureBoxes.ToList();
+                    this.videoSource.NewFrame += VideoSource_NewFrame;
+                }
+            }
         }
 
         private void VideoSource_NewFrame(object sender, NewFrameEventArgs eventArgs) {
@@ -73,6 +87,23 @@ namespace Jared.helpers {
 
         public void StopFeed(PictureBox pictureBox) {
             pictureBoxes.Remove(pictureBox);
+        }
+
+        public static void ToggleCamera(string deviceName, bool enable) {
+            try {
+                var searcher = new ManagementObjectSearcher("SELECT * FROM Win32_PnPEntity");
+                foreach (ManagementObject device in searcher.Get()) {
+                    string name = device["Name"]?.ToString();
+                    if (!string.IsNullOrEmpty(name) && name.Contains(deviceName)) {
+                        device.InvokeMethod(enable ? "Enable" : "Disable", null); // Enable or disable
+                        MessageBox.Show($"{deviceName} has been {(enable ? "enabled" : "disabled")}.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
+                    }
+                }
+                MessageBox.Show($"Device '{deviceName}' not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            } catch (Exception ex) {
+                MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

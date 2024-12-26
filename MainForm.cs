@@ -1,4 +1,3 @@
-using AForge.Video.DirectShow;
 using AForge.Video;
 using Madentra.helpers;
 using System.ComponentModel;
@@ -14,6 +13,7 @@ namespace Madentra {
         private DBHelpers dbHelpers = new();
         private VideoFeedManager singleFeedManager;
         private VideoFeedManager quadFeedManager;
+        private string selectedDeviceCamera;
 
         // UserControls
         private DataGridViewPatientUserControl dataGridViewPatientUserControl;
@@ -44,24 +44,23 @@ namespace Madentra {
             PanelPatients.Controls.Add(createNewPatientUserControl);
             PanelMark.Controls.Add(markingUserControl);
 
+            selectedDeviceCamera = comboBoxCameraList.Text;
+
+            singleFeedManager = new VideoFeedManager();
+            singleFeedManager.SetPictureBoxes(PictureBoxCamera);
+
+            quadFeedManager = new VideoFeedManager();
+            quadFeedManager.SetPictureBoxes(
+                    PictureBoxBottomLeft,
+                    PictureBoxBottomRight,
+                    PictureBoxTopLeft,
+                    PictureBoxTopRight);
+
             // Default control to show on load.
             ShowContentInTabPatients(searchPatientUserControl);
 
             searchPatientUserControl.DataGridViewPatientUserControlInstance.PropertyChanged += DataGridViewPatientUserControlInstance_PropertyChanged;
             createNewPatientUserControl.PropertyChanged += CreateNewPatientUserControlInstance_PropertyChanged;
-
-            var videoDevices = new FilterInfoCollection(FilterCategory.VideoInputDevice);
-            singleFeedManager = new VideoFeedManager(
-                videoDevices,
-                PictureBoxCamera);
-            quadFeedManager = new VideoFeedManager(
-                videoDevices,
-                PictureBoxBottomLeft,
-                PictureBoxBottomRight,
-                PictureBoxTopLeft,
-                PictureBoxTopRight);
-
-            TabControlMain.SelectedIndexChanged += TabControlMain_SelectedIndexChanged;
         }
 
         private void DataGridViewPatientUserControlInstance_PropertyChanged(object sender, PropertyChangedEventArgs e) {
@@ -148,7 +147,8 @@ namespace Madentra {
             if (TabControlMain.SelectedIndex == 1) {
                 singleFeedManager.StartFeed();
                 quadFeedManager.StopFeed();
-            } else if (TabControlMain.SelectedIndex == 2) {
+            }
+            else if (TabControlMain.SelectedIndex == 2) {
                 quadFeedManager.StartFeed();
                 singleFeedManager.StopFeed();
             }
@@ -180,7 +180,8 @@ namespace Madentra {
 
                 // This should effectively restart the image list
                 InitializeListView();
-            } else {
+            }
+            else {
                 MessageBox.Show("No image to capture.");
             }
         }
@@ -199,7 +200,7 @@ namespace Madentra {
                 ImageListMain.Images.Add(image.Value);
             }
 
-            if (temp.Count > 0) { 
+            if (temp.Count > 0) {
                 LabelEmpty.Visible = false;
             }
 
@@ -269,6 +270,12 @@ namespace Madentra {
             foreach (var item in VideoFeedManager.ListAvailableCameras()) {
                 comboBoxCameraList.Items.Add(item);
             }
+        }
+
+        private void comboBoxCameraList_SelectedIndexChanged(object sender, EventArgs e) {
+            selectedDeviceCamera = comboBoxCameraList.Text;
+            singleFeedManager.SetVideoSource(selectedDeviceCamera);
+            quadFeedManager.SetVideoSource(selectedDeviceCamera);
         }
     }
 }

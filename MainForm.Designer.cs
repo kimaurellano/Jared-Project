@@ -50,10 +50,10 @@
             PanelMarkContainer = new Panel();
             PanelMark = new Panel();
             Settings = new TabPage();
+            label1 = new Label();
+            comboBoxCameraList = new ComboBox();
             BottomPanel = new Panel();
             LabelCurrentPatient = new Label();
-            comboBoxCameraList = new ComboBox();
-            label1 = new Label();
             PanelPictureList.SuspendLayout();
             MainPanel.SuspendLayout();
             TabControlMain.SuspendLayout();
@@ -382,6 +382,24 @@
             Settings.Text = "Settings";
             Settings.UseVisualStyleBackColor = true;
             // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(46, 74);
+            label1.Name = "label1";
+            label1.Size = new Size(86, 32);
+            label1.TabIndex = 1;
+            label1.Text = "Device";
+            // 
+            // comboBoxCameraList
+            // 
+            comboBoxCameraList.FormattingEnabled = true;
+            comboBoxCameraList.Location = new Point(151, 71);
+            comboBoxCameraList.Name = "comboBoxCameraList";
+            comboBoxCameraList.Size = new Size(280, 40);
+            comboBoxCameraList.TabIndex = 0;
+            comboBoxCameraList.SelectedIndexChanged += comboBoxCameraList_SelectedIndexChanged;
+            // 
             // BottomPanel
             // 
             BottomPanel.BackColor = Color.Transparent;
@@ -403,23 +421,6 @@
             LabelCurrentPatient.Size = new Size(245, 32);
             LabelCurrentPatient.TabIndex = 0;
             LabelCurrentPatient.Text = "Current Patient: None";
-            // 
-            // comboBoxCameraList
-            // 
-            comboBoxCameraList.FormattingEnabled = true;
-            comboBoxCameraList.Location = new Point(151, 71);
-            comboBoxCameraList.Name = "comboBoxCameraList";
-            comboBoxCameraList.Size = new Size(280, 40);
-            comboBoxCameraList.TabIndex = 0;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(46, 74);
-            label1.Name = "label1";
-            label1.Size = new Size(86, 32);
-            label1.TabIndex = 1;
-            label1.Text = "Device";
             // 
             // MainForm
             // 
