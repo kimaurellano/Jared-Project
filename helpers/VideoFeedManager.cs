@@ -88,22 +88,5 @@ namespace Jared.helpers {
         public void StopFeed(PictureBox pictureBox) {
             pictureBoxes.Remove(pictureBox);
         }
-
-        public static void ToggleCamera(string deviceName, bool enable) {
-            try {
-                var searcher = new ManagementObjectSearcher("SELECT * FROM Win32_PnPEntity");
-                foreach (ManagementObject device in searcher.Get()) {
-                    string name = device["Name"]?.ToString();
-                    if (!string.IsNullOrEmpty(name) && name.Contains(deviceName)) {
-                        device.InvokeMethod(enable ? "Enable" : "Disable", null); // Enable or disable
-                        MessageBox.Show($"{deviceName} has been {(enable ? "enabled" : "disabled")}.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        return;
-                    }
-                }
-                MessageBox.Show($"Device '{deviceName}' not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            } catch (Exception ex) {
-                MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
     }
 }
