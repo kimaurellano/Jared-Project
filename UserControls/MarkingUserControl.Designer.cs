@@ -27,25 +27,25 @@
             PanelPictureBox = new Panel();
             PictureBoxMark = new PictureBox();
             PanelMarkControllers = new Panel();
+            groupBox3 = new GroupBox();
+            buttonDrawMode = new Button();
             buttonUndo = new Button();
             buttonClear = new Button();
             buttonSaveMark = new Button();
-            buttonDrawMode = new Button();
             groupBox1 = new GroupBox();
             trackBarPen = new TrackBar();
             groupBox2 = new GroupBox();
             radioButtonGreen = new RadioButton();
             radioButtonBlue = new RadioButton();
             radioButtonRed = new RadioButton();
-            groupBox3 = new GroupBox();
             panel1.SuspendLayout();
             PanelPictureBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)PictureBoxMark).BeginInit();
             PanelMarkControllers.SuspendLayout();
+            groupBox3.SuspendLayout();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)trackBarPen).BeginInit();
             groupBox2.SuspendLayout();
-            groupBox3.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
@@ -96,6 +96,26 @@
             PanelMarkControllers.Size = new Size(1646, 246);
             PanelMarkControllers.TabIndex = 3;
             // 
+            // groupBox3
+            // 
+            groupBox3.Controls.Add(buttonDrawMode);
+            groupBox3.Location = new Point(507, 18);
+            groupBox3.Name = "groupBox3";
+            groupBox3.Size = new Size(237, 200);
+            groupBox3.TabIndex = 10;
+            groupBox3.TabStop = false;
+            groupBox3.Text = "Action";
+            // 
+            // buttonDrawMode
+            // 
+            buttonDrawMode.Location = new Point(40, 61);
+            buttonDrawMode.Name = "buttonDrawMode";
+            buttonDrawMode.Size = new Size(158, 53);
+            buttonDrawMode.TabIndex = 6;
+            buttonDrawMode.Text = "Draw mode";
+            buttonDrawMode.UseVisualStyleBackColor = true;
+            buttonDrawMode.Click += buttonDrawMode_Click;
+            // 
             // buttonUndo
             // 
             buttonUndo.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
@@ -128,15 +148,6 @@
             buttonSaveMark.Text = "Save";
             buttonSaveMark.UseVisualStyleBackColor = true;
             buttonSaveMark.Click += buttonSaveMark_Click;
-            // 
-            // buttonDrawMode
-            // 
-            buttonDrawMode.Location = new Point(40, 61);
-            buttonDrawMode.Name = "buttonDrawMode";
-            buttonDrawMode.Size = new Size(158, 53);
-            buttonDrawMode.TabIndex = 6;
-            buttonDrawMode.Text = "Draw mode";
-            buttonDrawMode.UseVisualStyleBackColor = true;
             // 
             // groupBox1
             // 
@@ -209,16 +220,6 @@
             radioButtonRed.UseVisualStyleBackColor = true;
             radioButtonRed.CheckedChanged += radioButtonRed_CheckedChanged;
             // 
-            // groupBox3
-            // 
-            groupBox3.Controls.Add(buttonDrawMode);
-            groupBox3.Location = new Point(507, 18);
-            groupBox3.Name = "groupBox3";
-            groupBox3.Size = new Size(237, 200);
-            groupBox3.TabIndex = 10;
-            groupBox3.TabStop = false;
-            groupBox3.Text = "Action";
-            // 
             // MarkingUserControl
             // 
             AutoScaleDimensions = new SizeF(13F, 32F);
@@ -230,12 +231,12 @@
             PanelPictureBox.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)PictureBoxMark).EndInit();
             PanelMarkControllers.ResumeLayout(false);
+            groupBox3.ResumeLayout(false);
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)trackBarPen).EndInit();
             groupBox2.ResumeLayout(false);
             groupBox2.PerformLayout();
-            groupBox3.ResumeLayout(false);
             ResumeLayout(false);
         }
 
