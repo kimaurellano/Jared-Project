@@ -5,6 +5,11 @@ using Madentra.UserControls;
 using System.Diagnostics;
 using Jared.helpers;
 using Jared.UserControls;
+using LibUsbDotNet.Main;
+using LibUsbDotNet;
+using System;
+using System.Windows.Forms;
+
 
 namespace Madentra {
     public partial class MainForm : Form {
@@ -148,7 +153,7 @@ namespace Madentra {
             if (TabControlMain.SelectedIndex == 1) {
                 singleFeedManager.StartFeed();
                 // Force user to redirect to camera setup
-                if(!singleFeedManager.IsCameraRunning) {
+                if (!singleFeedManager.IsCameraRunning) {
                     TabControlMain.SelectedIndex = 4;
                 }
                 quadFeedManager.StopFeed();
