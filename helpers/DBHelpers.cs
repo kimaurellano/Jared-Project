@@ -19,7 +19,7 @@ namespace Madentra.helpers {
 
                 var command = connection.CreateCommand();
                 command.CommandText = 
-                    $"INSERT INTO Patient (FullName,Sex,PhoneNumber,IDCard,Address,Remarks,CreationDate) " +
+                    $"INSERT INTO Patient (FullName,Sex,IDCard,CreationDate) " +
                     $"VALUES (" +
                     $"'{patient.FullName.ToUpper()}'," +
                     $"'{patient.Sex.ToUpper()}'," +
