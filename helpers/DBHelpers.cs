@@ -23,10 +23,7 @@ namespace Madentra.helpers {
                     $"VALUES (" +
                     $"'{patient.FullName.ToUpper()}'," +
                     $"'{patient.Sex.ToUpper()}'," +
-                    $"'{patient.PhoneNumber}'," +
                     $"'{patient.IdCard}'," +
-                    $"'{patient.Address.ToUpper()}'," +
-                    $"'{patient.Remarks.ToUpper()}'," +
                     $"'{DateTime.Now}');";
 
                 command.ExecuteNonQuery();
@@ -147,10 +144,7 @@ namespace Madentra.helpers {
                     $"Patient.Id, " +
                     $"Patient.FullName, " +
                     $"Patient.Sex, " +
-                    $"Patient.PhoneNumber, " +
-                    $"Patient.IDCard, " +
-                    $"Patient.Address, " +
-                    $"Patient.Remarks FROM Patient " +
+                    $"Patient.IDCard FROM Patient " +
                     $"LEFT JOIN SelectedPatient " +
                     $"ON Patient.Id = SelectedPatient.PatientId " +
                     $"WHERE SelectedPatient.PatientId NOT NULL";
@@ -274,10 +268,7 @@ namespace Madentra.helpers {
                 Id = (long) row["Id"],
                 FullName = row["FullName"].ToString(), // Assuming "Name" is the name of the column
                 Sex = row["Sex"].ToString(),
-                IdCard = row["IDCard"].ToString(),
-                PhoneNumber = (long) row["PhoneNumber"],
-                Address = row["Address"].ToString(),
-                Remarks = row["Remarks"].ToString()
+                IdCard = row["IDCard"].ToString()
             };
         }
     }

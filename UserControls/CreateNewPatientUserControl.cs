@@ -10,12 +10,9 @@ namespace Madentra {
         private RadioButton radioButtonFemale => RadioButtonFemale;
         private RadioButton radioButtonMale => RadioButtonMale;
         private string fullName => TextBoxName.Text;
-        private string phoneNumber => TextBoxPhoneNumber.Text;
         private string patientId => TextBoxIDCard.Text;
 
         private string sex;
-        private string address => RichTextBoxAddress.Text;
-        private string remarks => RichTextBoxRemarks.Text;
 
         private bool _patientCreated = false;
 
@@ -55,10 +52,7 @@ namespace Madentra {
             Patient patient = new Patient {
                 FullName = fullName,
                 IdCard = patientId,
-                PhoneNumber = Convert.ToInt64(phoneNumber),
                 Sex = sex,
-                Address = address,
-                Remarks = remarks,
                 CreationDate = DateTime.Now
             };
             dBHelpers.InsertPatient(patient);

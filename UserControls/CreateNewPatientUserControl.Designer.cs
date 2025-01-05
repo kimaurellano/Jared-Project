@@ -29,16 +29,10 @@
             BtnCreatePatient = new Button();
             RadioButtonMale = new RadioButton();
             label4 = new Label();
-            label5 = new Label();
-            label6 = new Label();
-            label7 = new Label();
             groupBox1 = new GroupBox();
             RadioButtonFemale = new RadioButton();
             PictureBoxProfile = new PictureBox();
             TextBoxIDCard = new TextBox();
-            TextBoxPhoneNumber = new TextBox();
-            RichTextBoxAddress = new RichTextBox();
-            RichTextBoxRemarks = new RichTextBox();
             buttonClear = new Button();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)PictureBoxProfile).BeginInit();
@@ -67,7 +61,7 @@
             // 
             BtnCreatePatient.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             BtnCreatePatient.DialogResult = DialogResult.Yes;
-            BtnCreatePatient.Location = new Point(880, 948);
+            BtnCreatePatient.Location = new Point(880, 494);
             BtnCreatePatient.Margin = new Padding(6);
             BtnCreatePatient.Name = "BtnCreatePatient";
             BtnCreatePatient.Size = new Size(387, 69);
@@ -97,39 +91,6 @@
             label4.Size = new Size(93, 32);
             label4.TabIndex = 7;
             label4.Text = "ID Card";
-            // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.BackColor = SystemColors.Control;
-            label5.Location = new Point(40, 418);
-            label5.Margin = new Padding(6, 0, 6, 0);
-            label5.Name = "label5";
-            label5.Size = new Size(177, 32);
-            label5.TabIndex = 8;
-            label5.Text = "Phone Number";
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.BackColor = SystemColors.Control;
-            label6.Location = new Point(40, 522);
-            label6.Margin = new Padding(6, 0, 6, 0);
-            label6.Name = "label6";
-            label6.Size = new Size(98, 32);
-            label6.TabIndex = 9;
-            label6.Text = "Address";
-            // 
-            // label7
-            // 
-            label7.AutoSize = true;
-            label7.BackColor = SystemColors.Control;
-            label7.Location = new Point(33, 702);
-            label7.Margin = new Padding(6, 0, 6, 0);
-            label7.Name = "label7";
-            label7.Size = new Size(103, 32);
-            label7.TabIndex = 10;
-            label7.Text = "Remarks";
             // 
             // groupBox1
             // 
@@ -176,36 +137,11 @@
             TextBoxIDCard.TabIndex = 13;
             TextBoxIDCard.KeyPress += TextBoxIDCard_KeyPress;
             // 
-            // TextBoxPhoneNumber
-            // 
-            TextBoxPhoneNumber.Location = new Point(229, 418);
-            TextBoxPhoneNumber.Margin = new Padding(6);
-            TextBoxPhoneNumber.Name = "TextBoxPhoneNumber";
-            TextBoxPhoneNumber.Size = new Size(294, 39);
-            TextBoxPhoneNumber.TabIndex = 14;
-            TextBoxPhoneNumber.KeyPress += TextBoxPhoneNumber_KeyPress;
-            // 
-            // RichTextBoxAddress
-            // 
-            RichTextBoxAddress.Location = new Point(147, 522);
-            RichTextBoxAddress.Name = "RichTextBoxAddress";
-            RichTextBoxAddress.Size = new Size(655, 128);
-            RichTextBoxAddress.TabIndex = 15;
-            RichTextBoxAddress.Text = "";
-            // 
-            // RichTextBoxRemarks
-            // 
-            RichTextBoxRemarks.Location = new Point(145, 702);
-            RichTextBoxRemarks.Name = "RichTextBoxRemarks";
-            RichTextBoxRemarks.Size = new Size(672, 196);
-            RichTextBoxRemarks.TabIndex = 16;
-            RichTextBoxRemarks.Text = "";
-            // 
             // buttonClear
             // 
             buttonClear.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             buttonClear.DialogResult = DialogResult.Yes;
-            buttonClear.Location = new Point(481, 948);
+            buttonClear.Location = new Point(481, 494);
             buttonClear.Margin = new Padding(6);
             buttonClear.Name = "buttonClear";
             buttonClear.Size = new Size(387, 69);
@@ -220,22 +156,16 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
             Controls.Add(buttonClear);
-            Controls.Add(RichTextBoxRemarks);
-            Controls.Add(RichTextBoxAddress);
-            Controls.Add(TextBoxPhoneNumber);
             Controls.Add(TextBoxIDCard);
             Controls.Add(PictureBoxProfile);
             Controls.Add(groupBox1);
-            Controls.Add(label7);
-            Controls.Add(label6);
-            Controls.Add(label5);
             Controls.Add(label4);
             Controls.Add(BtnCreatePatient);
             Controls.Add(TextBoxName);
             Controls.Add(label1);
             Margin = new Padding(6);
             Name = "CreateNewPatientUserControl";
-            Size = new Size(1309, 1052);
+            Size = new Size(1309, 598);
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)PictureBoxProfile).EndInit();
@@ -250,16 +180,10 @@
         private Button BtnCreatePatient;
         private RadioButton RadioButtonMale;
         private Label label4;
-        private Label label5;
-        private Label label6;
-        private Label label7;
         private GroupBox groupBox1;
         private RadioButton RadioButtonFemale;
         private PictureBox PictureBoxProfile;
         private TextBox TextBoxIDCard;
-        private TextBox TextBoxPhoneNumber;
-        private RichTextBox RichTextBoxAddress;
-        private RichTextBox RichTextBoxRemarks;
         private Button buttonClear;
     }
 }
