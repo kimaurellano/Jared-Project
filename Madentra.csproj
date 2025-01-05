@@ -14,14 +14,17 @@
 
   <ItemGroup>
     <Content Include="App_Data\jared.db">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="AForge.Video" Version="2.2.5" />
     <PackageReference Include="AForge.Video.DirectShow" Version="2.2.5" />
-    <PackageReference Include="Microsoft.Data.Sqlite" Version="8.0.8" />
+    <PackageReference Include="DirectShowLib" Version="1.0.0" />
+    <PackageReference Include="hidlibrary" Version="3.3.40" />
+    <PackageReference Include="LibUsbDotNet" Version="2.2.29" />
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="9.0.0" />
     <PackageReference Include="System.Management" Version="9.0.0" />
   </ItemGroup>
 
