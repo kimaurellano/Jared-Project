@@ -61,7 +61,7 @@
             }
         }
 
-        private void SavePictureBoxScreenshot(string filePath) {
+        private void SavePictureBoxScreenshot(string fileName) {
             // Create a bitmap with the size of the PictureBox
             Bitmap bitmap = new Bitmap(PictureBoxMark.Width, PictureBoxMark.Height);
 
@@ -73,6 +73,12 @@
                 // Capture the content of the PictureBox
                 g.CopyFromScreen(screenPoint, Point.Empty, PictureBoxMark.Size);
             }
+
+            // Get the path to the Documents folder
+            string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+
+            // Combine the Documents folder path with the file name
+            string filePath = Path.Combine(documentsPath, fileName);
 
             // Save the bitmap to a file
             bitmap.Save(filePath, System.Drawing.Imaging.ImageFormat.Png);
@@ -154,7 +160,13 @@
         }
 
         private void buttonSaveMark_Click(object sender, EventArgs e) {
-            SavePictureBoxScreenshot("output.png");
+            // Get the path to the "Documents" folder
+            string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            SavePictureBoxScreenshot($"{DateTime.Now.Ticks}_output.png");
+        }
+
+        private void buttonDrawMode_Click(object sender, EventArgs e) {
+
         }
     }
 }
