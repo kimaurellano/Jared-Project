@@ -67,6 +67,11 @@ namespace Madentra {
 
             searchPatientUserControl.DataGridViewPatientUserControlInstance.PropertyChanged += DataGridViewPatientUserControlInstance_PropertyChanged;
             createNewPatientUserControl.PropertyChanged += CreateNewPatientUserControlInstance_PropertyChanged;
+            markingUserControl.ImageInsertedProperty += MarkingUserControlInstance_PropertyChanged;
+        }
+
+        private void MarkingUserControlInstance_PropertyChanged(object sender, PropertyChangedEventArgs e) {
+            InitializeListView();
         }
 
         private void DataGridViewPatientUserControlInstance_PropertyChanged(object sender, PropertyChangedEventArgs e) {

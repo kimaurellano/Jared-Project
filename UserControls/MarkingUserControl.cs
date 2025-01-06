@@ -1,6 +1,11 @@
-﻿namespace Jared.UserControls {
+﻿using Madentra.helpers;
+using System.ComponentModel;
+using System.Diagnostics;
+
+namespace Jared.UserControls {
     public partial class MarkingUserControl : UserControl {
 
+        private DBHelpers dbHelpers = new();
         // PictureBox Compare
         private Bitmap bitmap;
         private bool isMoving = false;
@@ -11,6 +16,26 @@
 
         private float currentPenThickness = 2.0f; // Adjustable thickness for the current ellipse
         private Color currentColor = Color.Red; // Default red
+
+        private bool _imageSaved = false;
+
+        public event PropertyChangedEventHandler ImageInsertedProperty;
+
+        public bool ImageSaved {
+            get { return _imageSaved; }
+            set {
+                if (_imageSaved != value) {
+                    Debug.WriteLine($"{_imageSaved} property changed.");
+                    _imageSaved = value;
+                    OnPropertyChanged(nameof(ImageSaved));
+                }
+            }
+        }
+
+        protected virtual void OnPropertyChanged(string propertyName) {
+            ImageInsertedProperty?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            Debug.WriteLine($"DbChanges: {ImageSaved}");
+        }
 
         public MarkingUserControl() {
             InitializeComponent();
@@ -61,7 +86,7 @@
             }
         }
 
-        private void SavePictureBoxScreenshot(string fileName) {
+        private void SavePictureBoxScreenshot() {
             // Create a bitmap with the size of the PictureBox
             Bitmap bitmap = new Bitmap(PictureBoxMark.Width, PictureBoxMark.Height);
 
@@ -74,15 +99,33 @@
                 g.CopyFromScreen(screenPoint, Point.Empty, PictureBoxMark.Size);
             }
 
+            // One folder for each patient. Make it unique
+            string patientFolderName = $"{dbHelpers.GetSelectedPatient().FullName}_{dbHelpers.GetSelectedPatient().Id}";
+
             // Get the path to the Documents folder
             string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 
             // Combine the Documents folder path with the file name
-            string filePath = Path.Combine(documentsPath, fileName);
+            // \MadentraImages\<PatientName>_<UniqueString>\<UniqueString>.png
+            string filePath = $"{documentsPath}\\MadentraImages\\{patientFolderName}";
+            
+            // Check if dir exists
+            if (!Directory.Exists(filePath)) {
+                Directory.CreateDirectory(filePath);
+            }
+
+            // Save to database
+            dbHelpers.SaveImageToDatabase(bitmap);
+
+            // Unique png file name
+            string fileName = $"{filePath}\\{DateTime.Now.Ticks}.png";
 
             // Save the bitmap to a file
-            bitmap.Save(filePath, System.Drawing.Imaging.ImageFormat.Png);
+            bitmap.Save(fileName, System.Drawing.Imaging.ImageFormat.Png);
             bitmap.Dispose();
+
+            // Trigger the event
+            ImageSaved = !ImageSaved;
 
             MessageBox.Show($"Screenshot saved to: {filePath}");
         }
@@ -160,9 +203,7 @@
         }
 
         private void buttonSaveMark_Click(object sender, EventArgs e) {
-            // Get the path to the "Documents" folder
-            string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            SavePictureBoxScreenshot($"{DateTime.Now.Ticks}_output.png");
+            SavePictureBoxScreenshot();
         }
 
         private void buttonDrawMode_Click(object sender, EventArgs e) {
