@@ -38,6 +38,7 @@
             radioButtonGreen = new RadioButton();
             radioButtonBlue = new RadioButton();
             radioButtonRed = new RadioButton();
+            groupBox4 = new GroupBox();
             panel1.SuspendLayout();
             PanelPictureBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)PictureBoxMark).BeginInit();
@@ -83,6 +84,7 @@
             // PanelMarkControllers
             // 
             PanelMarkControllers.BackColor = Color.WhiteSmoke;
+            PanelMarkControllers.Controls.Add(groupBox4);
             PanelMarkControllers.Controls.Add(groupBox3);
             PanelMarkControllers.Controls.Add(buttonUndo);
             PanelMarkControllers.Controls.Add(buttonClear);
@@ -220,6 +222,15 @@
             radioButtonRed.UseVisualStyleBackColor = true;
             radioButtonRed.CheckedChanged += radioButtonRed_CheckedChanged;
             // 
+            // groupBox4
+            // 
+            groupBox4.Location = new Point(773, 18);
+            groupBox4.Name = "groupBox4";
+            groupBox4.Size = new Size(237, 200);
+            groupBox4.TabIndex = 11;
+            groupBox4.TabStop = false;
+            groupBox4.Text = "Action";
+            // 
             // MarkingUserControl
             // 
             AutoScaleDimensions = new SizeF(13F, 32F);
@@ -256,5 +267,6 @@
         private Button buttonClear;
         private Button buttonUndo;
         private GroupBox groupBox3;
+        private GroupBox groupBox4;
     }
 }
