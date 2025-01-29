@@ -154,7 +154,6 @@ namespace Jared.UserControls {
         // Displays selected image from Image List to picture boxes in Compare Tab
         public void DisplaySelectedImage(Image image) {
             if (PictureBoxMark.Image != null) {
-                MessageBox.Show("Markings will be removed upon selection change. Are you sure?");
                 circles.Clear();
             }
 
