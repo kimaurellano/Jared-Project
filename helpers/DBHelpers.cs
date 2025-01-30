@@ -6,10 +6,11 @@ namespace Madentra.helpers {
     internal class DBHelpers {
 
 #if !DEBUG
-        private static readonly SqliteConnection _connection = new(@"Data Source=App_Data\jared.db;");
+        private static readonly SqliteConnection _connection = new(@"Data Source=App_Data\madentra.db;");
 #else
         private static string userName = Environment.UserName;
-        private static readonly SqliteConnection _connection = new($@"Data Source=C:\Users\{userName}\Documents\Visual Studio 2022\Project\jared.db");
+        private static readonly SqliteConnection _connection = new($@"Data Source=C:\Users\kimau\Documents\Visual Studio 2022\Project\App_Data\madentra.db");
+        // C:\Users\kimau\Documents\Visual Studio 2022\Project\App_Data
 #endif
 
 
