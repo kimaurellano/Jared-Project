@@ -30,6 +30,8 @@ namespace Madentra {
         private int lastSelectedIndex = -1;
         private Image? lastSelectedImage = null;
 
+        private DeviceInterruptFilter filter;
+
         public MainForm() {
             InitializeComponent();
             Debug.WriteLine($"{Name}");
@@ -41,10 +43,11 @@ namespace Madentra {
         }
 
         private void InitializePages() {
+            RunPython();
+            
             searchPatientUserControl = new SearchPatientUserControl();
             createNewPatientUserControl = new CreateNewPatientUserControl();
             markingUserControl = new MarkingUserControl();
-
 
             PanelPatients.Controls.Add(searchPatientUserControl);
             PanelPatients.Controls.Add(createNewPatientUserControl);
@@ -68,6 +71,16 @@ namespace Madentra {
             searchPatientUserControl.DataGridViewPatientUserControlInstance.PropertyChanged += DataGridViewPatientUserControlInstance_PropertyChanged;
             createNewPatientUserControl.PropertyChanged += CreateNewPatientUserControlInstance_PropertyChanged;
             markingUserControl.ImageInsertedProperty += MarkingUserControlInstance_PropertyChanged;
+        }
+
+        private async void RunPython() {
+            try {
+                // Run script in the background (no console window)
+                DeviceInterruptFilter.RunPythonScriptAsync();
+            }
+            catch (Exception ex) {
+                MessageBox.Show($"Error: {ex.Message}");
+            }
         }
 
         private void MarkingUserControlInstance_PropertyChanged(object sender, PropertyChangedEventArgs e) {

@@ -13,18 +13,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="App_Data\jared.db">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="AForge.Video" Version="2.2.5" />
     <PackageReference Include="AForge.Video.DirectShow" Version="2.2.5" />
     <PackageReference Include="DirectShowLib" Version="1.0.0" />
     <PackageReference Include="hidlibrary" Version="3.3.40" />
     <PackageReference Include="LibUsbDotNet" Version="2.2.29" />
     <PackageReference Include="Microsoft.Data.Sqlite" Version="9.0.0" />
+    <PackageReference Include="Packet.NET" Version="0.1.1.1" />
+    <PackageReference Include="SharpPcap" Version="6.3.0" />
     <PackageReference Include="System.Management" Version="9.0.0" />
   </ItemGroup>
 
@@ -45,6 +41,15 @@
 
   <ItemGroup>
     <Folder Include="Resources\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="App_Data\madentra.db">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="App_Data\usbpcap_logger.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
