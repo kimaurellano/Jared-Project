@@ -5,11 +5,7 @@ using Madentra.UserControls;
 using System.Diagnostics;
 using Jared.helpers;
 using Jared.UserControls;
-using LibUsbDotNet.Main;
-using LibUsbDotNet;
-using System;
-using System.Windows.Forms;
-
+using System.Reflection.Metadata;
 
 namespace Madentra {
     public partial class MainForm : Form {
@@ -73,14 +69,23 @@ namespace Madentra {
             markingUserControl.ImageInsertedProperty += MarkingUserControlInstance_PropertyChanged;
         }
 
-        private async void RunPython() {
+        private void RunPython() {
             try {
                 // Run script in the background (no console window)
                 DeviceInterruptFilter.RunPythonScriptAsync();
+
+                filter = new DeviceInterruptFilter();
+                filter.StartReadLog();
+                // Log updates means button event was triggered from USBPcap interface
+                filter.LogUpdated += OnLogUpdated;
             }
             catch (Exception ex) {
                 MessageBox.Show($"Error: {ex.Message}");
             }
+        }
+
+        private void OnLogUpdated(string logLine) {
+            ImageCapture();
         }
 
         private void MarkingUserControlInstance_PropertyChanged(object sender, PropertyChangedEventArgs e) {
@@ -192,26 +197,40 @@ namespace Madentra {
         }
 
         private void BtnCapture_Click(object sender, EventArgs e) {
-            // Capture the image displayed in the PictureBox
+            ImageCapture();
+        }
+
+        private void ImageCapture() {
             if (PictureBoxCamera.Image != null) {
-                string patientName = dbHelpers.GetSelectedPatient().FullName;
+                try {
+                    // Clone the image to prevent cross-thread issues
+                    using (Image capturedImage = (Image)PictureBoxCamera.Image.Clone()) {
+                        string patientName = dbHelpers.GetSelectedPatient().FullName;
 
-                DateTime dateTime = DateTime.Now;
-                DateTime epoch = new(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-                var epochTime = (long)(dateTime.ToUniversalTime() - epoch).TotalSeconds;
+                        DateTime dateTime = DateTime.Now;
+                        DateTime epoch = new(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+                        var epochTime = (long)(dateTime.ToUniversalTime() - epoch).TotalSeconds;
 
-                // Save the image to a file
-                string filePath = $"{patientName}_{epochTime}.png"; // You can customize the file path and name
-                string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-                PictureBoxCamera.Image.Save(filePath, System.Drawing.Imaging.ImageFormat.Png);
+                        // Define file path
+                        string filePath = $"{patientName}_{epochTime}.png";
+                        string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                        string fullFilePath = Path.Combine(documentsPath, filePath);
 
-                MessageBox.Show("Image captured and saved to " + filePath);
+                        // Save the cloned image
+                        capturedImage.Save(fullFilePath, System.Drawing.Imaging.ImageFormat.Png);
+                        MessageBox.Show("Image captured and saved to " + fullFilePath);
 
-                // Insert image into to database as blob.
-                dbHelpers.SaveImageToDatabase(PictureBoxCamera.Image);
+                        // Insert image into database as blob
+                        dbHelpers.SaveImageToDatabase(capturedImage);
 
-                // This should effectively restart the image list
-                InitializeListView();
+                        if (ListViewImages.InvokeRequired) {
+                            ListViewImages.Invoke(new Action(InitializeListView));
+                        }
+                    }
+                }
+                catch (Exception ex) {
+                    MessageBox.Show("Error capturing image: " + ex.Message);
+                }
             }
             else {
                 MessageBox.Show("No image to capture.");
