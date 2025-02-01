@@ -8,8 +8,10 @@ namespace Madentra.helpers {
 #if !DEBUG
         private static readonly SqliteConnection _connection = new(@"Data Source=App_Data\madentra.db;");
 #else
-        private static string userName = Environment.UserName;
-        private static readonly SqliteConnection _connection = new($@"Data Source=C:\Users\kimau\Documents\Visual Studio 2022\Project\App_Data\madentra.db");
+        private static string workingDir = Directory.GetCurrentDirectory();
+        private static readonly SqliteConnection _connection = new($@"Data Source={workingDir}\App_Data\madentra.db");
+
+        // C:\Users\{userName}\Documents\Visual Studio 2022\Project\Jared\App_Data\
         // C:\Users\kimau\Documents\Visual Studio 2022\Project\App_Data
 #endif
 

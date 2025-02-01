@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Microsoft.Data.Sqlite;
+using System;
 using System.Diagnostics;
 
 public class DeviceInterruptFilter {
 
-    private readonly string _logFilePath = $@"C:\Users\kimau\Documents\Visual Studio 2022\Project\App_Data\capture.log";
+    private static string workingDir = Directory.GetCurrentDirectory();
+    private readonly string _logFilePath = $@"{workingDir}\App_Data\usbpcap_logger.py";
     private CancellationTokenSource? _cts;
     public event Action<string> LogUpdated; // Event to send log updates to the UI
 
@@ -11,7 +13,7 @@ public class DeviceInterruptFilter {
         // Setup the process info
         var startInfo = new ProcessStartInfo {
             FileName = "python.exe",
-            Arguments = $"\"C:\\Users\\kimau\\Documents\\Visual Studio 2022\\Project\\App_Data\\usbpcap_logger.py\"",          // or full path to python.exe if needed
+            Arguments = $"\"{workingDir}\\App_Data\\usbpcap_logger.py\"",          // or full path to python.exe if needed
             CreateNoWindow = true,            // no console window
             UseShellExecute = false,          // must be false to redirect output
             RedirectStandardOutput = true,
