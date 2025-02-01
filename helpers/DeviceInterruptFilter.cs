@@ -22,7 +22,7 @@ public class DeviceInterruptFilter {
 
         // Start the process
         using (var process = new Process { StartInfo = startInfo }) {
-            Debug.WriteLine(@$"Starting script {startInfo.FileName}...");
+            Debug.WriteLine(@$"Starting script {startInfo.Arguments}...");
 
             process.Start();
 
