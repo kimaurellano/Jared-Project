@@ -194,9 +194,12 @@ namespace Madentra {
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e) {
             singleFeedManager.StopFeed();
             quadFeedManager.StopFeed();
+            
+            filter.StopReadLog();
         }
 
         private void BtnCapture_Click(object sender, EventArgs e) {
+            Debug.WriteLine("Capturing picturebox");
             ImageCapture();
         }
 
@@ -218,7 +221,7 @@ namespace Madentra {
 
                         // Save the cloned image
                         capturedImage.Save(fullFilePath, System.Drawing.Imaging.ImageFormat.Png);
-                        MessageBox.Show("Image captured and saved to " + fullFilePath);
+                        Debug.WriteLine("Image captured and saved to " + fullFilePath);
 
                         // Insert image into database as blob
                         dbHelpers.SaveImageToDatabase(capturedImage);

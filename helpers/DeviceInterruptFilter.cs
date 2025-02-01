@@ -25,7 +25,6 @@ public class DeviceInterruptFilter {
             process.Start();
 
             await process.WaitForExitAsync();
-
         }
     }
 
@@ -53,10 +52,19 @@ public class DeviceInterruptFilter {
         using var reader = new StreamReader(fs);
         fs.Seek(0, SeekOrigin.End); // Start reading from the end
 
+        bool pressEvent = false;
         while (!cancellationToken.IsCancellationRequested) {
             string line = await reader.ReadLineAsync();
             if (line != null) {
-                LogUpdated?.Invoke(line); // Fire event for UI
+                // if received first press(31), accept
+                if (line.Contains("31") && !pressEvent) {
+                    pressEvent = !pressEvent;
+                    Debug.WriteLine("Pressed");
+                } else if (pressEvent && line.Contains("31")) {
+                    Debug.WriteLine("Trigger capture");
+                    pressEvent = !pressEvent;
+                    LogUpdated?.Invoke(line); // Fire event for UI
+                }
             }
             else {
                 await Task.Delay(500, cancellationToken);

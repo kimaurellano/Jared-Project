@@ -45,7 +45,7 @@ def sniff_usbpcap1_and_log_interrupt_in():
                         break  # TShark has exited or no more output
 
                     # Check if line contains the substring "URB_INTERRUPT in"
-                    if "URB_INTERRUPT in" in line:
+                    if "31 URB_INTERRUPT in" in line:
                         # Write the filtered line to the log file
                         lf.write(line)
                         lf.flush()
