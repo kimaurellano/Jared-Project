@@ -27,6 +27,7 @@ namespace Madentra {
         private Image? lastSelectedImage = null;
 
         private DeviceInterruptFilter filter;
+        private DeviceIdFinder deviceIdFinder;
 
         public MainForm() {
             InitializeComponent();
@@ -39,8 +40,9 @@ namespace Madentra {
         }
 
         private void InitializePages() {
-            RunPython();
+            //RunPython();
             
+            deviceIdFinder = new DeviceIdFinder();
             searchPatientUserControl = new SearchPatientUserControl();
             createNewPatientUserControl = new CreateNewPatientUserControl();
             markingUserControl = new MarkingUserControl();
@@ -175,6 +177,7 @@ namespace Madentra {
 
             if (TabControlMain.SelectedIndex == 1) {
                 singleFeedManager.StartFeed();
+                deviceIdFinder.FindDeviceIDOf(selectedDeviceCamera);
                 // Force user to redirect to camera setup
                 if (!singleFeedManager.IsCameraRunning) {
                     TabControlMain.SelectedIndex = 4;
