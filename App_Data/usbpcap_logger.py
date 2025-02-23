@@ -35,7 +35,6 @@ def sniff_usbpcap_and_log_interrupt_in(interface_name):
 
         print(f"Logging ONLY lines with 'URB_INTERRUPT in' to: {log_path}")
         print("Press Ctrl+C to stop...\n")
-        print(json.dumps({"init": "started"}))
 
         with open(log_path, "w", encoding="utf-8") as lf:
             process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
@@ -54,6 +53,7 @@ def sniff_usbpcap_and_log_interrupt_in(interface_name):
 
                         # Print to console too
                         print(line, end="")
+
 
             except KeyboardInterrupt:
                 print("\nCapture interrupted by user.")

@@ -73,10 +73,21 @@ namespace Madentra {
             createNewPatientUserControl.PropertyChanged += CreateNewPatientUserControlInstance_PropertyChanged;
             markingUserControl.ImageInsertedProperty += MarkingUserControlInstance_PropertyChanged;
             logMonitor.OnLogUpdated += OnLogUpdated;
+            pythonScriptRunner.LogUpdated += OnLogUpdated;
+
+            BtnCapture.Text = "Please wait... loading camera resources.";
+            BtnCapture.Enabled = false;
         }
 
-        private void OnLogUpdated() {
-            ImageCapture();
+        private void OnLogUpdated(string log) {
+            if (log == "usbpcap_logger has started") {
+                Debug.WriteLine(log);
+                BtnCapture.Text = "Capture";
+                BtnCapture.Enabled = true;
+            }
+            else if (log == "Capture trigger") {
+                ImageCapture();
+            }
         }
 
         private void MarkingUserControlInstance_PropertyChanged(object sender, PropertyChangedEventArgs e) {
@@ -167,11 +178,17 @@ namespace Madentra {
             if (TabControlMain.SelectedIndex == 1) {
                 singleFeedManager.StartFeed();
 
-                // Find vid and pid first
+                string imagePath = Path.Combine(Application.StartupPath, "Resources", "Loading.png");
+                PictureBoxCamera.Image = Image.FromFile(imagePath);
+
+                // Find camera device vid and pid first
                 KeyValuePair<string, string> device = deviceIdFinder.FindDeviceIDOf(selectedDeviceCamera);
 
                 // Run script to check which interface it is on
                 pythonScriptRunner.GetInterface(device);
+
+                // 
+                logMonitor.Start();
 
                 // Force user to redirect to camera setup
                 if (!singleFeedManager.IsCameraRunning) {
@@ -192,8 +209,6 @@ namespace Madentra {
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e) {
             singleFeedManager.StopFeed();
             quadFeedManager.StopFeed();
-
-            logMonitor.Dispose();
 
             KillUSBPcapProcess();
         }
@@ -226,9 +241,7 @@ namespace Madentra {
                         // Insert image into database as blob
                         dbHelpers.SaveImageToDatabase(capturedImage);
 
-                        if (ListViewImages.InvokeRequired) {
-                            ListViewImages.Invoke(new Action(InitializeListView));
-                        }
+                        ListViewImages.Invoke(new Action(InitializeListView));
                     }
                 }
                 catch (Exception ex) {

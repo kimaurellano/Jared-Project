@@ -11,7 +11,7 @@ namespace Madentra.helpers {
                 return new KeyValuePair<string, string>(string.Empty, string.Empty);
             }
 
-            Debug.WriteLine("🔍 Searching for Camera Devices...");
+            Debug.WriteLine("Searching for Camera Devices...");
 
             // Query WMI for Plug and Play devices
             using (ManagementObjectSearcher searcher =
@@ -26,9 +26,9 @@ namespace Madentra.helpers {
 
                         _deviceId = new KeyValuePair<string, string>(vid, pid);
 
-                        Debug.WriteLine($"📸 Camera: {name}");
-                        Debug.WriteLine($"   🔹 VID: {vid}");
-                        Debug.WriteLine($"   🔹 PID: {pid}\n");
+                        Debug.WriteLine($"Camera: {name}");
+                        Debug.WriteLine($"VID: {vid}");
+                        Debug.WriteLine($"PID: {pid}\n");
                     }
                 }
             }

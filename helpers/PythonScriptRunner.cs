@@ -88,30 +88,11 @@ public class PythonScriptRunner {
         // Start the process
         using (var process = new Process { StartInfo = startInfo }) {
             Debug.WriteLine(@$"Starting script {startInfo.Arguments}...");
+            LogUpdated.Invoke("usbpcap_logger has started");
 
             process.Start();
 
-            string output = await process.StandardOutput.ReadToEndAsync();
-            string error = await process.StandardError.ReadToEndAsync();
-
             await process.WaitForExitAsync();
-
-            if (!string.IsNullOrEmpty(error)) {
-                Debug.WriteLine($"Error: {error}");
-            }
-
-            try {
-                var jsonResult = JsonSerializer.Deserialize<JsonElement>(output);
-                if (jsonResult.TryGetProperty("init", out var started)) {
-                    Debug.WriteLine($"{started.ToString()}");
-                }
-                else if (jsonResult.TryGetProperty("error", out var errorMsg)) {
-                    Debug.WriteLine($"Error: {errorMsg.GetString()}");
-                }
-            }
-            catch (JsonException) {
-                Debug.WriteLine("Failed to parse script output.");
-            }
         }
     }
 }

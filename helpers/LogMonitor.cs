@@ -1,59 +1,62 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
+using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 
-namespace Madentra.helpers {
-    public class LogMonitor {
-        private FileSystemWatcher fileWatcher;
-        private static string workingDir = Directory.GetCurrentDirectory();
-        private readonly string _logFilePath = $@"{workingDir}\App_Data\capture.log";
-        public event Action OnLogUpdated; // Event to notify UI
+public class LogMonitor {
+    private static string workingDir = Directory.GetCurrentDirectory();
+    private readonly string logFilePath = $@"{workingDir}\App_Data\capture.log";
+    private long lastPosition = 0;
+    private CancellationTokenSource cts;
+    public event Action<string> OnLogUpdated;
 
-        public LogMonitor() {
-            Debug.WriteLine("Logger initialized.");
-            InitializeFileWatcher();
-        }
+    public LogMonitor() {
+        cts = new CancellationTokenSource();
+    }
 
-        private void InitializeFileWatcher() {
-            if (!File.Exists(_logFilePath)) {
-                throw new FileNotFoundException("Log file not found!", _logFilePath);
-            }
+    public async void Start() { 
+        await StartWatchingAsync();
+    }
 
-            fileWatcher = new FileSystemWatcher {
-                Path = Path.GetDirectoryName(_logFilePath),
-                Filter = Path.GetFileName(_logFilePath),
-                NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.Size
-            };
+    private async Task StartWatchingAsync() {
+        Debug.WriteLine($"Watching {logFilePath}...");
 
-            fileWatcher.Changed += OnLogFileChanged;
-            fileWatcher.EnableRaisingEvents = true;
-        }
-
-        private void OnLogFileChanged(object sender, FileSystemEventArgs e) {
+        while (!cts.Token.IsCancellationRequested) {
             try {
-                string newContent = ReadNewLogEntries();
-                if (!string.IsNullOrEmpty(newContent)) {
-                    Debug.WriteLine("New log:" + newContent);
-                    OnLogUpdated?.Invoke(); // Fire event to UI
+                if (!File.Exists(logFilePath)) {
+                    Debug.WriteLine("Log file not found. Waiting for it to be created...");
+                    await Task.Delay(150, cts.Token);
+                    continue;
+                }
+
+                using (var stream = new FileStream(logFilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                using (var reader = new StreamReader(stream)) {
+                    // Reset if file has been truncated or restarted
+                    if (stream.Length < lastPosition) {
+                        lastPosition = 0;
+                    }
+
+                    stream.Seek(lastPosition, SeekOrigin.Begin);
+                    string newContent = await reader.ReadToEndAsync();
+
+                    if (!string.IsNullOrEmpty(newContent)) {
+                        Debug.WriteLine(newContent);
+                        lastPosition = stream.Position;
+                        OnLogUpdated?.Invoke("Capture trigger");
+                    }
                 }
             }
             catch (Exception ex) {
-                Console.WriteLine($"Error reading log file: {ex.Message}");
+                Debug.WriteLine($"Error: {ex.Message}");
             }
-        }
 
-        private string ReadNewLogEntries() {
-            using (var stream = new FileStream(_logFilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
-            using (var reader = new StreamReader(stream)) {
-                return reader.ReadToEnd(); // Read new content only
-            }
+            await Task.Delay(1000, cts.Token); // Adjust delay if needed
         }
+    }
 
-        public void Dispose() {
-            fileWatcher?.Dispose();
-        }
+    public void StopWatching() {
+        Debug.WriteLine("Stopping log file watcher...");
+        cts.Cancel();
     }
 }
