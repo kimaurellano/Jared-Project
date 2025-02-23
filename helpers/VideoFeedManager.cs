@@ -65,7 +65,7 @@ namespace Jared.helpers {
         }
 
         public async void StartFeed() {
-            await Task.Delay(2000); // Not sure how it fixes the bug. Give time for the camera to load?
+            //await Task.Delay(2000); // Not sure how it fixes the bug. Give time for the camera to load?
 
             if (videoSource == null) {
                 MessageBox.Show(
@@ -88,11 +88,13 @@ namespace Jared.helpers {
                 return;
             }
 
-            if (videoSource.IsRunning) {
+            if (videoSource.IsRunning && videoSource != null) {
                 videoSource.SignalToStop();
                 foreach (var pictureBox in pictureBoxes) {
                     pictureBox.Image = null;
                 }
+
+                IsCameraRunning = false;
             }
         }
 

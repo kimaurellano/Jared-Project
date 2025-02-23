@@ -29,6 +29,7 @@ namespace Madentra {
         private PythonScriptRunner pythonScriptRunner;
         private DeviceIdFinder deviceIdFinder;
         private LogMonitor logMonitor;
+        private bool isCameraResourcesRunning = false;
 
         public MainForm() {
             InitializeComponent();
@@ -75,7 +76,7 @@ namespace Madentra {
             logMonitor.OnLogUpdated += OnLogUpdated;
             pythonScriptRunner.LogUpdated += OnLogUpdated;
 
-            BtnCapture.Text = "Please wait... loading camera resources.";
+            BtnCapture.Text = "Please wait... Loading camera resources.";
             BtnCapture.Enabled = false;
         }
 
@@ -84,6 +85,7 @@ namespace Madentra {
                 Debug.WriteLine(log);
                 BtnCapture.Text = "Capture";
                 BtnCapture.Enabled = true;
+                isCameraResourcesRunning = true;
             }
             else if (log == "Capture trigger") {
                 ImageCapture();
@@ -171,38 +173,37 @@ namespace Madentra {
         private void TabControlMain_SelectedIndexChanged(object sender, EventArgs e) {
             // We do not need feed on other tabs
             if (TabControlMain.SelectedIndex != 1 && TabControlMain.SelectedIndex != 2) {
+                Debug.WriteLine("Stopping feed.");
                 singleFeedManager.StopFeed();
                 quadFeedManager.StopFeed();
             }
 
             if (TabControlMain.SelectedIndex == 1) {
+                if (quadFeedManager.IsCameraRunning) {
+                    quadFeedManager.StopFeed();
+                }
+
                 singleFeedManager.StartFeed();
 
-                string imagePath = Path.Combine(Application.StartupPath, "Resources", "Loading.png");
-                PictureBoxCamera.Image = Image.FromFile(imagePath);
+                if (!isCameraResourcesRunning) {
+                    // Find camera device vid and pid first
+                    KeyValuePair<string, string> device = deviceIdFinder.FindDeviceIDOf(selectedDeviceCamera);
 
-                // Find camera device vid and pid first
-                KeyValuePair<string, string> device = deviceIdFinder.FindDeviceIDOf(selectedDeviceCamera);
+                    // Run script to check which interface it is on
+                    pythonScriptRunner.GetInterface(device);
 
-                // Run script to check which interface it is on
-                pythonScriptRunner.GetInterface(device);
-
-                // 
-                logMonitor.Start();
-
-                // Force user to redirect to camera setup
-                if (!singleFeedManager.IsCameraRunning) {
-                    TabControlMain.SelectedIndex = 4;
+                    // 
+                    logMonitor.Start();
                 }
-                quadFeedManager.StopFeed();
             }
             else if (TabControlMain.SelectedIndex == 2) {
-                quadFeedManager.StartFeed();
-                // Force user to redirect to camera setup
-                if (!singleFeedManager.IsCameraRunning) {
-                    TabControlMain.SelectedIndex = 4;
+                if (singleFeedManager.IsCameraRunning) {
+                    singleFeedManager.StopFeed();
                 }
-                singleFeedManager.StopFeed();
+
+                if (!quadFeedManager.IsCameraRunning) {
+                    quadFeedManager.StartFeed();
+                }
             }
         }
 
@@ -214,7 +215,6 @@ namespace Madentra {
         }
 
         private void BtnCapture_Click(object sender, EventArgs e) {
-            Debug.WriteLine("Capturing picturebox");
             ImageCapture();
         }
 
