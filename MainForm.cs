@@ -192,8 +192,10 @@ namespace Madentra {
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e) {
             singleFeedManager.StopFeed();
             quadFeedManager.StopFeed();
-            
-            //pythonScriptRunner.StopReadLog();
+
+            logMonitor.Dispose();
+
+            KillUSBPcapProcess();
         }
 
         private void BtnCapture_Click(object sender, EventArgs e) {
@@ -329,5 +331,26 @@ namespace Madentra {
             singleFeedManager.SetVideoSource(selectedDeviceCamera);
             quadFeedManager.SetVideoSource(selectedDeviceCamera);
         }
+
+        private void KillUSBPcapProcess() {
+            try {
+                var processes = Process.GetProcessesByName("USBPcapCMD"); // Find running instances
+
+                if (processes.Length == 0) {
+                    Console.WriteLine("USBPcapCMD.exe is not running.");
+                    return;
+                }
+
+                foreach (var process in processes) {
+                    process.Kill();
+                    process.WaitForExit(); // Ensure it fully stops
+                    Console.WriteLine("USBPcapCMD.exe was killed.");
+                }
+            }
+            catch (Exception ex) {
+                Console.WriteLine($"Error stopping USBPcapCMD.exe: {ex.Message}");
+            }
+        }
+
     }
 }
