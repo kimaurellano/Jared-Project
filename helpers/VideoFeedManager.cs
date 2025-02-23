@@ -64,7 +64,9 @@ namespace Jared.helpers {
             frame.Dispose();
         }
 
-        public void StartFeed() {
+        public async void StartFeed() {
+            await Task.Delay(2000); // Not sure how it fixes the bug. Give time for the camera to load?
+
             if (videoSource == null) {
                 MessageBox.Show(
                     "No camera device found or no camera device selected.", 
