@@ -24,6 +24,7 @@
         /// </summary>
         private void InitializeComponent() {
             components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             PanelPictureList = new Panel();
             LabelEmpty = new Label();
             ListViewImages = new ListView();
@@ -281,6 +282,7 @@
             // 
             PictureBoxTopLeft.BackColor = Color.WhiteSmoke;
             PictureBoxTopLeft.Dock = DockStyle.Fill;
+            PictureBoxTopLeft.Image = (Image)resources.GetObject("PictureBoxTopLeft.Image");
             PictureBoxTopLeft.Location = new Point(4, 2);
             PictureBoxTopLeft.Margin = new Padding(4, 2, 4, 2);
             PictureBoxTopLeft.Name = "PictureBoxTopLeft";
@@ -294,6 +296,7 @@
             // 
             PictureBoxBottomRight.BackColor = Color.WhiteSmoke;
             PictureBoxBottomRight.Dock = DockStyle.Fill;
+            PictureBoxBottomRight.Image = (Image)resources.GetObject("PictureBoxBottomRight.Image");
             PictureBoxBottomRight.Location = new Point(708, 473);
             PictureBoxBottomRight.Margin = new Padding(4, 2, 4, 2);
             PictureBoxBottomRight.Name = "PictureBoxBottomRight";
@@ -307,6 +310,7 @@
             // 
             PictureBoxTopRight.BackColor = Color.WhiteSmoke;
             PictureBoxTopRight.Dock = DockStyle.Fill;
+            PictureBoxTopRight.Image = (Image)resources.GetObject("PictureBoxTopRight.Image");
             PictureBoxTopRight.Location = new Point(708, 2);
             PictureBoxTopRight.Margin = new Padding(4, 2, 4, 2);
             PictureBoxTopRight.Name = "PictureBoxTopRight";
@@ -320,6 +324,7 @@
             // 
             PictureBoxBottomLeft.BackColor = Color.WhiteSmoke;
             PictureBoxBottomLeft.Dock = DockStyle.Fill;
+            PictureBoxBottomLeft.Image = (Image)resources.GetObject("PictureBoxBottomLeft.Image");
             PictureBoxBottomLeft.Location = new Point(4, 473);
             PictureBoxBottomLeft.Margin = new Padding(4, 2, 4, 2);
             PictureBoxBottomLeft.Name = "PictureBoxBottomLeft";
