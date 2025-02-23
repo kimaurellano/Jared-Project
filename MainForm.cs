@@ -26,8 +26,9 @@ namespace Madentra {
         private int lastSelectedIndex = -1;
         private Image? lastSelectedImage = null;
 
-        private DeviceInterruptFilter filter;
+        private PythonScriptRunner pythonScriptRunner;
         private DeviceIdFinder deviceIdFinder;
+        private LogMonitor logMonitor;
 
         public MainForm() {
             InitializeComponent();
@@ -43,6 +44,8 @@ namespace Madentra {
             //RunPython();
             
             deviceIdFinder = new DeviceIdFinder();
+            pythonScriptRunner = new PythonScriptRunner();
+            logMonitor = new LogMonitor();
             searchPatientUserControl = new SearchPatientUserControl();
             createNewPatientUserControl = new CreateNewPatientUserControl();
             markingUserControl = new MarkingUserControl();
@@ -69,24 +72,10 @@ namespace Madentra {
             searchPatientUserControl.DataGridViewPatientUserControlInstance.PropertyChanged += DataGridViewPatientUserControlInstance_PropertyChanged;
             createNewPatientUserControl.PropertyChanged += CreateNewPatientUserControlInstance_PropertyChanged;
             markingUserControl.ImageInsertedProperty += MarkingUserControlInstance_PropertyChanged;
+            logMonitor.OnLogUpdated += OnLogUpdated;
         }
 
-        private void RunPython() {
-            try {
-                // Run script in the background (no console window)
-                DeviceInterruptFilter.RunPythonScriptAsync();
-
-                filter = new DeviceInterruptFilter();
-                filter.StartReadLog();
-                // Log updates means button event was triggered from USBPcap interface
-                filter.LogUpdated += OnLogUpdated;
-            }
-            catch (Exception ex) {
-                MessageBox.Show($"Error: {ex.Message}");
-            }
-        }
-
-        private void OnLogUpdated(string logLine) {
+        private void OnLogUpdated() {
             ImageCapture();
         }
 
@@ -177,7 +166,13 @@ namespace Madentra {
 
             if (TabControlMain.SelectedIndex == 1) {
                 singleFeedManager.StartFeed();
-                deviceIdFinder.FindDeviceIDOf(selectedDeviceCamera);
+
+                // Find vid and pid first
+                KeyValuePair<string, string> device = deviceIdFinder.FindDeviceIDOf(selectedDeviceCamera);
+
+                // Run script to check which interface it is on
+                pythonScriptRunner.GetInterface(device);
+
                 // Force user to redirect to camera setup
                 if (!singleFeedManager.IsCameraRunning) {
                     TabControlMain.SelectedIndex = 4;
@@ -198,7 +193,7 @@ namespace Madentra {
             singleFeedManager.StopFeed();
             quadFeedManager.StopFeed();
             
-            filter.StopReadLog();
+            //pythonScriptRunner.StopReadLog();
         }
 
         private void BtnCapture_Click(object sender, EventArgs e) {

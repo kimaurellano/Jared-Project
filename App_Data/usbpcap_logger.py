@@ -1,24 +1,25 @@
 import subprocess
 import re
 import os
+import sys
+import json
 
-def sniff_usbpcap1_and_log_interrupt_in():
+def sniff_usbpcap_and_log_interrupt_in(interface_name):
     try:
         # 1. List TShark interfaces
         output = subprocess.check_output(["tshark", "-D"], universal_newlines=True)
 
-        # 2. Find interface number for "\\.\\USBPcap1"
+        # 2. Find interface number for the provided interface name
         interface_number = None
         for line in output.splitlines():
-            # e.g. "13. \\.\USBPcap1 (USBPcap1)"
-            if r'\\.\USBPcap1' in line:
+            if interface_name in line:
                 match = re.match(r'^(\d+)\.\s+', line.strip())
                 if match:
                     interface_number = match.group(1)
                     break
 
         if not interface_number:
-            print("Could not find '\\.\\USBPcap1' in the interface list.")
+            print(f"Could not find '{interface_name}' in the interface list.")
             return
 
         print(f"Found interface number: {interface_number}")
@@ -34,6 +35,7 @@ def sniff_usbpcap1_and_log_interrupt_in():
 
         print(f"Logging ONLY lines with 'URB_INTERRUPT in' to: {log_path}")
         print("Press Ctrl+C to stop...\n")
+        print(json.dumps({"init": "started"}))
 
         with open(log_path, "w", encoding="utf-8") as lf:
             process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
@@ -64,8 +66,14 @@ def sniff_usbpcap1_and_log_interrupt_in():
 
     except subprocess.CalledProcessError as e:
         print(f"Error: {e}")
+        print(json.dumps({"error": {e}}))
     except Exception as e:
         print(f"Unexpected error: {e}")
+        print(json.dumps({"error": {e}}))
 
 if __name__ == "__main__":
-    sniff_usbpcap1_and_log_interrupt_in()
+    if len(sys.argv) < 2:
+        print("Usage: python usbpcap_logger.py <interface_name>")
+        print("Example: python usbpcap_logger.py \"\\.\\USBPcap1\"")
+    else:
+        sniff_usbpcap_and_log_interrupt_in(sys.argv[1])

@@ -44,6 +44,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="App_Data\capture.log">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="App_Data\get_device_by_interface.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="App_Data\interface.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="App_Data\madentra.db">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

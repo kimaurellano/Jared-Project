@@ -4,12 +4,15 @@ using System.Management;
 namespace Madentra.helpers {
     internal class DeviceIdFinder {
 
-        public void FindDeviceIDOf(string DeviceName) {
+        private KeyValuePair<string, string> _deviceId;
+
+        public KeyValuePair<string, string> FindDeviceIDOf(string DeviceName) {
             if (DeviceName == string.Empty) { 
-                return;
+                return new KeyValuePair<string, string>(string.Empty, string.Empty);
             }
 
             Debug.WriteLine("🔍 Searching for Camera Devices...");
+
             // Query WMI for Plug and Play devices
             using (ManagementObjectSearcher searcher =
                 new ManagementObjectSearcher(@"SELECT * FROM Win32_PnPEntity WHERE DeviceID LIKE 'USB%'")) {
@@ -18,8 +21,10 @@ namespace Madentra.helpers {
                     string name = device["Name"]?.ToString();
 
                     if (name == DeviceName && deviceID.Contains("VID_") && deviceID.Contains("PID_")) {
-                        string vid = ExtractVID(deviceID);
-                        string pid = ExtractPID(deviceID);
+                        string vid = "0x" + ExtractVID(deviceID);
+                        string pid = "0x" + ExtractPID(deviceID);
+
+                        _deviceId = new KeyValuePair<string, string>(vid, pid);
 
                         Debug.WriteLine($"📸 Camera: {name}");
                         Debug.WriteLine($"   🔹 VID: {vid}");
@@ -29,6 +34,8 @@ namespace Madentra.helpers {
             }
 
             Debug.WriteLine("✅ Done.");
+
+            return _deviceId;
         }
 
         static string ExtractVID(string deviceID) {
