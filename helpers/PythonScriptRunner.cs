@@ -24,7 +24,7 @@ public class PythonScriptRunner {
         }
     }
 
-    public async Task<string?> GetAssocInterface(KeyValuePair<string, string> vid_pid) {
+    private async Task<string?> GetAssocInterface(KeyValuePair<string, string> vid_pid) {
         // Setup the process info
         string scriptPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "App_Data", "get_device_by_interface.py");
         if (!File.Exists(scriptPath)) {
