@@ -28,7 +28,6 @@ namespace Madentra {
 
         private PythonScriptRunner pythonScriptRunner;
         private DeviceIdFinder deviceIdFinder;
-        private LogMonitor logMonitor;
         private bool isCameraResourcesRunning = false;
 
         public MainForm() {
@@ -48,7 +47,6 @@ namespace Madentra {
             
             deviceIdFinder = new DeviceIdFinder();
             pythonScriptRunner = new PythonScriptRunner();
-            logMonitor = new LogMonitor();
             searchPatientUserControl = new SearchPatientUserControl();
             createNewPatientUserControl = new CreateNewPatientUserControl();
             markingUserControl = new MarkingUserControl();
@@ -75,7 +73,6 @@ namespace Madentra {
             searchPatientUserControl.DataGridViewPatientUserControlInstance.PropertyChanged += DataGridViewPatientUserControlInstance_PropertyChanged;
             createNewPatientUserControl.PropertyChanged += CreateNewPatientUserControlInstance_PropertyChanged;
             markingUserControl.ImageInsertedProperty += MarkingUserControlInstance_PropertyChanged;
-            logMonitor.OnLogUpdated += OnLogUpdated;
             pythonScriptRunner.LogUpdated += OnLogUpdated;
 
             BtnCapture.Text = "Please wait... Loading camera resources.";
@@ -193,9 +190,6 @@ namespace Madentra {
 
                     // Run script to check which interface it is on
                     pythonScriptRunner.GetInterface(device);
-
-                    // 
-                    logMonitor.Start();
                 }
             }
             else if (TabControlMain.SelectedIndex == 2) {
