@@ -32,6 +32,8 @@ namespace Madentra {
         private bool isCameraResourcesRunning = false;
 
         public MainForm() {
+            TraceLogger.InitTraceMessage();
+
             InitializeComponent();
             Debug.WriteLine($"{Name}");
             InitializeListView();
