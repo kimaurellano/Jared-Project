@@ -1,5 +1,6 @@
 ﻿using DirectShowLib;
 using DirectShowLib.DMO;
+using Madentra.helpers;
 using Microsoft.Data.Sqlite;
 using System;
 using System.Diagnostics;
@@ -16,10 +17,10 @@ public class PythonScriptRunner {
     public async void GetInterface(KeyValuePair<string, string> device) {
         string? interfaceName = await GetAssocInterface(device);
         if (interfaceName != null) {
-            Debug.WriteLine($"Found interface: {interfaceName}");
+            TraceLogger.TraceMessage($"Found interface: {interfaceName}");
             USBPcapLoggerInit(interfaceName);
         } else {
-            Debug.WriteLine("Device not found.");
+            TraceLogger.TraceMessage("Device not found.");
         }
     }
 
@@ -27,7 +28,7 @@ public class PythonScriptRunner {
         // Setup the process info
         string scriptPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "App_Data", "get_device_by_interface.py");
         if (!File.Exists(scriptPath)) {
-            Debug.WriteLine($"Error: Python script not found at {scriptPath}");
+            TraceLogger.TraceMessage($"Error: Python script not found at {scriptPath}");
             return null;
         }
 
@@ -42,7 +43,7 @@ public class PythonScriptRunner {
 
         // Start the process
         using (var process = new Process { StartInfo = startInfo }) {
-            Debug.WriteLine(@$"Starting script {startInfo.Arguments}...");
+            TraceLogger.TraceMessage(@$"Starting script {startInfo.Arguments}...");
 
             process.Start();
 
@@ -52,7 +53,7 @@ public class PythonScriptRunner {
             await process.WaitForExitAsync();
 
             if (!string.IsNullOrEmpty(error)) {
-                Debug.WriteLine($"Error: {error}");
+                TraceLogger.TraceMessage($"Error: {error}");
                 return null;
             }
 
@@ -62,12 +63,12 @@ public class PythonScriptRunner {
                     return interfaceName.GetString();
                 }
                 else if (jsonResult.TryGetProperty("error", out var errorMsg)) {
-                    Debug.WriteLine($"Error: {errorMsg.GetString()}");
+                    TraceLogger.TraceMessage($"Error: {errorMsg.GetString()}");
                     return null;
                 }
             }
             catch (JsonException) {
-                Debug.WriteLine("Failed to parse script output.");
+                TraceLogger.TraceMessage("Failed to parse script output.");
             }
 
             return null;
@@ -87,7 +88,7 @@ public class PythonScriptRunner {
 
         // Start the process
         using (var process = new Process { StartInfo = startInfo }) {
-            Debug.WriteLine(@$"Starting script {startInfo.Arguments}...");
+            TraceLogger.TraceMessage(@$"Starting script {startInfo.Arguments}...");
             LogUpdated.Invoke("usbpcap_logger has started");
 
             process.Start();

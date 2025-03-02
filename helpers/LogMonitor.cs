@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Madentra.helpers;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Threading;
@@ -20,12 +21,12 @@ public class LogMonitor {
     }
 
     private async Task StartWatchingAsync() {
-        Debug.WriteLine($"Watching {logFilePath}...");
+        TraceLogger.TraceMessage($"Watching {logFilePath}...");
 
         while (!cts.Token.IsCancellationRequested) {
             try {
                 if (!File.Exists(logFilePath)) {
-                    Debug.WriteLine("Log file not found. Waiting for it to be created...");
+                    TraceLogger.TraceMessage("Log file not found. Waiting for it to be created...");
                     await Task.Delay(150, cts.Token);
                     continue;
                 }
@@ -41,14 +42,14 @@ public class LogMonitor {
                     string newContent = await reader.ReadToEndAsync();
 
                     if (!string.IsNullOrEmpty(newContent)) {
-                        Debug.WriteLine(newContent);
+                        TraceLogger.TraceMessage(newContent);
                         lastPosition = stream.Position;
                         OnLogUpdated?.Invoke("Capture trigger");
                     }
                 }
             }
             catch (Exception ex) {
-                Debug.WriteLine($"Error: {ex.Message}");
+                TraceLogger.TraceMessage($"Error: {ex.Message}");
             }
 
             await Task.Delay(1000, cts.Token); // Adjust delay if needed
@@ -56,7 +57,7 @@ public class LogMonitor {
     }
 
     public void StopWatching() {
-        Debug.WriteLine("Stopping log file watcher...");
+        TraceLogger.TraceMessage("Stopping log file watcher...");
         cts.Cancel();
     }
 }

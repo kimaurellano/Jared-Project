@@ -35,7 +35,7 @@ namespace Madentra {
             TraceLogger.InitTraceMessage();
 
             InitializeComponent();
-            Debug.WriteLine($"{Name}");
+            TraceLogger.TraceMessage($"{Name}");
             InitializeListView();
             InitializePages();
             LoadAvailableCaptureDevices();
@@ -84,7 +84,7 @@ namespace Madentra {
 
         private void OnLogUpdated(string log) {
             if (log == "usbpcap_logger has started") {
-                Debug.WriteLine(log);
+                TraceLogger.TraceMessage(log);
                 BtnCapture.Text = "Capture";
                 BtnCapture.Enabled = true;
                 isCameraResourcesRunning = true;
@@ -175,7 +175,7 @@ namespace Madentra {
         private void TabControlMain_SelectedIndexChanged(object sender, EventArgs e) {
             // We do not need feed on other tabs
             if (TabControlMain.SelectedIndex != 1 && TabControlMain.SelectedIndex != 2) {
-                Debug.WriteLine("Stopping feed.");
+                TraceLogger.TraceMessage("Stopping feed.");
                 singleFeedManager.StopFeed();
                 quadFeedManager.StopFeed();
             }
@@ -238,7 +238,7 @@ namespace Madentra {
 
                         // Save the cloned image
                         capturedImage.Save(fullFilePath, System.Drawing.Imaging.ImageFormat.Png);
-                        Debug.WriteLine("Image captured and saved to " + fullFilePath);
+                        TraceLogger.TraceMessage("Image captured and saved to " + fullFilePath);
 
                         // Insert image into database as blob
                         dbHelpers.SaveImageToDatabase(capturedImage);

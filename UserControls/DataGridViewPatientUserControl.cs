@@ -18,7 +18,7 @@ namespace Madentra.UserControls {
             get { return _selectedPatient; }
             set {
                 if (_selectedPatient != value) {
-                    Debug.WriteLine($"{_selectedPatient} property changed.");
+                    TraceLogger.TraceMessage($"{_selectedPatient} property changed.");
                     _selectedPatient = value;
                     // Propagates change event to SelectedPatient
                     OnPropertyChanged(nameof(SelectedPatient));
@@ -28,12 +28,12 @@ namespace Madentra.UserControls {
 
         protected virtual void OnPropertyChanged(string propertyName) {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-            Debug.WriteLine($"property changed invoked.");
+            TraceLogger.TraceMessage($"property changed invoked.");
         }
 
         public DataGridViewPatientUserControl() {
             InitializeComponent();
-            Debug.WriteLine($"{Name}");
+            TraceLogger.TraceMessage($"{Name}");
 
             Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom;
             Dock = DockStyle.Fill;

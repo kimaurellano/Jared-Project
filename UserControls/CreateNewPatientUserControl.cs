@@ -24,7 +24,7 @@ namespace Madentra {
             get { return _patientCreated; }
             set {
                 if (_patientCreated != value) {
-                    Debug.WriteLine($"{_patientCreated} property changed.");
+                    TraceLogger.TraceMessage($"{_patientCreated} property changed.");
                     _patientCreated = value;
                     OnPropertyChanged(nameof(PatientCreated));
                 }
@@ -33,7 +33,7 @@ namespace Madentra {
 
         protected virtual void OnPropertyChanged(string propertyName) {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-            Debug.WriteLine($"property changed invoked.");
+            TraceLogger.TraceMessage($"property changed invoked.");
         }
 
         public CreateNewPatientUserControl() {
@@ -45,7 +45,7 @@ namespace Madentra {
             radioButtonFemale.CheckedChanged += RadioButton_CheckChanged;
             radioButtonMale.CheckedChanged += RadioButton_CheckChanged;
 
-            Debug.WriteLine($"{Name}");
+            TraceLogger.TraceMessage($"{Name}");
         }
 
         private void BtnCreatePatient_Click(object sender, EventArgs e) {

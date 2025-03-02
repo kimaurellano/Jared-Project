@@ -18,5 +18,10 @@ namespace Madentra.helpers {
                 Trace.AutoFlush = true;
             }
         }
+
+        public static void TraceMessage(string trace) {
+            Trace.WriteLine($"{DateTime.Now}:Trace----{trace}");
+            Debug.WriteLine($"{DateTime.Now}:Debug----{trace}");
+        }
     }
 }

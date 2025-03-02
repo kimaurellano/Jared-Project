@@ -25,7 +25,7 @@ namespace Jared.UserControls {
             get { return _imageSaved; }
             set {
                 if (_imageSaved != value) {
-                    Debug.WriteLine($"{_imageSaved} property changed.");
+                    TraceLogger.TraceMessage($"{_imageSaved} property changed.");
                     _imageSaved = value;
                     OnPropertyChanged(nameof(ImageSaved));
                 }
@@ -34,7 +34,7 @@ namespace Jared.UserControls {
 
         protected virtual void OnPropertyChanged(string propertyName) {
             ImageInsertedProperty?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-            Debug.WriteLine($"DbChanges: {ImageSaved}");
+            TraceLogger.TraceMessage($"DbChanges: {ImageSaved}");
         }
 
         public MarkingUserControl() {

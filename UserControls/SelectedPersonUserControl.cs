@@ -12,7 +12,7 @@ namespace Madentra {
 
         public SelectedPersonUserControl() {
             InitializeComponent();
-            Debug.WriteLine($"{Name}");
+            TraceLogger.TraceMessage($"{Name}");
 
             Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom;
             Dock = DockStyle.Fill;
